@@ -2,11 +2,12 @@
 // Thin local entry point. Serves the same index.html UI and watches a folder.
 // The public app stays one HTML file in the browser.
 
-import { existsSync, promises as fs, watch } from 'node:fs';
+import { existsSync, promises as fs, statSync, watch } from 'node:fs';
 import http from 'node:http';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { spawn } from 'node:child_process';
+import { buildGkManifest, buildGkTargetBundle, detectGkRoot } from './gk-manifest.mjs';
 
 const IGNORE = new Set([
   'node_modules', '.git', 'vendor', 'dist', 'build', 'out', 'coverage',
@@ -30,6 +31,25 @@ const TEXT_EXT = new Set([
 ]);
 
 const LOOPBACK_HOSTS = new Set(['localhost', '127.0.0.1', '::1', '::ffff:127.0.0.1']);
+
+// Directories skipped only when the watch root is the GK monorepo itself.
+const GK_WATCH_SKIP = new Set(['repos']);
+
+// A file's mtime and this process's clock are read from clocks that differ by a
+// couple of milliseconds, so a write that landed just before a watch started can
+// look newer than the watch. Anything inside this band is treated as the state
+// the watcher started from, not as a change.
+const WATCH_CLOCK_TOLERANCE_MS = 10;
+
+// Names the served UI answers to besides loopback: the tailnet site and the
+// zone it lives in. Everything else is a rebinding attempt and gets a 403.
+const ZONE = 'berkle.space';
+const EDGE_TAILNET_IP = '100.124.235.45';
+const PRIVACY_HEADERS = {
+  'X-Robots-Tag': 'noindex, nofollow, noarchive',
+  'Referrer-Policy': 'no-referrer',
+  'X-Content-Type-Options': 'nosniff'
+};
 
 export function pathStaysInRoot(root, candidate) {
   const rootPath = path.resolve(String(root || ''));
@@ -79,13 +99,23 @@ export function isLoopbackHost(hostHeader) {
   return LOOPBACK_HOSTS.has(loopbackHostName(hostHeader));
 }
 
-export function isAllowedCliRequest(req) {
+export function isTrustedCodeflowHost(hostHeader, extraHosts) {
+  if (isLoopbackHost(hostHeader)) return true;
+  const host = loopbackHostName(hostHeader);
+  if (!host) return false;
+  if (host === 'codeflow.' + ZONE) return true;
+  if (host === ZONE || host.endsWith('.' + ZONE)) return true;
+  if (host === EDGE_TAILNET_IP) return true;
+  return Boolean(extraHosts && typeof extraHosts.has === 'function' && extraHosts.has(host));
+}
+
+export function isAllowedCliRequest(req, extraHosts) {
   const headers = req && req.headers ? req.headers : (req || {});
-  if (!isLoopbackHost(headers.host || headers.Host)) return false;
+  if (!isTrustedCodeflowHost(headers.host || headers.Host, extraHosts)) return false;
   const origin = headers.origin || headers.Origin;
   if (origin == null || origin === '') return true;
   try {
-    return isLoopbackHost(new URL(String(origin)).host);
+    return isTrustedCodeflowHost(new URL(String(origin)).host, extraHosts);
   } catch {
     return false;
   }
@@ -105,19 +135,36 @@ export function parseCliArgs(argv) {
   const args = argv.slice(2);
   let port = 4173;
   let target = '.';
+  let host;
+  let gkRoot;
+  let noOpen = false;
   for (let i = 0; i < args.length; i++) {
     if (args[i] === '--port' && args[i + 1]) {
       port = Number(args[++i]);
+    } else if (args[i] === '--host' && args[i + 1]) {
+      host = args[++i];
+    } else if (args[i] === '--gk-root' && args[i + 1]) {
+      gkRoot = args[++i];
+    } else if (args[i] === '--no-open') {
+      noOpen = true;
     } else if (args[i] === '--help' || args[i] === '-h') {
       return { help: true };
     } else if (!args[i].startsWith('-')) {
       target = args[i];
     }
   }
-  return { port, target };
+  // Only the flags actually passed appear, so callers that compare the whole
+  // object keep seeing plain defaults.
+  const parsed = { port, target };
+  if (host !== undefined) parsed.host = host;
+  if (gkRoot !== undefined) parsed.gkRoot = gkRoot;
+  if (noOpen) parsed.noOpen = true;
+  return parsed;
 }
 
-export async function listWatchFiles(root) {
+export async function listWatchFiles(root, options) {
+  const extra = options && options.skipNames;
+  const skips = (name) => shouldSkipName(name) || Boolean(extra && typeof extra.has === 'function' && extra.has(String(name || '').toLowerCase()));
   const files = [];
   async function walk(dir, rel) {
     let entries;
@@ -127,7 +174,7 @@ export async function listWatchFiles(root) {
       return;
     }
     for (const entry of entries) {
-      if (shouldSkipName(entry.name)) continue;
+      if (skips(entry.name)) continue;
       const childRel = rel ? rel + '/' + entry.name : entry.name;
       const childPath = path.join(dir, entry.name);
       if (entry.isDirectory()) {
@@ -279,8 +326,11 @@ export function safeRequestPath(rawUrl) {
   return { ok: true, url, pathname };
 }
 
-export function startFileWatchers(root, onRelPath, watchFn) {
+export function startFileWatchers(root, onRelPath, watchFn, options) {
   const run = typeof watchFn === 'function' ? watchFn : watch;
+  const extra = options && options.skipNames;
+  const startedAt = Date.now();
+  const skips = (name) => shouldSkipName(name) || Boolean(extra && typeof extra.has === 'function' && extra.has(String(name || '').toLowerCase()));
   const watched = new Map();
   let watching = false;
   let closed = false;
@@ -288,7 +338,7 @@ export function startFileWatchers(root, onRelPath, watchFn) {
   function emit(rel) {
     if (closed || !rel) return;
     const norm = String(rel).replace(/\\/g, '/');
-    if (norm.split('/').some(shouldSkipName)) return;
+    if (norm.split('/').some(skips)) return;
     onRelPath(norm);
   }
 
@@ -310,7 +360,27 @@ export function startFileWatchers(root, onRelPath, watchFn) {
     try {
       const w = run(dir, recursive ? { recursive: true } : {}, (_event, filename) => {
         if (!filename) return;
-        const childRel = rel ? rel + '/' + String(filename).replace(/\\/g, '/') : String(filename).replace(/\\/g, '/');
+        const rawFile = String(filename).replace(/\\/g, '/').replace(/^\/+|\/+$/g, '');
+        if (!rawFile) return;
+        // macOS FSEvents reports a freshly created temp folder's own name to its
+        // parent watcher; that is not a change inside the tree being watched.
+        if (recursive && !rel && rawFile === path.basename(path.resolve(String(dir || ''))) && !existsSync(path.join(dir, rawFile))) return;
+        if (recursive) {
+          // macOS FSEvents announces the containing directory before the file
+          // inside it, and can replay a write that landed before the stream
+          // started; the UI already has those bytes. Only the file's own event
+          // after the watch began is a change worth telling the UI about. A
+          // path that no longer exists is a deletion and is always reported.
+          let entryStat = null;
+          try {
+            entryStat = statSync(path.join(dir, rawFile));
+          } catch {}
+          if (entryStat) {
+            if (entryStat.isDirectory()) return;
+            if (entryStat.mtimeMs < startedAt + WATCH_CLOCK_TOLERANCE_MS) return;
+          }
+        }
+        const childRel = rel ? rel + '/' + rawFile : rawFile;
         emit(childRel);
         if (!recursive) {
           const childPath = path.join(dir, String(filename));
@@ -344,7 +414,7 @@ export function startFileWatchers(root, onRelPath, watchFn) {
     }
     for (const entry of entries) {
       if (closed) return;
-      if (!entry.isDirectory() || shouldSkipName(entry.name)) continue;
+      if (!entry.isDirectory() || skips(entry.name)) continue;
       const childRel = rel ? rel + '/' + entry.name : entry.name;
       const childPath = path.join(dir, entry.name);
       add(childPath, childRel, false);
@@ -389,9 +459,18 @@ export function openBrowser(url, spawnFn) {
 }
 
 export function createCodeflowServer(options) {
+  options = options || {};
   const uiRoot = options.uiRoot;
   const watchRoot = options.watchRoot;
   const name = path.basename(watchRoot);
+  const gkRoot = options.gkRoot !== undefined ? options.gkRoot : detectGkRoot(watchRoot);
+  // Watching a monorepo root means watching its pinned submodules too, which is
+  // a lot of file descriptors for trees the manifest already describes.
+  const gkMode = Boolean(gkRoot) && path.resolve(String(watchRoot || '')) === path.resolve(String(gkRoot));
+  const watchOptions = gkMode ? { skipNames: GK_WATCH_SKIP } : undefined;
+  const extraHosts = new Set(
+    (options.extraHosts || []).map((host) => String(host || '').trim().toLowerCase()).filter(Boolean)
+  );
   const clients = new Set();
   const watchRevs = new Map();
 
@@ -400,11 +479,12 @@ export function createCodeflowServer(options) {
     const rev = bumpWatchRev(watchRevs, pathKey);
     const payload = `data: ${JSON.stringify({ type: 'change', path: pathKey, rev })}\n\n`;
     for (const client of clients) client.write(payload);
-  });
+  }, undefined, watchOptions);
 
   const server = http.createServer(async (req, res) => {
     try {
-      if (!isAllowedCliRequest(req)) {
+      for (const [header, value] of Object.entries(PRIVACY_HEADERS)) res.setHeader(header, value);
+      if (!isAllowedCliRequest(req, extraHosts)) {
         res.writeHead(403, { 'Content-Type': 'text/plain; charset=utf-8' });
         res.end('Forbidden');
         return;
@@ -417,12 +497,48 @@ export function createCodeflowServer(options) {
       }
       const url = parsed.url;
       if (url.pathname === '/__codeflow/status') {
-        sendJson(res, 200, { ok: true, root: watchRoot, name, watch: !!watchSession.watching });
+        sendJson(res, 200, {
+          ok: true,
+          root: watchRoot,
+          name,
+          watch: !!watchSession.watching,
+          gkMode: Boolean(gkRoot),
+          gkRoot: gkRoot || null,
+          defaultTarget: 'gk-system'
+        });
+        return;
+      }
+      if (url.pathname === '/__codeflow/gk-manifest') {
+        if (!gkRoot) {
+          sendJson(res, 404, { ok: false, error: 'GK root not detected' });
+          return;
+        }
+        try {
+          sendJson(res, 200, buildGkManifest(gkRoot));
+        } catch {
+          console.error('codeflow: failed to build the GK manifest');
+          sendPublicError(res, 500, 'Could not build the GK manifest');
+        }
+        return;
+      }
+      if (url.pathname === '/__codeflow/gk-bundle') {
+        const targetId = url.searchParams.get('target') || 'gk-system';
+        let bundle = null;
+        try {
+          bundle = gkRoot ? buildGkTargetBundle(gkRoot, targetId) : null;
+        } catch {
+          bundle = null;
+        }
+        if (!bundle) {
+          sendJson(res, 404, { ok: false, error: 'Unknown target' });
+          return;
+        }
+        sendJson(res, 200, bundle);
         return;
       }
       if (url.pathname === '/__codeflow/files') {
         try {
-          sendJson(res, 200, { files: await listWatchFiles(watchRoot) });
+          sendJson(res, 200, { files: await listWatchFiles(watchRoot, watchOptions) });
         } catch {
           console.error('codeflow: failed to list watched files');
           sendPublicError(res, 500, 'Could not list files');
@@ -483,7 +599,11 @@ export function createCodeflowServer(options) {
 async function main() {
   const parsed = parseCliArgs(process.argv);
   if (parsed.help) {
-    console.log('Usage: npx codeflow [folder] [--port 4173]\nOpens the same Codeflow UI and watches that folder.');
+    console.log(
+      'Usage: npx codeflow [folder] [--port 4173] [--host 127.0.0.1] [--gk-root <dir>] [--no-open]\n' +
+      'Opens the same Codeflow UI and watches that folder. When the folder is a GK checkout,\n' +
+      'the architecture map and dependency bundles are served from /__codeflow/gk-manifest.'
+    );
     process.exit(0);
   }
   const here = path.dirname(fileURLToPath(import.meta.url));
@@ -499,15 +619,20 @@ async function main() {
     process.exit(1);
   }
 
-  const { server } = createCodeflowServer({ uiRoot, watchRoot });
+  const bindHost = parsed.host || '127.0.0.1';
+  const gkRoot = parsed.gkRoot !== undefined ? path.resolve(process.cwd(), parsed.gkRoot) : detectGkRoot(watchRoot);
+  const noOpen = parsed.noOpen === true || process.env.CODEFLOW_NO_OPEN === '1';
+  const { server } = createCodeflowServer({ uiRoot, watchRoot, gkRoot });
   await new Promise((resolve, reject) => {
     server.once('error', reject);
-    server.listen(parsed.port, '127.0.0.1', resolve);
+    server.listen(parsed.port, bindHost, resolve);
   });
-  const url = 'http://127.0.0.1:' + parsed.port + '/?cli=1';
+  const shownHost = bindHost === '0.0.0.0' || bindHost === '::' ? '127.0.0.1' : bindHost;
+  const url = 'http://' + (shownHost.includes(':') ? '[' + shownHost + ']' : shownHost) + ':' + parsed.port + '/?cli=1';
   console.log('Codeflow UI: ' + url);
   console.log('Watching: ' + watchRoot);
-  openBrowser(url);
+  if (gkRoot) console.log('GK Architecture Map: ' + url.replace('/?cli=1', '/__codeflow/gk-manifest'));
+  if (!noOpen) openBrowser(url);
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href) {

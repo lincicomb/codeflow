@@ -1,0 +1,26 @@
+[Unit]
+Description=CodeFlow viewer with the live GK Architecture Map and dependency walkthrough bundles (codeflow.berkle.space, 127.0.0.1:4179)
+# Installed by hand on core-vps (system/codeflow/deploy/space.berkle.codeflow.service).
+# Reads the GK checkout that the homepage refresh already keeps on main
+# (/srv/homepage/gk, the source `tenants/homepage/deploy/refresh.sh` fast-forwards every
+# 15 minutes), so the architecture map, versions and walkthrough bundles are built from
+# the commit the checkout is on, not a copy baked at install time.
+# core-vps Caddy is the only client: it proxies codeflow.berkle.space to 127.0.0.1:4179.
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=gk
+Group=gk
+WorkingDirectory=/srv/homepage/gk
+# Loopback only, and the browser is never launched from a service.
+ExecStart=/bin/sh -c 'if [ -f /srv/homepage/gk/system/codeflow/cli/codeflow.mjs ]; then exec node /srv/homepage/gk/system/codeflow/cli/codeflow.mjs /srv/homepage/gk --port 4179 --host 127.0.0.1 --no-open; else exec node /srv/codeflow/cli/codeflow.mjs /srv/homepage/gk --port 4179 --host 127.0.0.1 --no-open; fi'
+Environment=NODE_ENV=production
+Restart=always
+RestartSec=3
+SyslogIdentifier=codeflow
+TimeoutStopSec=15
+
+[Install]
+WantedBy=multi-user.target

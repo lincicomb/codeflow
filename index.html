@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CodeFlow — Open Source Architecture Intelligence</title>
+    <title>CodeFlow · GK Live Architecture &amp; Code Walkthrough (berkle.space)</title>
     <meta name="description" content="Visualize any GitHub repository's architecture in seconds. See dependencies, blast radius, code ownership, security issues, and design patterns. No installation required.">
     <meta name="keywords" content="code visualization, architecture, github, dependency graph, blast radius, code analysis, open source">
     <meta name="author" content="CodeFlow">
-    <meta name="robots" content="index, follow">
+    <meta name="robots" content="noindex, nofollow, noarchive">
+    <meta name="referrer" content="no-referrer">
     <meta property="og:title" content="CodeFlow — Visualize Your Codebase Architecture">
     <meta property="og:description" content="Turn any GitHub repo into an interactive architecture map in seconds. Zero setup, privacy-first, runs in your browser.">
     <meta property="og:type" content="website">
@@ -771,6 +772,98 @@ body{height:100dvh;min-height:100dvh}
 .color-by{bottom:116px}
 .legend{bottom:70px}
 .legend.with-color-by{bottom:70px}
+}
+/* ---- GK Live Architecture Map & Dependencies ---- */
+.gk-topbar-group{display:flex;align-items:center;gap:6px;flex-wrap:wrap;flex:0 1 auto;min-width:0}
+.gk-target-select{padding:6px 26px 6px 10px;background:var(--bg1);border:1px solid var(--acc);border-radius:6px;color:var(--acc);font-family:inherit;font-size:10px;font-weight:600;cursor:pointer;max-width:280px;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2300ff9d' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 8px center;text-overflow:ellipsis}
+.gk-target-select option,.gk-target-select optgroup{background:var(--bg1);color:var(--t0)}
+.gk-pill{display:inline-flex;align-items:center;gap:5px;font-size:9px;font-weight:600;padding:4px 9px;border-radius:999px;border:1px solid var(--border);background:rgba(0,0,0,0.25);color:var(--t1);text-decoration:none;white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis}
+a.gk-pill:hover{border-color:var(--acc);color:var(--acc)}
+.canvas-area:has(.gk-quickbar) .viz-selector{left:28px;transform:none;top:12px}
+.gk-quickbar{position:absolute;top:12px;right:28px;z-index:50;display:flex;align-items:center;gap:4px;padding:4px;border:1px solid var(--border);border-radius:8px;background:var(--bg1);flex-wrap:nowrap;overflow-x:auto;max-width:calc(100% - 260px)}
+.gk-quick-btn{padding:4px 9px;border-radius:6px;border:1px solid transparent;background:none;color:var(--t2);font-family:inherit;font-size:10px;font-weight:600;cursor:pointer;white-space:nowrap}
+.gk-quick-btn:hover{background:var(--hover);color:var(--t0)}
+.gk-quick-btn.active{background:var(--accbg);border-color:var(--acc);color:var(--acc)}
+.gk-view{width:100%;height:100%;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
+.gk-inner{max-width:1440px;margin:0 auto}
+.gk-hero{border:1px solid var(--border);border-radius:14px;padding:18px 20px;background:linear-gradient(135deg,rgba(0,229,255,0.10),rgba(167,139,250,0.10) 48%,rgba(0,255,157,0.08));margin-bottom:16px}
+.gk-title{font-size:20px;font-weight:800;letter-spacing:-0.4px;color:var(--t0);line-height:1.3}
+.gk-sub{font-size:11px;color:var(--t2);line-height:1.7;margin-top:6px;max-width:1000px}
+.gk-pill-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.gk-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+.gk-tab{padding:8px 14px;border-radius:10px;border:1px solid var(--border);background:var(--bg1);color:var(--t2);font-family:inherit;font-size:11px;font-weight:700;cursor:pointer}
+.gk-tab:hover{color:var(--t0)}
+.gk-tab.active{background:var(--accbg);border-color:var(--acc);color:var(--acc)}
+.gk-flow-wrap{border:1px solid var(--border2);border-radius:14px;background:var(--bg1);padding:10px;margin-bottom:16px;overflow-x:auto}
+.gk-flow-svg{display:block;min-width:820px;width:100%;height:auto}
+.gk-lane{border:1px solid var(--border2);border-left:5px solid var(--acc);border-radius:12px;background:var(--bg1);overflow:hidden;margin-bottom:12px}
+.gk-lane-head{display:flex;align-items:center;gap:10px;padding:12px 15px;flex-wrap:wrap}
+.gk-lane-title{font-size:12px;font-weight:800;color:var(--t0)}
+.gk-lane-sub{font-size:10px;color:var(--t2);flex:1 1 240px;min-width:0;line-height:1.5}
+.gk-node-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(266px,1fr));gap:10px;padding:0 14px 14px}
+.gk-node-grid.flush{padding:0 0 6px}
+.gk-node{border:1px solid var(--border);border-top:3px solid var(--acc);border-radius:10px;background:var(--bg2);padding:11px 12px;display:flex;flex-direction:column;gap:7px;min-width:0}
+.gk-node:hover{border-color:var(--border);border-top-color:var(--acc)}
+.gk-node-top{display:flex;align-items:flex-start;gap:7px}
+.gk-node-title{font-size:11px;font-weight:700;color:var(--t0);flex:1 1 auto;min-width:0;line-height:1.4;word-break:break-word}
+.gk-node-sub{font-size:10px;color:var(--t2);line-height:1.5}
+.gk-node-metrics{font-size:9px;color:var(--t1);background:var(--bg0);border:1px solid var(--border2);border-radius:6px;padding:5px 7px;line-height:1.5}
+.gk-code-path{font-size:8.5px;color:var(--t3);word-break:break-all;line-height:1.45}
+.gk-actions{display:flex;gap:5px;flex-wrap:wrap;margin-top:auto;padding-top:2px}
+.gk-btn{padding:5px 9px;border-radius:6px;border:1px solid var(--border);background:var(--bg3);color:var(--t1);font-family:inherit;font-size:9px;font-weight:700;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:4px;white-space:nowrap}
+.gk-btn:hover{border-color:var(--acc);color:var(--acc)}
+.gk-btn.primary{background:var(--accbg);border-color:var(--acc);color:var(--acc)}
+.gk-edge-list{border:1px solid var(--border2);border-radius:12px;background:var(--bg1);overflow:hidden;margin-bottom:16px}
+.gk-edge{display:grid;grid-template-columns:minmax(120px,1fr) 18px minmax(120px,1fr) minmax(150px,1.5fr);gap:8px;align-items:center;padding:7px 14px;border-top:1px solid var(--border2);font-size:10px;color:var(--t1);cursor:pointer}
+.gk-edge:first-child{border-top:none}
+.gk-edge:hover{background:var(--hover)}
+.gk-edge-label{color:var(--t2);font-size:9.5px}
+.gk-kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(206px,1fr));gap:12px;margin-bottom:16px}
+.gk-kpi{border:1px solid var(--border2);border-radius:12px;padding:14px;background:var(--bg1)}
+.gk-kpi-value{font-size:24px;font-weight:800;color:var(--acc);line-height:1.1;word-break:break-word}
+.gk-kpi-label{font-size:9px;text-transform:uppercase;letter-spacing:.6px;color:var(--t3);margin-top:6px}
+.gk-kpi-note{font-size:9px;color:var(--t2);margin-top:6px;line-height:1.5}
+.gk-filters{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+.gk-filter-btn{padding:6px 10px;border-radius:999px;border:1px solid var(--border);background:var(--bg1);color:var(--t2);font-family:inherit;font-size:9.5px;font-weight:700;cursor:pointer}
+.gk-filter-btn:hover{color:var(--t0)}
+.gk-filter-btn.active{background:var(--accbg);border-color:var(--acc);color:var(--acc)}
+.gk-search{flex:1 1 200px;min-width:150px;padding:7px 10px;background:var(--bg1);border:1px solid var(--border);border-radius:8px;color:var(--t0);font-family:inherit;font-size:10px}
+.gk-search:focus{outline:none;border-color:var(--acc)}
+.gk-section{margin-bottom:18px}
+.gk-section-title{font-size:13px;font-weight:800;color:var(--t0)}
+.gk-section-sub{font-size:10px;color:var(--t2);margin:4px 0 10px;line-height:1.5}
+.gk-rows{display:flex;flex-direction:column;gap:8px}
+.gk-row{border:1px solid var(--border2);border-radius:10px;background:var(--bg1);padding:10px 12px;display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr) auto;gap:10px;align-items:center}
+.gk-row-main{min-width:0}
+.gk-row-name{font-size:11px;font-weight:700;color:var(--t0);word-break:break-word;line-height:1.4}
+.gk-row-sub{font-size:9px;color:var(--t2);margin-top:3px;word-break:break-word;line-height:1.5}
+.gk-row-links{display:flex;gap:5px;flex-wrap:wrap;align-items:center}
+.gk-sha{font-size:9px;color:var(--purple);background:rgba(167,139,250,.14);border:1px solid rgba(167,139,250,.4);border-radius:6px;padding:2px 6px;white-space:nowrap;text-decoration:none;display:inline-block}
+a.gk-sha:hover{border-color:var(--purple);color:var(--t0)}
+.gk-mono{font-size:9px;color:var(--t2);word-break:break-all}
+.gk-empty{border:1px dashed var(--border);border-radius:12px;padding:20px;color:var(--t2);font-size:11px;text-align:center;background:var(--bg1)}
+.gk-mermaid-host{border:1px solid var(--border2);border-radius:12px;background:var(--bg1);padding:12px;margin-bottom:14px;overflow:auto}
+.gk-mermaid-host svg{max-width:100%;height:auto}
+.gk-source{border:1px solid var(--border2);border-radius:12px;background:var(--bg0);padding:12px;overflow:auto;max-height:440px}
+.gk-source pre{margin:0;font-size:10px;line-height:1.55;color:var(--t1);white-space:pre}
+.gk-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(258px,1fr));gap:10px;margin-bottom:14px}
+.gk-card{border:1px solid var(--border2);border-radius:12px;background:var(--bg1);padding:12px}
+.gk-card-title{font-size:11px;font-weight:800;color:var(--t0);margin-bottom:6px}
+.gk-card-list{margin:0;padding-left:16px;font-size:9.5px;color:var(--t2);line-height:1.6}
+.gk-card-list li{margin-bottom:4px}
+.gk-chip{font-size:9px;padding:3px 7px;border-radius:999px;border:1px solid var(--border);background:var(--bg2);color:var(--t1);cursor:pointer;font-family:inherit}
+.gk-chip:hover{border-color:var(--acc);color:var(--acc)}
+.gk-chip-grid{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
+@media(max-width:980px){
+.gk-topbar-group{width:100%;order:3;flex:1 1 100%}
+.gk-target-select{max-width:none;flex:1 1 100%}
+.gk-quickbar{position:static;left:auto;max-width:none;margin-bottom:8px;justify-content:center}
+.gk-view{padding:12px 10px 32px!important}
+.gk-title{font-size:16px}
+.gk-row{grid-template-columns:1fr}
+.gk-edge{grid-template-columns:1fr 14px 1fr;row-gap:3px}
+.gk-edge-label{grid-column:1/-1}
+.gk-node-grid{grid-template-columns:1fr}
 }
     </style>
 </head>
@@ -12629,6 +12722,13 @@ function App(){
     var _cli=useState(null),cliStatus=_cli[0],setCliStatus=_cli[1];
     var _cliDirty=useState([]),cliDirty=_cliDirty[0],setCliDirty=_cliDirty[1];
     var _cliLive=useState(Object.create(null)),cliLiveByPath=_cliLive[0],setCliLiveByPath=_cliLive[1];
+    var _gkManifest=useState(null),gkManifest=_gkManifest[0],setGkManifest=_gkManifest[1];
+    var _gkTarget=useState(function(){try{var p=new URLSearchParams(window.location.search);return p.get('target')||'gk-system';}catch(e){return 'gk-system';}}),gkTarget=_gkTarget[0],setGkTarget=_gkTarget[1];
+    var _gkMapTab=useState(function(){try{var p=new URLSearchParams(window.location.search);var tab=p.get('map')||'event-arch';return tab==='capreg'?'capreg-system':tab;}catch(e){return 'event-arch';}}),gkMapTab=_gkMapTab[0],setGkMapTab=_gkMapTab[1];
+    var _gkSelectedNode=useState(null),gkSelectedNode=_gkSelectedNode[0],setGkSelectedNode=_gkSelectedNode[1];
+    var _gkMapDetail=useState(null),gkMapDetail=_gkMapDetail[0],setGkMapDetail=_gkMapDetail[1];
+    var _gkDepFilter=useState('all'),gkDepFilter=_gkDepFilter[0],setGkDepFilter=_gkDepFilter[1];
+    var _gkDepSearch=useState(''),gkDepSearch=_gkDepSearch[0],setGkDepSearch=_gkDepSearch[1];
     var isMobile=viewportWidth<=980;
     var svgRef=useRef(null);
     var graph3dRef=useRef(null);
@@ -12642,6 +12742,7 @@ function App(){
     var disjointRef=useRef(null);
     var bundleRef=useRef(null);
     var architectureRenderRef=useRef(null);
+    var gkMermaidRef=useRef(null);
     var architectureDragRef=useRef(null);
     var zoomRef=useRef(null);
     var simRef=useRef(null);
@@ -12802,6 +12903,34 @@ function App(){
         var frame=requestAnimationFrame(function(){fitArchitectureViewport();});
         return function(){cancelAnimationFrame(frame);};
     },[viewportWidth,sidebarWidth,rightPanelWidth,graphConfig.vizType]);
+
+    useEffect(function(){
+        if(gkMapTab!=='mermaid')return;
+        var host=gkMermaidRef.current;
+        if(!host||!gkManifest||!gkManifest.eventArchitecture)return;
+        var source=gkManifest.eventArchitecture.mermaidSource||'';
+        if(!source||!window.mermaid)return;
+        var cancelled=false;
+        var renderId='gk-map-mermaid-'+Date.now();
+        try{
+            window.mermaid.initialize({
+                startOnLoad:false,
+                securityLevel:'strict',
+                theme:theme==='light'?'default':'dark',
+                flowchart:{htmlLabels:true,curve:'basis'}
+            });
+            window.mermaid.render(renderId,source).then(function(result){
+                if(cancelled||!gkMermaidRef.current)return;
+                gkMermaidRef.current.innerHTML=result&&result.svg?result.svg:'';
+            }).catch(function(err){
+                if(cancelled||!gkMermaidRef.current)return;
+                gkMermaidRef.current.innerHTML='<div class="gk-empty">Mermaid render failed: '+escapeHtml(err&&err.message?err.message:String(err))+'</div>';
+            });
+        }catch(err){
+            host.innerHTML='<div class="gk-empty">Mermaid render failed: '+escapeHtml(err&&err.message?err.message:String(err))+'</div>';
+        }
+        return function(){cancelled=true;};
+    },[gkMapTab,gkManifest,theme]);
 
     useEffect(function(){
         var el=folderInputRef.current;
@@ -13160,11 +13289,134 @@ function App(){
     }
     enqueueCliWatchDiffRef.current=enqueueCliWatchDiff;
 
+    // Single-request GK target hydration: /__codeflow/gk-bundle returns every walkable
+    // file for one target, so the architecture map, Code Cards, and blast radius all
+    // come from one HTTP request instead of a per-file crawl.
+    async function loadGkTargetBundle(targetId,focusFile,nextVizType){
+        var wanted=targetId||'gk-system';
+        setLoading(true);
+        setProgress('Loading GK bundle: '+wanted+'...');
+        try{
+            var res=await fetch('/__codeflow/gk-bundle?target='+encodeURIComponent(wanted));
+            if(!res.ok){
+                setLoading(false);
+                setProgress('');
+                return false;
+            }
+            var bundle=await res.json();
+            if(!bundle||!bundle.ok||!Array.isArray(bundle.files)){
+                setLoading(false);
+                setProgress('');
+                return false;
+            }
+            await Parser.initTreeSitter().catch(function(){return null;});
+            var bundleFiles=bundle.files;
+            var analyzed=[];
+            var allFns=[];
+            for(var bi=0;bi<bundleFiles.length;bi++){
+                var bf=bundleFiles[bi];
+                if(bi>0&&bi%40===0)await yieldToBrowser();
+                setProgress('Analyzing '+(bi+1)+'/'+bundleFiles.length+': '+bf.name);
+                var bFolder=bf.folder||'root';
+                var bIsCode=Parser.isCode(bf.name);
+                if(Parser.isOversized(Number(bf.size))){
+                    analyzed.push(makeOversizedAnalysisFile(bf,Number(bf.size),bIsCode));
+                    continue;
+                }
+                var bContent=bf.content||'';
+                if(Parser.isOversized(bContent.length)){
+                    analyzed.push(makeOversizedAnalysisFile(bf,bContent.length,bIsCode));
+                    continue;
+                }
+                var bLayer=Parser.detectLayer(bf.path);
+                var bActual=bIsCode&&(!Parser.isScriptContainer(bf.path)||Parser.hasEmbeddedCode(bContent,bf.path));
+                var bFns=bActual?Parser.extract(bContent,bf.path):[];
+                analyzed.push({path:bf.path,name:bf.name,folder:bFolder,content:bContent,functions:bFns,lines:bContent.split('\n').length,layer:bLayer,churn:0,isCode:bActual});
+                if(bActual)bFns.forEach(function(fn){allFns.push(Object.assign({},fn,{folder:bFolder,layer:bLayer}));});
+            }
+            var dataObj=await runAnalysisData({
+                analyzed:analyzed,
+                allFns:allFns,
+                excludePatterns:activeExcludePatterns.map(function(x){return x.raw;}),
+                progress:setProgress,
+                yieldFn:yieldToBrowser
+            });
+            setGkTarget(bundle.target);
+            setData(dataObj);
+            setExpandedPaths(new Set(['']));
+            setRepoInfo({owner:'lincicomb',repo:bundle.target,name:bundle.shortTitle||bundle.title,cliRoot:bundle.root,version:bundle.version,commitSha:bundle.commitSha,repoUrl:bundle.repoUrl,liveUrl:bundle.liveUrl});
+            setLocalSourceKind('cli');
+            setCachedFromId(null);
+            setCliDirty([]);
+            setError(null);
+            setLoading(false);
+            if(focusFile&&dataObj&&Array.isArray(dataObj.files)){
+                var matched=null;
+                for(var fi=0;fi<dataObj.files.length;fi++){
+                    var cand=dataObj.files[fi];
+                    if(!cand||!cand.path)continue;
+                    if(cand.path===focusFile||cand.path.slice(-(focusFile.length+1))==='/'+focusFile){matched=cand;break;}
+                }
+                if(matched){
+                    var nextFilter=folderFilterAfterCodeNav(matched.path,dataObj,null);
+                    setFolderFilter(nextFilter);
+                    setOpenedCodePaths(function(prev){return openCodeCardPaths(prev,matched.path,null,true,[]);});
+                    pendingFlyToRef.current=matched.path;
+                    selectedPathRef.current=matched.path;
+                    setSelected(matched);
+                    setRightTab('details');
+                    setBlastRadius(calcBlast(matched.path,dataObj.connections,dataObj.files));
+                    setGraphConfig(function(prev){return Object.assign({},prev,{vizType:nextVizType||'code'});});
+                }else if(nextVizType){
+                    setFolderFilter(null);
+                    setGraphConfig(function(prev){return Object.assign({},prev,{vizType:nextVizType});});
+                }
+            }else{
+                if(dataObj&&Array.isArray(dataObj.files)&&dataObj.files.length>0){
+                    var firstCode=dataObj.files.find(function(f){return f&&f.isCode;})||dataObj.files[0];
+                    if(firstCode&&nextVizType==='code'){
+                        var defFilter=folderFilterAfterCodeNav(firstCode.path,dataObj,null);
+                        setFolderFilter(defFilter);
+                        setOpenedCodePaths(function(prev){return openCodeCardPaths(prev,firstCode.path,null,true,[]);});
+                        pendingFlyToRef.current=firstCode.path;
+                        selectedPathRef.current=firstCode.path;
+                        setSelected(firstCode);
+                        setBlastRadius(calcBlast(firstCode.path,dataObj.connections,dataObj.files));
+                    }
+                }
+                if(nextVizType){
+                    setGraphConfig(function(prev){return Object.assign({},prev,{vizType:nextVizType});});
+                }
+            }
+            return true;
+        }catch(err){
+            setLoading(false);
+            setError('GK bundle load failed: '+(err&&err.message?err.message:String(err)));
+            return false;
+        }
+    }
+
     function probeCodeflowCli(){
+        var sp=new URLSearchParams(window.location.search||'');
+        var wantedViz=sp.get('viz');
+        var wantedTarget=sp.get('target');
+        var wantedFile=sp.get('file');
+        fetch('/__codeflow/gk-manifest').then(function(r){return r.ok?r.json():null;}).then(function(m){
+            if(m&&m.ok){
+                setGkManifest(m);
+                if(m.eventArchitecture&&m.eventArchitecture.nodes&&m.eventArchitecture.nodes.length){
+                    setGkSelectedNode(m.eventArchitecture.nodes[0]);
+                }
+                if(wantedViz){setGraphConfig(function(prev){return Object.assign({},prev,{vizType:wantedViz});});}
+                else if(!wantedTarget&&!wantedFile){setGraphConfig(function(prev){return Object.assign({},prev,{vizType:'gk-map'});});}
+            }
+        }).catch(function(){});
         fetch('/__codeflow/status').then(function(res){return res.ok?res.json():null;}).then(function(status){
             if(!status||!status.ok)return;
             setCliStatus(status);
-            if(!window.location.search||window.location.search.indexOf('repo=')<0){
+            if(status.gkMode&&(wantedTarget||wantedFile)){
+                loadGkTargetBundle(wantedTarget||status.defaultTarget||'gk-system',wantedFile||null,wantedViz||(wantedFile?'code':'gk-map'));
+            }else if(!window.location.search||window.location.search.indexOf('repo=')<0){
                 analyzeFromCli(false,status);
             }
             if(window.EventSource){
@@ -13205,6 +13457,17 @@ function App(){
             return false;
         }
         if(status&&status.ok)setCliStatus(status);
+        if(status&&status.gkMode&&!wantedRoot){
+            var gkParams=new URLSearchParams(window.location.search);
+            var initTarget=gkParams.get('target')||gkTarget||status.defaultTarget||'gk-system';
+            var initFile=gkParams.get('file')||null;
+            var initViz=gkParams.get('viz')||null;
+            var bundledOk=await loadGkTargetBundle(initTarget,initFile,initViz);
+            if(bundledOk){
+                cliAnalyzingRef.current=false;
+                return true;
+            }
+        }
         var cliMeta=cliWatchCacheMeta(status);
         cliWatchDuringRef.current=[];
         cliWatchReadRef.current=Object.create(null);
@@ -17322,6 +17585,672 @@ function App(){
             )
         );
     }
+    // ---------------------------------------------------------------------
+    // GK Live Architecture Map & Dependencies
+    // Every value below comes from /__codeflow/gk-manifest (built from the live
+    // checkout), so the map cannot drift from the repository.
+    // ---------------------------------------------------------------------
+    var GK_ICON_ALIAS={terminal:'code',zap:'bolt',rocket:'target','check-circle':'shield',cpu:'box','git-merge':'split',check:'route',heart:'activity',package:'box',tag:'link',grid:'layout',workflow:'flow'};
+    var GK_QUICK_VIEWS=[
+        {viz:'gk-map',label:'🗺️ GK Architecture Map'},
+        {viz:'gk-deps',label:'📦 Dependencies & Versions'},
+        {viz:'code',label:'💻 Code Cards'},
+        {viz:'graph',label:'🕸️ Dependency Graph'},
+        {viz:'architecture',label:'📐 Block Diagram'}
+    ];
+    var GK_VIEW_STYLE={width:'100%',height:'100%',overflowY:'auto',padding:'58px 28px 40px',background:'var(--bg0)'};
+
+    function gkIconName(name){
+        var raw=String(name||'layers');
+        return GK_ICON_ALIAS[raw]||raw;
+    }
+    function gkTruncate(value,max){
+        var s=String(value==null?'':value);
+        return s.length>max?s.slice(0,max-1)+'\u2026':s;
+    }
+    function gkSetViz(viz){
+        setGraphConfig(function(prev){return Object.assign({},prev,{vizType:viz});});
+        if(viz==='gk-map'||viz==='gk-deps'||viz==='architecture'){setSelected(null);setBlastRadius(null);}
+    }
+    function gkCategoryGroup(category){
+        if(category==='tenant-product')return 'tenant';
+        if(category==='dependency')return 'deps';
+        return 'core';
+    }
+    function gkTargetOptionLabel(target){
+        return (target.shortTitle||target.title||target.id)+(target.version?' · '+target.version:'');
+    }
+    function gkRenderTargetOptions(){
+        if(!gkManifest||!Array.isArray(gkManifest.targets))return [];
+        var groups=[
+            {id:'core',label:'GK Core & Subsystems',items:[]},
+            {id:'deps',label:'Dependencies',items:[]},
+            {id:'tenant',label:'Pinned Tenant Products (Live SHA)',items:[]}
+        ];
+        gkManifest.targets.forEach(function(t){
+            var gid=gkCategoryGroup(t.category);
+            for(var gi=0;gi<groups.length;gi++){if(groups[gi].id===gid)groups[gi].items.push(t);}
+        });
+        return groups.filter(function(g){return g.items.length>0;}).map(function(g){
+            return React.createElement('optgroup',{key:'gk-optgroup-'+g.id,label:g.label},
+                g.items.map(function(t){return React.createElement('option',{key:'gk-target-'+t.id,value:t.id},gkTargetOptionLabel(t));})
+            );
+        });
+    }
+    function gkRenderQuickBar(){
+        if(!gkManifest)return null;
+        return React.createElement('div',{className:'gk-quickbar',role:'group','aria-label':'GK visualization shortcuts'},
+            GK_QUICK_VIEWS.map(function(v){
+                return React.createElement('button',{key:'gk-quick-'+v.viz,type:'button',className:'gk-quick-btn'+(graphConfig.vizType===v.viz?' active':''),title:v.label,onClick:function(){gkSetViz(v.viz);}},v.label);
+            })
+        );
+    }
+
+    function gkArchitectureLayout(arch){
+        var planes=arch&&Array.isArray(arch.planes)?arch.planes:[];
+        var nodes=arch&&Array.isArray(arch.nodes)?arch.nodes:[];
+        var colW=200,gapX=74,nodeH=48,nodeGap=12,topPad=56;
+        var maxCount=1;
+        planes.forEach(function(p){
+            var c=0;
+            for(var i=0;i<nodes.length;i++){if(nodes[i].plane===p.id)c++;}
+            if(c>maxCount)maxCount=c;
+        });
+        var width=Math.max(planes.length*(colW+gapX)-gapX,420);
+        var height=topPad+maxCount*(nodeH+nodeGap)+16;
+        var byId=Object.create(null);
+        planes.forEach(function(p,pi){
+            var col=nodes.filter(function(n){return n.plane===p.id;});
+            col.forEach(function(n,ni){
+                byId[n.id]={x:pi*(colW+gapX),y:topPad+ni*(nodeH+nodeGap),w:colW,h:nodeH,node:n,plane:p};
+            });
+        });
+        return {planes:planes,nodes:nodes,byId:byId,width:width,height:height,colW:colW,gapX:gapX,nodeH:nodeH,topPad:topPad};
+    }
+
+    function gkRenderFlowSvg(arch){
+        var layout=gkArchitectureLayout(arch);
+        if(!layout.planes.length)return null;
+        var edges=Array.isArray(arch.edges)?arch.edges:[];
+        var colorList=[];
+        edges.forEach(function(e){
+            var c=e.color||'#4d9fff';
+            if(colorList.indexOf(c)<0)colorList.push(c);
+        });
+        var markers=colorList.map(function(c,i){
+            return React.createElement('marker',{key:'gk-marker-'+i,id:'gk-map-arrow-'+i,viewBox:'0 0 10 10',refX:'9',refY:'5',markerWidth:'6',markerHeight:'6',orient:'auto-start-reverse'},
+                React.createElement('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:c})
+            );
+        });
+        var planeHeads=layout.planes.map(function(p,pi){
+            return React.createElement('text',{key:'gk-plane-head-'+p.id,x:pi*(layout.colW+layout.gapX),y:'30',style:{fill:p.color,fontSize:11,fontWeight:700}},
+                gkTruncate(p.title,25)
+            );
+        });
+        var edgeEls=edges.map(function(e,ei){
+            var from=layout.byId[e.from];
+            var to=layout.byId[e.to];
+            if(!from||!to)return null;
+            var x1=from.x+from.w,y1=from.y+from.h/2;
+            var x2=to.x,y2=to.y+to.h/2;
+            var span=Math.abs(x2-x1);
+            var bend=Math.max(34,Math.min(120,span/2));
+            var d='M '+x1+' '+y1+' C '+(x1+bend)+' '+y1+' '+(x2-bend)+' '+y2+' '+x2+' '+y2;
+            var ci=colorList.indexOf(e.color||'#4d9fff');
+            return React.createElement('path',{key:'gk-flow-edge-'+ei,d:d,fill:'none',stroke:e.color||'#4d9fff',strokeWidth:2,opacity:0.8,'marker-end':'url(#gk-map-arrow-'+(ci<0?0:ci)+')'});
+        });
+        var nodeEls=layout.nodes.map(function(n){
+            var p=layout.byId[n.id];
+            if(!p)return null;
+            var color=n.color||(p.plane&&p.plane.color)||'#4d9fff';
+            var active=gkSelectedNode&&gkSelectedNode.id===n.id;
+            return React.createElement('g',{key:'gk-flow-node-'+n.id,onClick:function(){setGkSelectedNode(n);},style:{cursor:'pointer'}},
+                React.createElement('rect',{x:p.x,y:p.y,width:p.w,height:p.h,rx:'8',style:{fill:active?'var(--bg4)':'var(--bg2)'},stroke:color,strokeWidth:active?3:1.6}),
+                React.createElement('text',{x:p.x+9,y:p.y+19,style:{fill:'var(--t0)',fontSize:10,fontWeight:700}},gkTruncate(n.title||n.id,24)),
+                React.createElement('text',{x:p.x+9,y:p.y+34,style:{fill:color,fontSize:9}},gkTruncate(n.badge||n.version||'',26))
+            );
+        });
+        return React.createElement('svg',{className:'gk-flow-svg',viewBox:'0 0 '+layout.width+' '+layout.height,role:'img','aria-label':'GK plane and live signal flow'},
+            React.createElement('defs',null,markers),
+            planeHeads,
+            edgeEls,
+            nodeEls
+        );
+    }
+
+    function gkRenderNodeCard(node,plane){
+        var color=node.color||(plane&&plane.color)||'var(--acc)';
+        var actions=[
+            React.createElement('button',{key:'walk',type:'button',className:'gk-btn primary',onClick:function(){loadGkTargetBundle(node.targetId,node.codePath,'code');}},'Walk in CodeFlow →'),
+            React.createElement('button',{key:'blast',type:'button',className:'gk-btn',onClick:function(){loadGkTargetBundle(node.targetId,node.codePath,'graph');}},'Graph Blast Radius')
+        ];
+        if(node.githubUrl)actions.push(React.createElement('a',{key:'gh',className:'gk-btn',href:node.githubUrl,target:'_blank',rel:'noopener noreferrer'},'GitHub @ SHA ↗'));
+        if(node.liveUrl)actions.push(React.createElement('a',{key:'live',className:'gk-btn',href:node.liveUrl,target:'_blank',rel:'noopener noreferrer'},'Live Surface ↗'));
+        return React.createElement('div',{key:'gk-nodecard-'+node.id,className:'gk-node',style:{borderTopColor:color}},
+            React.createElement('div',{className:'gk-node-top'},
+                React.createElement('span',{style:{color:color,display:'inline-flex',flexShrink:0}},React.createElement(Icon,{name:gkIconName(node.icon),size:'m'})),
+                React.createElement('div',{className:'gk-node-title'},node.title||node.id),
+                node.badge&&React.createElement('span',{className:'badge badge-info'},node.badge)
+            ),
+            node.subtitle&&React.createElement('div',{className:'gk-node-sub'},node.subtitle),
+            node.version&&React.createElement('div',{className:'gk-pill-row',style:{marginTop:0}},
+                React.createElement('span',{className:'gk-pill',style:{borderColor:color,color:color}},node.version)
+            ),
+            node.metrics&&React.createElement('div',{className:'gk-node-metrics'},node.metrics),
+            node.codePath&&React.createElement('div',{className:'gk-code-path'},node.codePath),
+            React.createElement('div',{className:'gk-actions'},actions)
+        );
+    }
+
+    function gkRenderPlaneLane(plane,arch){
+        var laneNodes=(Array.isArray(arch.nodes)?arch.nodes:[]).filter(function(n){return n.plane===plane.id;});
+        return React.createElement('div',{key:'gk-lane-'+plane.id,className:'gk-lane',style:{borderLeftColor:plane.color}},
+            React.createElement('div',{className:'gk-lane-head'},
+                React.createElement('span',{style:{color:plane.color,display:'inline-flex',flexShrink:0}},React.createElement(Icon,{name:gkIconName(plane.icon),size:'m'})),
+                React.createElement('div',{style:{flex:'1 1 240px',minWidth:0}},
+                    React.createElement('div',{className:'gk-lane-title'},plane.title),
+                    React.createElement('div',{className:'gk-lane-sub'},plane.subtitle)
+                ),
+                plane.version&&React.createElement('span',{className:'gk-pill',style:{borderColor:plane.color,color:plane.color}},plane.version),
+                React.createElement('span',{className:'badge badge-default'},laneNodes.length+' nodes')
+            ),
+            React.createElement('div',{className:'gk-node-grid'},
+                laneNodes.map(function(n){return gkRenderNodeCard(n,plane);})
+            )
+        );
+    }
+
+    function gkRenderEdgeTable(arch){
+        var edges=Array.isArray(arch.edges)?arch.edges:[];
+        if(!edges.length)return null;
+        var nodesById=Object.create(null);
+        (Array.isArray(arch.nodes)?arch.nodes:[]).forEach(function(n){nodesById[n.id]=n;});
+        return React.createElement('div',{className:'gk-edge-list'},
+            React.createElement('div',{className:'gk-lane-head'},
+                React.createElement('div',{className:'gk-lane-title'},'Cross-Plane Live Signal & Event Wiring ('+edges.length+' directed edges)'),
+                React.createElement('div',{className:'gk-lane-sub'},'Click a row to select the upstream node.')
+            ),
+            edges.map(function(e,ei){
+                var fromNode=nodesById[e.from];
+                var toNode=nodesById[e.to];
+                var color=e.color||'var(--acc)';
+                return React.createElement('div',{key:'gk-edge-row-'+ei,className:'gk-edge',onClick:function(){if(fromNode)setGkSelectedNode(fromNode);}},
+                    React.createElement('div',{style:{display:'flex',alignItems:'center',gap:6,minWidth:0}},
+                        React.createElement('span',{style:{width:8,height:8,borderRadius:'50%',background:color,flex:'0 0 auto'}}),
+                        React.createElement('span',{style:{color:'var(--t0)',overflow:'hidden',textOverflow:'ellipsis'}},fromNode?fromNode.title:e.from)
+                    ),
+                    React.createElement('span',{style:{color:color,textAlign:'center'}},'→'),
+                    React.createElement('span',{style:{color:'var(--t0)',overflow:'hidden',textOverflow:'ellipsis'}},toNode?toNode.title:e.to),
+                    React.createElement('span',{className:'gk-edge-label'},e.label||'')
+                );
+            })
+        );
+    }
+
+    function gkRenderSelectedNodeStrip(node){
+        var plane=null;
+        var planes=(gkManifest&&gkManifest.eventArchitecture&&gkManifest.eventArchitecture.planes)||[];
+        planes.forEach(function(p){if(p.id===node.plane)plane=p;});
+        var color=node.color||(plane&&plane.color)||'var(--acc)';
+        return React.createElement('div',{className:'gk-lane',style:{borderLeftColor:color}},
+            React.createElement('div',{className:'gk-lane-head'},
+                React.createElement('span',{style:{color:color,display:'inline-flex',flexShrink:0}},React.createElement(Icon,{name:gkIconName(node.icon),size:'m'})),
+                React.createElement('div',{style:{flex:'1 1 240px',minWidth:0}},
+                    React.createElement('div',{className:'gk-lane-title'},'Selected: '+(node.title||node.id)),
+                    React.createElement('div',{className:'gk-lane-sub'},(node.subtitle||'')+(plane&&plane.title?' · '+plane.title:'')+(node.codePath?' · '+node.codePath:''))
+                ),
+                node.badge&&React.createElement('span',{className:'badge badge-info'},node.badge),
+                React.createElement('div',{className:'gk-actions'},
+                    React.createElement('button',{type:'button',className:'gk-btn primary',onClick:function(){loadGkTargetBundle(node.targetId,node.codePath,'code');}},'Walk in CodeFlow →'),
+                    React.createElement('button',{type:'button',className:'gk-btn',onClick:function(){loadGkTargetBundle(node.targetId,node.codePath,'graph');}},'Graph Blast Radius')
+                )
+            )
+        );
+    }
+
+    function gkRenderMapDetail(){
+        var detail=gkMapDetail;
+        if(!detail)return null;
+        return React.createElement('div',{className:'gk-lane',style:{borderLeftColor:'var(--purple)'}},
+            React.createElement('div',{className:'gk-lane-head'},
+                React.createElement('span',{style:{color:'var(--purple)',display:'inline-flex',flexShrink:0}},React.createElement(Icon,{name:'box',size:'m'})),
+                React.createElement('div',{style:{flex:'1 1 240px',minWidth:0}},
+                    React.createElement('div',{className:'gk-lane-title'},detail.title||detail.id),
+                    React.createElement('div',{className:'gk-lane-sub'},detail.subtitle||'')
+                ),
+                detail.metrics&&React.createElement('span',{className:'badge badge-default'},String(detail.metrics)),
+                React.createElement('button',{type:'button',className:'gk-btn',onClick:function(){setGkMapDetail(null);}},'Clear')
+            )
+        );
+    }
+
+    function gkMapNodeList(map){
+        if(!map)return [];
+        if(Array.isArray(map.nodes))return map.nodes;
+        if(Array.isArray(map.components))return map.components;
+        if(Array.isArray(map.states))return map.states;
+        if(Array.isArray(map.participants))return map.participants;
+        return [];
+    }
+
+    function gkMapEdgeList(map){
+        if(!map)return [];
+        if(Array.isArray(map.connections))return map.connections;
+        if(Array.isArray(map.flows))return map.flows;
+        if(Array.isArray(map.edges))return map.edges;
+        if(Array.isArray(map.transitions))return map.transitions;
+        if(Array.isArray(map.messages))return map.messages;
+        return [];
+    }
+
+    function gkRenderCapregNodeCards(map,keyPrefix){
+        var raw=gkMapNodeList(map);
+        if(!raw.length)return null;
+        return React.createElement('div',{className:'gk-node-grid flush'},
+            raw.map(function(n,ni){
+                var label=n.label||n.title||n.name||n.id||('node '+ni);
+                var sub=n.sublabel||n.subtitle||n.note||n.kind||n.type||'';
+                var tag=n.tag||n.badge||n.variant||'';
+                var active=gkMapDetail&&gkMapDetail.id===n.id;
+                return React.createElement('div',{key:keyPrefix+'-node-'+ni,className:'gk-node',style:{borderTopColor:active?'var(--acc)':'var(--purple)',cursor:'pointer'},onClick:function(){setGkMapDetail({id:n.id,title:label,subtitle:String(sub||''),metrics:tag,content:n});}},
+                    React.createElement('div',{className:'gk-node-top'},
+                        React.createElement('span',{style:{color:'var(--purple)',display:'inline-flex',flexShrink:0}},React.createElement(Icon,{name:'box',size:'m'})),
+                        React.createElement('div',{className:'gk-node-title'},label),
+                        tag&&React.createElement('span',{className:'badge badge-default'},String(tag))
+                    ),
+                    sub&&React.createElement('div',{className:'gk-node-sub'},String(sub)),
+                    n.id&&React.createElement('div',{className:'gk-code-path'},String(n.id))
+                );
+            })
+        );
+    }
+
+    function gkRenderCapregEdges(map,keyPrefix){
+        var raw=gkMapEdgeList(map);
+        if(!raw.length)return null;
+        var pool=gkMapNodeList(map);
+        function labelOf(id){
+            for(var i=0;i<pool.length;i++){if(pool[i].id===id)return pool[i].label||pool[i].title||id;}
+            return id;
+        }
+        return React.createElement('div',{className:'gk-edge-list',style:{marginTop:10}},
+            React.createElement('div',{className:'gk-lane-head'},React.createElement('div',{className:'gk-lane-title'},'Wiring ('+raw.length+')')),
+            raw.map(function(e,ei){
+                return React.createElement('div',{key:keyPrefix+'-edge-'+ei,className:'gk-edge'},
+                    React.createElement('div',null,labelOf(e.from||e.source||'')),
+                    React.createElement('span',{style:{color:'var(--purple)',textAlign:'center'}},'→'),
+                    React.createElement('div',null,labelOf(e.to||e.target||'')),
+                    React.createElement('span',{className:'gk-edge-label'},e.label||e.variant||e.route||'')
+                );
+            })
+        );
+    }
+
+    function gkRenderMapSection(map,title,subtitle,fileLabel,keyPrefix){
+        if(!map)return null;
+        var meta=map.meta||{};
+        var stages=Array.isArray(map.stages)?map.stages:[];
+        var lanes=Array.isArray(map.lanes)?map.lanes:[];
+        var views=Array.isArray(meta.views)?meta.views:[];
+        return React.createElement('div',{key:'gk-mapsec-'+keyPrefix,className:'gk-section'},
+            React.createElement('div',{className:'gk-section-title'},title),
+            React.createElement('div',{className:'gk-section-sub'},(meta.title?meta.title+' · ':'')+(subtitle||'')+(fileLabel?' · '+fileLabel:'')),
+            views.length>0&&React.createElement('div',{className:'gk-cards'},
+                views.map(function(v,vi){
+                    return React.createElement('div',{key:'gk-mapsec-view-'+keyPrefix+'-'+vi,className:'gk-card'},
+                        React.createElement('div',{className:'gk-card-title'},v.label||v.id),
+                        React.createElement('div',{className:'gk-node-sub'},v.note||'')
+                    );
+                })
+            ),
+            stages.length>0&&React.createElement('div',{className:'gk-chip-grid'},
+                stages.map(function(s,si){return React.createElement('span',{key:'gk-mapsec-stage-'+keyPrefix+'-'+si,className:'gk-chip'},s.label||('stage '+si));})
+            ),
+            lanes.length>0&&React.createElement('div',{className:'gk-chip-grid'},
+                lanes.map(function(l,li){return React.createElement('span',{key:'gk-mapsec-lane-'+keyPrefix+'-'+li,className:'gk-chip'},l.label||l.id||('lane '+li));})
+            ),
+            gkRenderCapregNodeCards(map,'gk-'+keyPrefix),
+            gkRenderCapregEdges(map,'gk-'+keyPrefix)
+        );
+    }
+
+    function gkRenderEventArchView(arch){
+        var planes=Array.isArray(arch.planes)?arch.planes:[];
+        return React.createElement('div',null,
+            React.createElement('div',{className:'gk-flow-wrap'},
+                React.createElement('div',{className:'gk-section-sub',style:{margin:'0 0 8px'}},'Click any node in the flow board to select it. Each lane card below walks that code, its blast radius, its GitHub source at the exact commit, and its live surface.'),
+                gkRenderFlowSvg(arch)
+            ),
+            gkSelectedNode&&gkSelectedNode.plane&&gkRenderSelectedNodeStrip(gkSelectedNode),
+            planes.map(function(p){return gkRenderPlaneLane(p,arch);}),
+            gkRenderEdgeTable(arch)
+        );
+    }
+
+    function gkRenderMermaidView(arch){
+        var source=arch.mermaidSource||'';
+        return React.createElement('div',null,
+            React.createElement('div',{className:'gk-mermaid-host',ref:gkMermaidRef,'aria-label':'Live Mermaid flowchart'}),
+            React.createElement('div',{className:'gk-section'},
+                React.createElement('div',{className:'gk-section-title'},'Color-coded Mermaid source'),
+                React.createElement('div',{className:'gk-section-sub'},'The live flowchart above renders this exact source, generated from the current commit.'),
+                React.createElement('div',{className:'gk-pill-row',style:{marginBottom:8}},
+                    React.createElement('button',{type:'button',className:'gk-btn',onClick:function(){
+                        try{
+                            if(navigator.clipboard&&navigator.clipboard.writeText){
+                                navigator.clipboard.writeText(source);
+                                showNotification('Mermaid source copied.','success');
+                            }
+                        }catch(err){}
+                    }},'Copy Mermaid source')
+                ),
+                React.createElement('div',{className:'gk-source'},React.createElement('pre',null,source))
+            )
+        );
+    }
+
+    function gkRenderCapregSystemView(){
+        var maps=(gkManifest&&gkManifest.capregMaps)||{};
+        var map=maps.systemMap;
+        if(!map)return React.createElement('div',{className:'gk-empty'},'The capability system map (system-map.architecture.json) is not available from the manifest.');
+        var meta=map.meta||{};
+        var views=Array.isArray(meta.views)?meta.views:[];
+        var cards=Array.isArray(map.cards)?map.cards:[];
+        var components=Array.isArray(map.components)?map.components:[];
+        var boundaries=Array.isArray(map.boundaries)?map.boundaries:[];
+        var connections=Array.isArray(map.connections)?map.connections:[];
+        var matrixNode=null;
+        for(var ci=0;ci<components.length;ci++){if(components[ci].id==='matrix'){matrixNode=components[ci];break;}}
+        return React.createElement('div',null,
+            React.createElement('div',{className:'gk-hero'},
+                React.createElement('div',{className:'gk-title'},meta.title||'Capability Matrix System Map'),
+                React.createElement('div',{className:'gk-sub'},meta.subtitle||''),
+                React.createElement('div',{className:'gk-pill-row'},
+                    React.createElement('span',{className:'gk-pill'},components.length+' components'),
+                    React.createElement('span',{className:'gk-pill'},boundaries.length+' layer boundaries'),
+                    React.createElement('span',{className:'gk-pill'},connections.length+' connections'),
+                    matrixNode&&matrixNode.sublabel&&React.createElement('span',{className:'gk-pill'},'⚖️ '+matrixNode.sublabel)
+                )
+            ),
+            views.length>0&&React.createElement('div',{className:'gk-cards'},
+                views.map(function(v,vi){
+                    var focus=Array.isArray(v.focus)?v.focus:[];
+                    return React.createElement('div',{key:'gk-sysview-'+vi,className:'gk-card'},
+                        React.createElement('div',{className:'gk-card-title'},v.label||v.id),
+                        React.createElement('div',{className:'gk-node-sub'},v.note||''),
+                        focus.length>0&&React.createElement('div',{className:'gk-chip-grid'},
+                            focus.map(function(fid,fi){
+                                var comp=null;
+                                for(var cj=0;cj<components.length;cj++){if(components[cj].id===fid){comp=components[cj];break;}}
+                                return React.createElement('button',{key:'gk-sysfocus-'+vi+'-'+fi,type:'button',className:'gk-chip',onClick:function(){setGkMapDetail({id:fid,title:comp?comp.label:fid,subtitle:comp?(comp.sublabel||''):'',metrics:comp?comp.tag:'',content:comp});}},comp?comp.label:fid);
+                            })
+                        )
+                    );
+                })
+            ),
+            boundaries.length>0&&React.createElement('div',{className:'gk-section'},
+                React.createElement('div',{className:'gk-section-title'},'Layer boundaries'),
+                React.createElement('div',{className:'gk-section-sub'},'External planes and layer regions declared in the compiled system map.'),
+                React.createElement('div',{className:'gk-rows'},
+                    boundaries.map(function(b,bi){
+                        var wraps=Array.isArray(b.wraps)?b.wraps:[];
+                        return React.createElement('div',{key:'gk-boundary-'+bi,className:'gk-row'},
+                            React.createElement('div',{className:'gk-row-main'},
+                                React.createElement('div',{className:'gk-row-name'},b.label||b.kind||('region '+bi)),
+                                React.createElement('div',{className:'gk-row-sub'},wraps.length+' wrapped nodes')
+                            ),
+                            React.createElement('div',{className:'gk-row-links'},
+                                wraps.map(function(w,wi){return React.createElement('span',{key:'gk-boundary-'+bi+'-'+wi,className:'gk-chip'},w);})
+                            ),
+                            React.createElement('span',{className:'badge badge-info'},String(b.kind||'region'))
+                        );
+                    })
+                )
+            ),
+            React.createElement('div',{className:'gk-section'},
+                React.createElement('div',{className:'gk-section-title'},'Components ('+components.length+')'),
+                React.createElement('div',{className:'gk-section-sub'},'Click a component to inspect it, then jump to the six static theorems and the row registry that gate it.'),
+                gkRenderCapregNodeCards(map,'gk-sys')
+            ),
+            gkRenderCapregEdges(map,'gk-sys'),
+            gkRenderMapDetail(),
+            cards.length>0&&React.createElement('div',{className:'gk-cards'},
+                cards.map(function(c,ci2){
+                    return React.createElement('div',{key:'gk-syscard-'+ci2,className:'gk-card'},
+                        React.createElement('div',{className:'gk-card-title'},c.title||('card '+ci2)),
+                        React.createElement('ul',{className:'gk-card-list'},
+                            (Array.isArray(c.items)?c.items:[]).map(function(item,ii){return React.createElement('li',{key:'gk-syscard-'+ci2+'-'+ii},String(item));})
+                        )
+                    );
+                })
+            )
+        );
+    }
+
+    function gkRenderCapregFlowsView(){
+        var maps=(gkManifest&&gkManifest.capregMaps)||{};
+        return React.createElement('div',null,
+            gkRenderMapSection(maps.contextDataflow,'Context Dataflow','Where context is assembled, measured, and spilled.','context-dataflow.dataflow.json','dataflow'),
+            gkRenderMapSection(maps.verificationWorkflow,'Verification Workflow & Gates','Owner lanes, repo checks, and the gates that block a merge.','verification-workflow.workflow.json','verify'),
+            gkRenderMapSection(maps.inferenceSequence,'Inference Request Sequence','Live request path plus the blueprint overlay.','inference-request.sequence.json','inference'),
+            gkRenderMapSection(maps.ingestSequence,'Ingest & Index Sequence','How sources become indexed, walkable cards.','ingest-index.sequence.json','ingest'),
+            gkRenderMapSection(maps.stateMachines,'Lifecycle State Machines','States and transitions for the long-running loops.','state-machines.lifecycle.json','states'),
+            gkRenderMapDetail()
+        );
+    }
+
+    function renderGkArchitectureMapView(){
+        if(!gkManifest||!gkManifest.eventArchitecture){
+            return React.createElement('div',{className:'gk-view',style:GK_VIEW_STYLE},
+                React.createElement('div',{className:'gk-inner'},
+                    React.createElement('div',{className:'gk-empty'},'The GK architecture manifest is not loaded yet. Run the CodeFlow CLI inside the GK checkout so /__codeflow/gk-manifest can answer.')
+                )
+            );
+        }
+        var arch=gkManifest.eventArchitecture;
+        var git=gkManifest.git||{};
+        var tabs=[
+            {id:'event-arch',label:'⚡ Event & System Architecture Map (#1 Enhanced)'},
+            {id:'mermaid',label:'🧬 Live Mermaid Flowchart'},
+            {id:'capreg-system',label:'🛡️ Capability Matrix (208 Rows · 6 Theorems)'},
+            {id:'capreg-flows',label:'🔄 Context Dataflow & Verification Gates'}
+        ];
+        var body;
+        if(gkMapTab==='mermaid')body=gkRenderMermaidView(arch);
+        else if(gkMapTab==='capreg-system')body=gkRenderCapregSystemView();
+        else if(gkMapTab==='capreg-flows')body=gkRenderCapregFlowsView();
+        else body=gkRenderEventArchView(arch);
+        return React.createElement('div',{className:'gk-view',style:GK_VIEW_STYLE},
+            React.createElement('div',{className:'gk-inner'},
+                React.createElement('div',{className:'gk-hero'},
+                    React.createElement('div',{className:'gk-title'},arch.title),
+                    React.createElement('div',{className:'gk-sub'},'Guaranteed up to date: every node, version pill, file path and commit below is compiled from this checkout when the page asks for it, so the map cannot drift from the repository.'),
+                    React.createElement('div',{className:'gk-pill-row'},
+                        React.createElement('a',{className:'gk-pill',style:{borderColor:'var(--acc)',color:'var(--acc)'},href:'https://github.com/lincicomb/gk/commit/'+git.sha,target:'_blank',rel:'noopener noreferrer'},'main @ '+(git.shortSha||'')+' ↗'),
+                        React.createElement('span',{className:'gk-pill'},'🕒 '+(arch.committedAt||git.committedAt||'')),
+                        React.createElement('span',{className:'gk-pill'},'🎯 '+((gkManifest.targets||[]).length)+' walkable targets'),
+                        React.createElement('span',{className:'gk-pill'},'🔒 Tailnet Private · 0 External Calls')
+                    )
+                ),
+                React.createElement('div',{className:'gk-tabs'},
+                    tabs.map(function(t){
+                        return React.createElement('button',{key:'gk-tab-'+t.id,type:'button',className:'gk-tab'+(gkMapTab===t.id?' active':''),onClick:function(){setGkMapTab(t.id);}},t.label);
+                    })
+                ),
+                body
+            )
+        );
+    }
+
+    function gkRepoBase(url){
+        var m=String(url||'').match(/^(https?:\/\/github\.com\/[^\/]+\/[^\/]+)/);
+        return m?m[1]:null;
+    }
+    function gkCommitHref(url,sha){
+        var base=gkRepoBase(url);
+        return base&&sha?base+'/commit/'+sha:null;
+    }
+    function gkDepRow(item,keyPrefix,index){
+        var walkTarget=item.targetId||'dep-codeflow';
+        var linkLabel=item.file?'Local asset ↗':(item.kind==='tenant-product'?'Domain ↗':'Live ↗');
+        return React.createElement('div',{key:keyPrefix+'-'+index,className:'gk-row'},
+            React.createElement('div',{className:'gk-row-main'},
+                React.createElement('div',{className:'gk-row-name'},item.name||item.id),
+                React.createElement('div',{className:'gk-row-sub'},
+                    (item.file?item.file+' · ':'')+
+                    (item.checkoutPath?'checkout '+item.checkoutPath+' · ':'')+
+                    (item.notes||item.description||'')+
+                    (item.license?' · '+item.license:'')
+                )
+            ),
+            React.createElement('div',{className:'gk-row-links'},
+                item.version&&React.createElement('span',{className:'gk-pill'},String(item.version)),
+                item.sha&&React.createElement('span',{className:'gk-sha',title:'Pinned commit or SHA-256'},String(item.sha).slice(0,12)),
+                item.sourceUrl&&React.createElement('a',{className:'gk-btn',href:item.sourceUrl,target:'_blank',rel:'noopener noreferrer'},'Source @ SHA ↗'),
+                item.liveUrl&&React.createElement('a',{className:'gk-btn',href:item.liveUrl,target:'_blank',rel:'noopener noreferrer'},linkLabel)
+            ),
+            React.createElement('button',{type:'button',className:'gk-btn primary',onClick:function(){loadGkTargetBundle(walkTarget,null,'graph');}},'Walk Code & Graph in CodeFlow →')
+        );
+    }
+
+    function renderGkDependenciesView(){
+        if(!gkManifest){
+            return React.createElement('div',{className:'gk-view',style:GK_VIEW_STYLE},
+                React.createElement('div',{className:'gk-inner'},
+                    React.createElement('div',{className:'gk-empty'},'The GK dependency manifest is not loaded yet. Run the CodeFlow CLI inside the GK checkout so /__codeflow/gk-manifest can answer.')
+                )
+            );
+        }
+        var deps=gkManifest.dependencies||{};
+        var targets=Array.isArray(gkManifest.targets)?gkManifest.targets:[];
+        var pinned=Array.isArray(deps.pinnedRepos)?deps.pinnedRepos:[];
+        var runtime=Array.isArray(deps.runtimeDeps)?deps.runtimeDeps:[];
+        var vendored=Array.isArray(deps.vendoredDeps)?deps.vendoredDeps:[];
+        var privacy=gkManifest.privacy||{};
+        var git=gkManifest.git||{};
+        var needle=String(gkDepSearch||'').trim().toLowerCase();
+        function matches(text){
+            if(!needle)return true;
+            return String(text||'').toLowerCase().indexOf(needle)>=0;
+        }
+        var filters=[
+            {id:'all',label:'All'},
+            {id:'gk-core',label:'GK Core & Subsystems'},
+            {id:'tenant-product',label:'Pinned Tenant Products'},
+            {id:'toolchain',label:'Runtime Toolchain'},
+            {id:'browser-vendor',label:'Vendored Browser Assets'},
+            {id:'wasm-grammar',label:'Tree-Sitter WASM Grammars'}
+        ];
+        var visibleTargets=targets.filter(function(t){
+            if(gkDepFilter==='gk-core'&&!(t.category==='gk-core'||t.category==='gk-subsystem'))return false;
+            if(gkDepFilter==='tenant-product'&&t.category!=='tenant-product')return false;
+            if(gkDepFilter==='toolchain'||gkDepFilter==='browser-vendor'||gkDepFilter==='wasm-grammar')return false;
+            return matches(t.id+' '+t.title+' '+t.shortTitle+' '+t.version+' '+t.description);
+        });
+        var visiblePinned=gkDepFilter==='all'||gkDepFilter==='tenant-product'?pinned.filter(function(p){
+            return matches(p.id+' '+p.name+' '+p.version+' '+p.host+' '+p.domain+' '+p.checkoutPath);
+        }):[];
+        var visibleRuntime=gkDepFilter==='all'||gkDepFilter==='toolchain'?runtime.filter(function(d){
+            return matches(d.name+' '+d.version+' '+d.notes+' '+d.license);
+        }):[];
+        var visibleVendored=gkDepFilter==='browser-vendor'||gkDepFilter==='wasm-grammar'
+            ?vendored.filter(function(d){return d.kind===gkDepFilter&&matches(d.name+' '+d.version+' '+d.file+' '+d.license);})
+            :(gkDepFilter==='all'?vendored.filter(function(d){return matches(d.name+' '+d.version+' '+d.file+' '+d.license);}):[]);
+        return React.createElement('div',{className:'gk-view',style:GK_VIEW_STYLE},
+            React.createElement('div',{className:'gk-inner'},
+                React.createElement('div',{className:'gk-hero'},
+                    React.createElement('div',{className:'gk-title'},'GK Dependencies & Versions'),
+                    React.createElement('div',{className:'gk-sub'},'Every walkable GK subsystem, pinned tenant product, runtime tool, and vendored browser/WASM asset on this host, read live from the repository registry. Nothing is downloaded at page load: all assets are local and SHA-256 verified.'),
+                    React.createElement('div',{className:'gk-pill-row'},
+                        React.createElement('a',{className:'gk-pill',style:{borderColor:'var(--acc)',color:'var(--acc)'},href:'https://github.com/lincicomb/gk/commit/'+git.sha,target:'_blank',rel:'noopener noreferrer'},'main @ '+(git.shortSha||'')+' ↗'),
+                        React.createElement('span',{className:'gk-pill'},'🕒 '+(gkManifest.generatedAt||'')),
+                        React.createElement('span',{className:'gk-pill'},'🔒 Tailnet Private · 0 External Calls')
+                    )
+                ),
+                React.createElement('div',{className:'gk-kpi-grid'},
+                    React.createElement('div',{className:'gk-kpi'},
+                        React.createElement('div',{className:'gk-kpi-value'},String(targets.length)),
+                        React.createElement('div',{className:'gk-kpi-label'},'Walkable GK & Dependency Targets'),
+                        React.createElement('div',{className:'gk-kpi-note'},'Each one opens as code cards plus a dependency graph from a single request.')
+                    ),
+                    React.createElement('div',{className:'gk-kpi'},
+                        React.createElement('div',{className:'gk-kpi-value'},String(pinned.length)),
+                        React.createElement('div',{className:'gk-kpi-label'},'Pinned Tenant Products (Live SHA)'),
+                        React.createElement('div',{className:'gk-kpi-note'},'Submodule gitlinks pinned to an exact revision, never a floating branch.')
+                    ),
+                    React.createElement('div',{className:'gk-kpi'},
+                        React.createElement('div',{className:'gk-kpi-value'},String(vendored.length)),
+                        React.createElement('div',{className:'gk-kpi-label'},'Vendored Offline Browser & WASM Assets'),
+                        React.createElement('div',{className:'gk-kpi-note'},'SHA-256 verified against vendor/manifest.json on every test run.')
+                    ),
+                    React.createElement('div',{className:'gk-kpi'},
+                        React.createElement('div',{className:'gk-kpi-value',style:{fontSize:17}},'🔒 Tailnet Private'),
+                        React.createElement('div',{className:'gk-kpi-label'},'Privacy & Telemetry Posture'),
+                        React.createElement('div',{className:'gk-kpi-note'},'0 External Calls · '+String(privacy.robots||'noindex, nofollow, noarchive')+' · '+String(privacy.bindAddress||'tailnet gate'))
+                    )
+                ),
+                React.createElement('div',{className:'gk-filters'},
+                    filters.map(function(f){
+                        return React.createElement('button',{key:'gk-filter-'+f.id,type:'button',className:'gk-filter-btn'+(gkDepFilter===f.id?' active':''),onClick:function(){setGkDepFilter(f.id);}},f.label);
+                    }),
+                    React.createElement('input',{className:'gk-search','aria-label':'Search dependencies',placeholder:'Search targets, repositories, versions, licenses...',value:gkDepSearch,onChange:function(e){setGkDepSearch(e.target.value);}})
+                ),
+                React.createElement('div',{className:'gk-section'},
+                    React.createElement('div',{className:'gk-section-title'},'1 · Walkable GK Subsystems & Pinned Tenant Repositories'),
+                    React.createElement('div',{className:'gk-section-sub'},'Click a row to open it in CodeFlow. Version pills and commit pills link to the exact commit on GitHub.'),
+                    visibleTargets.length>0?React.createElement('div',{className:'gk-rows'},
+                        visibleTargets.map(function(t,ti){
+                            var commitHref=gkCommitHref(t.repoUrl,t.commitSha);
+                            return React.createElement('div',{key:'gk-target-row-'+t.id,className:'gk-row'},
+                                React.createElement('div',{className:'gk-row-main'},
+                                    React.createElement('div',{className:'gk-row-name'},t.title),
+                                    React.createElement('div',{className:'gk-row-sub'},t.description||'')
+                                ),
+                                React.createElement('div',{className:'gk-row-links'},
+                                    React.createElement('span',{className:'gk-pill'},String(t.version||t.category||'')),
+                                    t.commitSha&&React.createElement('a',{className:'gk-sha',href:commitHref||undefined,target:commitHref?'_blank':undefined,rel:'noopener noreferrer',title:'Pinned commit SHA'},String(t.commitSha).slice(0,8)),
+                                    t.repoUrl&&React.createElement('a',{className:'gk-btn',href:commitHref||t.repoUrl,target:'_blank',rel:'noopener noreferrer'},'GitHub @ SHA ↗'),
+                                    t.liveUrl&&React.createElement('a',{className:'gk-btn',href:t.liveUrl,target:'_blank',rel:'noopener noreferrer'},'Live ↗')
+                                ),
+                                React.createElement('button',{type:'button',className:'gk-btn primary',onClick:function(){loadGkTargetBundle(t.id,null,'graph');}},'Walk Code & Graph in CodeFlow →')
+                            );
+                        })
+                    ):React.createElement('div',{className:'gk-empty'},'No walkable targets match this filter or search.'),
+                    visiblePinned.length>0&&React.createElement('div',{style:{marginTop:14}},
+                        React.createElement('div',{className:'gk-section-title',style:{fontSize:12}},'Pinned tenant product gitlinks'),
+                        React.createElement('div',{className:'gk-section-sub'},'Each product is checked out at the recorded revision; the SHA pill is the exact pinned commit.'),
+                        React.createElement('div',{className:'gk-rows'},
+                            visiblePinned.map(function(p,pi){
+                                return React.createElement('div',{key:'gk-pinned-'+p.id+'-'+pi,className:'gk-row'},
+                                    React.createElement('div',{className:'gk-row-main'},
+                                        React.createElement('div',{className:'gk-row-name'},p.name+' · tenant '+p.id),
+                                        React.createElement('div',{className:'gk-row-sub'},'lifecycle '+String(p.lifecycle||'')+' · host '+String(p.host||'')+(p.domain?' · https://'+p.domain+'/':'')+' · checkout '+String(p.checkoutPath||''))
+                                    ),
+                                    React.createElement('div',{className:'gk-row-links'},
+                                        React.createElement('a',{className:'gk-sha',href:p.sourceUrl||undefined,target:'_blank',rel:'noopener noreferrer',title:'Pinned commit SHA'},String(p.version||'')),
+                                        p.domain&&React.createElement('a',{className:'gk-btn',href:'https://'+p.domain+'/',target:'_blank',rel:'noopener noreferrer'},p.domain+' ↗'),
+                                        p.sourceUrl&&React.createElement('a',{className:'gk-btn',href:p.sourceUrl,target:'_blank',rel:'noopener noreferrer'},'GitHub tree @ SHA ↗')
+                                    ),
+                                    React.createElement('button',{type:'button',className:'gk-btn primary',onClick:function(){loadGkTargetBundle(p.targetId||('tenant-'+p.id),null,'graph');}},'Walk Code & Graph in CodeFlow →')
+                                );
+                            })
+                        )
+                    )
+                ),
+                React.createElement('div',{className:'gk-section'},
+                    React.createElement('div',{className:'gk-section-title'},'2 · Runtime Toolchain & Vendored Browser / Tree-Sitter WASM Dependencies'),
+                    React.createElement('div',{className:'gk-section-sub'},'Runtime toolchain: '+runtime.length+' pinned entries. Vendored assets: '+vendored.length+' files, each hashed in vendor/manifest.json.'),
+                    visibleRuntime.length>0&&React.createElement('div',{className:'gk-rows',style:{marginBottom:14}},
+                        visibleRuntime.map(function(d,di){return gkDepRow(d,'gk-runtime',di);})
+                    ),
+                    visibleVendored.length>0?React.createElement('div',{className:'gk-rows'},
+                        visibleVendored.map(function(d,di){return gkDepRow(d,'gk-vendored',di);})
+                    ):React.createElement('div',{className:'gk-empty'},'No vendored assets match this filter or search.')
+                )
+            )
+        );
+    }
+
     var health=useMemo(function(){return calcHealth(data);},[data]);
     return React.createElement('div',{className:'app',style:{'--topbar-height':topbarHeight+'px'}},
         React.createElement('input',{ref:zipInputRef,type:'file',accept:'.zip,application/zip,application/x-zip-compressed',style:{display:'none'},onChange:handleZipSelected}),
@@ -17394,6 +18323,13 @@ function App(){
             React.createElement('div',{className:'logo',onClick:function(){setShowPrivacy(true);}},
                 React.createElement('div',{className:'logo-mark'},React.createElement(Icon,{name:'logo',size:'l'})),
                 React.createElement('span',{className:'logo-text'},'CODEFLOW')
+            ),
+            gkManifest&&React.createElement('div',{className:'gk-topbar-group'},
+                React.createElement('select',{className:'gk-target-select','aria-label':'GK Walkthrough Target',value:gkTarget,title:'Choose which GK subsystem, dependency, or pinned tenant product to walk',onChange:function(e){loadGkTargetBundle(e.target.value,null,(graphConfig.vizType==='gk-map'||graphConfig.vizType==='gk-deps')?'graph':graphConfig.vizType);}},
+                    gkRenderTargetOptions()
+                ),
+                gkManifest.git&&React.createElement('a',{className:'gk-pill',style:{borderColor:'var(--acc)',color:'var(--acc)'},href:'https://github.com/lincicomb/gk/commit/'+gkManifest.git.sha,target:'_blank',rel:'noopener noreferrer',title:'This page is built from this exact commit'},'gk @ '+(gkManifest.git.shortSha||'')),
+                React.createElement('span',{className:'gk-pill',title:'Served from the private tailnet with no third-party loads'},'🔒 Tailnet Private · 0 External Calls')
             ),
             React.createElement('div',{className:'repo-input-group'},
                 React.createElement('input',{className:'repo-input','aria-label':'Repository URL',placeholder:'owner/repo or GitHub URL',value:repoUrl,onChange:function(e){setRepoUrl(e.target.value);},onKeyDown:function(e){if(e.key==='Enter'&&!loading)analyze();}}),
@@ -17489,6 +18425,11 @@ function App(){
             ),
             React.createElement('div',{className:'canvas-area'},
                 loading?React.createElement('div',{className:'loading'},React.createElement('div',{className:'spinner'}),React.createElement('div',{className:'loading-text'},'Analyzing...'),React.createElement('div',{className:'loading-progress'},progress)):
+                gkManifest&&!data&&(graphConfig.vizType==='gk-map'||graphConfig.vizType==='gk-deps')?React.createElement(React.Fragment,null,
+                    gkRenderQuickBar(),
+                    graphConfig.vizType==='gk-map'&&renderGkArchitectureMapView(),
+                    graphConfig.vizType==='gk-deps'&&renderGkDependenciesView()
+                ):
                 !data?React.createElement('div',{className:'empty-state'},
                     React.createElement(Icon,{name:'logo',size:'xxl',className:'empty-icon'}),
                     React.createElement('div',{className:'empty-title'},'CodeFlow'),
@@ -17503,6 +18444,8 @@ function App(){
                 React.createElement(React.Fragment,null,
                     React.createElement('div',{className:'viz-selector'},
                         React.createElement('select',{className:'viz-select','aria-label':'Visualization type',value:graphConfig.vizType,onChange:function(e){var v=e.target.value;setGraphConfig(Object.assign({},graphConfig,{vizType:v}));if(v==='architecture'){setSelected(null);setBlastRadius(null);}}},
+                            React.createElement('option',{value:'gk-map'},'🗺️ GK Architecture Map'),
+                            React.createElement('option',{value:'gk-deps'},'📦 GK Dependencies & Versions'),
                             React.createElement('option',{value:'graph'},'Graph'),
                             React.createElement('option',{value:'code'},'Code'),
                             React.createElement('option',{value:'graph3d'},'3D Graph'),
@@ -17515,6 +18458,9 @@ function App(){
                             React.createElement('option',{value:'architecture'},'Block Diagram')
                         )
                     ),
+                    gkRenderQuickBar(),
+                    graphConfig.vizType==='gk-map'&&renderGkArchitectureMapView(),
+                    graphConfig.vizType==='gk-deps'&&renderGkDependenciesView(),
                     graphConfig.vizType==='graph'&&React.createElement('svg',{ref:svgRef}),
                     graphConfig.vizType==='code'&&renderCodeView(),
                     graphConfig.vizType==='graph3d'&&React.createElement('div',{ref:graph3dRef,className:'graph3d-container',style:{width:'100%',height:'100%'}}),
@@ -17587,7 +18533,7 @@ function App(){
                         onKeyDown:handleMinimapKeyDown,
                         onWheel:function(e){e.preventDefault();e.stopPropagation();}
                     },React.createElement('canvas',{ref:minimapCanvasRef})),
-                    graphConfig.vizType!=='architecture'&&React.createElement('div',{className:'canvas-info'},
+                    graphConfig.vizType!=='architecture'&&graphConfig.vizType!=='gk-map'&&graphConfig.vizType!=='gk-deps'&&React.createElement('div',{className:'canvas-info'},
                         React.createElement('div',{className:'info-chip'},React.createElement('strong',null,folderFilter?data.files.filter(function(f){return f.folder===folderFilter||f.folder.startsWith(folderFilter+'/');}).length:data.files.length),' files'),
                         React.createElement('div',{className:'info-chip'},React.createElement('strong',null,data.connections.length),' links'),
                         data.excludePatterns&&data.excludePatterns.length>0&&React.createElement('div',{className:'info-chip'},
@@ -17606,7 +18552,7 @@ function App(){
                     ),
                     renderColorByControl(),
                     renderCodeViewPrefs(),
-                    graphConfig.vizType!=='architecture'&&graphConfig.vizType!=='code'&&React.createElement('div',{className:'legend'+(legendCollapsed?' collapsed':'')+((graphConfig.vizType==='graph'||graphConfig.vizType==='graph3d')?' with-color-by':'')},
+                    graphConfig.vizType!=='architecture'&&graphConfig.vizType!=='code'&&graphConfig.vizType!=='gk-map'&&graphConfig.vizType!=='gk-deps'&&React.createElement('div',{className:'legend'+(legendCollapsed?' collapsed':'')+((graphConfig.vizType==='graph'||graphConfig.vizType==='graph3d')?' with-color-by':'')},
                         React.createElement('div',{className:'legend-header',onClick:function(){setLegendCollapsed(!legendCollapsed);}},
                             React.createElement('div',{className:'legend-title',style:{margin:0}},colorMode==='folder'?'Folders':colorMode==='layer'?'Layers':'Churn'),
                             React.createElement('span',{className:'legend-toggle'},'▼')
