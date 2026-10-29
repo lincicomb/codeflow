@@ -176,8 +176,10 @@ test('GK manifest and bundle routes support ETag and 304 Not Modified', async (t
   assert.equal(b2.status, 304);
 });
 
-test('multi-line JSDoc block comments and brand icons render without keyword/string corruption', async () => {
+test('vendored highlight.min.js + byLine() and Tailnet GitHub API proxy work and reject disallowed paths', async (t) => {
   const html = await readFile(join(uiRoot, 'index.html'), 'utf8');
+  assert.match(html, /<script src="\.\/vendor\/highlight\/highlight\.min\.js"><\/script>/);
+  assert.match(html, /hljsObj\.highlight\(String\(code\),\{language:hljsLang,ignoreIllegals:true\}\)\.value/);
   assert.match(html, /function getFileTypeMeta\(filenameOrPath\)/);
   assert.match(html, /function renderFileTypeIcon\(filenameOrPath,size,className\)/);
   assert.match(html, /case 'lang-ts':/);
@@ -186,4 +188,15 @@ test('multi-line JSDoc block comments and brand icons render without keyword/str
   assert.match(html, /case 'lang-go':/);
   assert.match(html, /function byLine\(markup\)/);
   assert.doesNotMatch(html, /\.canvas-area:has\(\.gk-quickbar\)\s*\.viz-selector/);
+
+  const { base } = await startGkServer(t);
+  const statusRes = await fetch(base + '/__codeflow/status');
+  const statusBody = await statusRes.json();
+  assert.equal(typeof statusBody.githubAuth?.available, 'boolean');
+
+  const badMethod = await fetch(base + '/__codeflow/github-api/rate_limit', { method: 'POST' });
+  assert.equal(badMethod.status, 405);
+
+  const forbiddenPath = await fetch(base + '/__codeflow/github-api/user/emails');
+  assert.equal(forbiddenPath.status, 403);
 });

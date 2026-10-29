@@ -11,9 +11,15 @@ import { fileURLToPath } from 'node:url';
 const SELF_CODEFLOW_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
 function resolveCodeflowPath(gkRoot, relInsideCodeflow) {
+  const inSelf = path.join(SELF_CODEFLOW_ROOT, relInsideCodeflow);
   const inGk = path.join(gkRoot, 'system', 'codeflow', relInsideCodeflow);
+  if (existsSync(inSelf) && existsSync(inGk)) {
+    try {
+      if (statSync(inSelf).mtimeMs >= statSync(inGk).mtimeMs) return inSelf;
+    } catch {}
+  }
   if (existsSync(inGk)) return inGk;
-  return path.join(SELF_CODEFLOW_ROOT, relInsideCodeflow);
+  return inSelf;
 }
 const TEXT_EXT = new Set([
   'js', 'jsx', 'ts', 'tsx', 'mjs', 'cjs', 'py', 'java', 'go', 'rb', 'php',

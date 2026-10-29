@@ -30,6 +30,7 @@
     <script src="./vendor/jspdf/jspdf.umd.min.js"></script>
     <script src="./vendor/mermaid/mermaid.min.js"></script>
     <script src="./vendor/3d-force-graph/3d-force-graph.min.js" defer></script>
+    <script src="./vendor/highlight/highlight.min.js"></script>
     <style>
 @font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400;font-display:swap;src:url('./vendor/jetbrains-mono/jetbrains-mono-latin-400-normal.woff2') format('woff2')}
 @font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:500;font-display:swap;src:url('./vendor/jetbrains-mono/jetbrains-mono-latin-500-normal.woff2') format('woff2')}
@@ -472,40 +473,40 @@ body{font-family:'JetBrains Mono',monospace;background:var(--bg0);color:var(--t0
 .file-preview-error-icon{font-size:48px;opacity:0.5}
 .view-file-btn{font-size:9px;padding:4px 8px;background:var(--bg2);border:1px solid var(--border);color:var(--t2);border-radius:4px;cursor:pointer;display:inline-flex;align-items:center;gap:4px;transition:all 0.15s}
 .view-file-btn:hover{background:var(--accbg);border-color:var(--acc);color:var(--acc)}
-.syn-kw{color:#c678dd;font-weight:600}
-.syn-str{color:#98c379}
-.syn-num{color:#d19a66}
-.syn-com{color:#7a8296;font-style:italic}
-.syn-doctag{color:#c678dd;font-style:normal;font-weight:600}
+.syn-kw,.hljs-keyword,.hljs-selector-tag{color:#c678dd;font-weight:600}
+.syn-str,.hljs-string,.hljs-addition{color:#98c379}
+.syn-num,.hljs-number,.hljs-literal{color:#d19a66}
+.syn-com,.hljs-comment,.hljs-quote{color:#7a8296;font-style:italic}
+.syn-doctag,.hljs-doctag{color:#c678dd;font-style:normal;font-weight:600}
 .syn-doccode{color:#56b6c2;font-style:normal}
-.syn-fn{color:#61afef}
-.syn-type{color:#e5c07b}
-.syn-const{color:#ff9f43;font-weight:600}
-.syn-prop{color:#7ec8e3}
-.syn-op{color:#56b6c2}
-.syn-var{color:#e06c75}
-.syn-tag{color:#e06c75}
-.syn-attr{color:#d19a66}
-.syn-regex{color:#f472b6}
-.syn-meta{color:#a78bfa}
-.syn-punct{color:#9ca3af}
-.light .syn-kw{color:#a626a4;font-weight:600}
-.light .syn-str{color:#50a14f}
-.light .syn-num{color:#986801}
-.light .syn-com{color:#6b7280;font-style:italic}
-.light .syn-doctag{color:#a626a4;font-style:normal;font-weight:600}
+.syn-fn,.hljs-title.function_,.hljs-title,.hljs-section{color:#61afef}
+.syn-type,.hljs-type,.hljs-title.class_,.hljs-built_in{color:#e5c07b}
+.syn-const,.hljs-variable.constant_{color:#ff9f43;font-weight:600}
+.syn-prop,.hljs-property{color:#7ec8e3}
+.syn-op,.hljs-operator,.hljs-subst{color:#56b6c2}
+.syn-var,.hljs-variable,.hljs-params,.hljs-Deletion{color:#e06c75}
+.syn-tag,.hljs-name{color:#e06c75}
+.syn-attr,.hljs-attr,.hljs-attribute{color:#d19a66}
+.syn-regex,.hljs-regexp{color:#f472b6}
+.syn-meta,.hljs-meta{color:#a78bfa}
+.syn-punct,.hljs-punctuation{color:#9ca3af}
+.light .syn-kw,.light .hljs-keyword,.light .hljs-selector-tag{color:#a626a4;font-weight:600}
+.light .syn-str,.light .hljs-string,.light .hljs-addition{color:#50a14f}
+.light .syn-num,.light .hljs-number,.light .hljs-literal{color:#986801}
+.light .syn-com,.light .hljs-comment,.light .hljs-quote{color:#6b7280;font-style:italic}
+.light .syn-doctag,.light .hljs-doctag{color:#a626a4;font-style:normal;font-weight:600}
 .light .syn-doccode{color:#0184bc;font-style:normal}
-.light .syn-fn{color:#4078f2}
-.light .syn-type{color:#c18401}
-.light .syn-const{color:#b45309;font-weight:600}
-.light .syn-prop{color:#0369a1}
-.light .syn-op{color:#0184bc}
-.light .syn-var{color:#e45649}
-.light .syn-tag{color:#e45649}
-.light .syn-attr{color:#986801}
-.light .syn-regex{color:#be185d}
-.light .syn-meta{color:#6d28d9}
-.light .syn-punct{color:#4b5563}
+.light .syn-fn,.light .hljs-title.function_,.light .hljs-title,.light .hljs-section{color:#4078f2}
+.light .syn-type,.light .hljs-type,.light .hljs-title.class_,.light .hljs-built_in{color:#c18401}
+.light .syn-const,.light .hljs-variable.constant_{color:#b45309;font-weight:600}
+.light .syn-prop,.light .hljs-property{color:#0369a1}
+.light .syn-op,.light .hljs-operator,.light .hljs-subst{color:#0184bc}
+.light .syn-var,.light .hljs-variable,.light .hljs-params{color:#e45649}
+.light .syn-tag,.light .hljs-name{color:#e45649}
+.light .syn-attr,.light .hljs-attr,.light .hljs-attribute{color:#986801}
+.light .syn-regex,.light .hljs-regexp{color:#be185d}
+.light .syn-meta,.light .hljs-meta{color:#6d28d9}
+.light .syn-punct,.light .hljs-punctuation{color:#4b5563}
 .file-lang-icon{display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;line-height:0}
 .file-lang-badge{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:600;padding:3px 9px;border-radius:999px;border:1px solid var(--border);background:var(--bg0);color:var(--t1);white-space:nowrap}
 .code-card-title-row{display:flex;align-items:center;gap:6px;min-width:0}
@@ -3651,13 +3652,13 @@ function decodeBase64Utf8(content){
 
 var GitHub={
     token:'',
+    useTailnetProxy:false,
     appId:null,
     privateKey:null,
     installationToken:null,
     installationTokenExpiry:null,
     rateLimit:{remaining:60,limit:60,reset:0},
     requestTimeoutMs:15000,
-    
     // Generate JWT for GitHub App authentication
     generateJWT:function(){
         if(!this.appId||!this.privateKey)return null;
@@ -3729,10 +3730,14 @@ var GitHub={
         var self=this;
         var h=Object.assign({'Accept':'application/vnd.github.v3+json'},options&&options.headers?options.headers:{});
         if(this.token&&!h.Authorization)h.Authorization='Bearer '+this.token;
+        var targetUrl=url;
+        if(this.useTailnetProxy&&!this.token&&!h.Authorization&&typeof url==='string'&&url.indexOf('https://api.github.com/')===0){
+            targetUrl='/__codeflow/github-api/'+url.slice('https://api.github.com/'.length);
+        }
         var controller=new AbortController();
         var timeoutId=setTimeout(function(){controller.abort();},this.requestTimeoutMs);
         var requestOptions=Object.assign({},options||{},{headers:h,signal:controller.signal});
-        return fetch(url,requestOptions).then(function(r){
+        return fetch(targetUrl,requestOptions).then(function(r){
             // Track rate limit from headers
             var rem=r.headers.get('x-ratelimit-remaining');
             var lim=r.headers.get('x-ratelimit-limit');
@@ -12045,7 +12050,7 @@ function annotateHtmlWithSymbols(html,symbols,activeSymbol){
         var lastLt=before.lastIndexOf('<');
         var lastGt=before.lastIndexOf('>');
         if(lastLt>lastGt)continue;
-        if(before.indexOf('syn-')>=0){
+        if(before.indexOf('syn-')>=0||before.indexOf('hljs-')>=0){
             var tagScanRe=/<span class="([^"]+)">|<\/span>/g,tagScanMatch,openSpans=[];
             while((tagScanMatch=tagScanRe.exec(before))){
                 if(tagScanMatch[1])openSpans.push(tagScanMatch[1]);
@@ -12054,7 +12059,7 @@ function annotateHtmlWithSymbols(html,symbols,activeSymbol){
             var insideCommentOrStr=false;
             for(var si=0;si<openSpans.length;si++){
                 var sc=openSpans[si];
-                if(sc==='syn-com'||sc==='syn-doctag'||sc==='syn-doccode'||sc==='syn-str'||sc==='syn-regex'){insideCommentOrStr=true;break;}
+                if(sc==='syn-com'||sc==='syn-doctag'||sc==='syn-doccode'||sc==='syn-str'||sc==='syn-regex'||sc.indexOf('hljs-comment')>=0||sc.indexOf('hljs-string')>=0||sc.indexOf('hljs-doctag')>=0||sc.indexOf('hljs-regexp')>=0){insideCommentOrStr=true;break;}
             }
             if(insideCommentOrStr)continue;
         }
@@ -12827,7 +12832,8 @@ function HealthRing(props){
 // ---------------------------------------------------------------------------
 
 function App(){
-    var _a=useState('dark'),theme=_a[0],setTheme=_a[1];
+    var _a=useState(function(){try{var saved=window.localStorage&&window.localStorage.getItem('codeflow-theme-explicit');if(saved==='light'||saved==='dark')return saved;}catch(e){}return 'dark';}),theme=_a[0],setThemeState=_a[1];
+    function setTheme(next){setThemeState(function(prev){var resolved=typeof next==='function'?next(prev):next;var finalTheme=resolved==='light'?'light':'dark';try{if(window.localStorage)window.localStorage.setItem('codeflow-theme-explicit',finalTheme);}catch(e){}return finalTheme;});}
     var _b=useState(''),repoUrl=_b[0],setRepoUrl=_b[1];
     var _c=useState(''),token=_c[0],setToken=_c[1];
     var _authMethod=useState('none'),authMethod=_authMethod[0],setAuthMethod=_authMethod[1];// 'none', 'pat', 'github_app'
@@ -13577,6 +13583,10 @@ function App(){
         fetch('/__codeflow/status').then(function(res){return res.ok?res.json():null;}).then(function(status){
             if(!status||!status.ok)return;
             setCliStatus(status);
+            if(status.githubAuth&&status.githubAuth.available){
+                GitHub.useTailnetProxy=true;
+                setAuthMethod(function(prev){return prev==='none'?'tailnet':prev;});
+            }
             if(status.gkMode&&(!window.location.search||window.location.search.indexOf('repo=')<0)){
                 loadGkTargetBundle(wantedTarget||status.defaultTarget||'gk-system',wantedFile||null,wantedViz||(wantedFile?'code':'gk-map'));
             }else if(!window.location.search||window.location.search.indexOf('repo=')<0){
@@ -13819,6 +13829,7 @@ function App(){
         GitHub.appId=null;
         GitHub.privateKey=null;
         GitHub.installationToken=null;
+        GitHub.useTailnetProxy=(authMethod==='tailnet');
         
         if(authMethod==='pat'){
             GitHub.token=token;
@@ -13826,7 +13837,6 @@ function App(){
             GitHub.appId=appId;
             GitHub.privateKey=privateKey;
         }
-        
         setRepoInfo(p);
 
         // Authentication promise - resolve immediately for no auth/PAT, authenticate for GitHub App
@@ -13847,7 +13857,7 @@ function App(){
             setProgress('Checking rate limit...');
             return GitHub.getRateLimit();
         }).then(function(rl){
-            var hasAuth=!!GitHub.token||authMethod==='github_app';
+            var hasAuth=!!GitHub.token||authMethod==='github_app'||authMethod==='tailnet';
             var estimatedRequests=50;// Conservative estimate for a small-medium repo
 
             // Warn if rate limit is very low and no authentication
@@ -14780,6 +14790,19 @@ function App(){
                 out.push(prefix+line+suffix);
             }
             return out;
+        }
+        var HLJS_LANG_MAP={js:'javascript',jsx:'javascript',mjs:'javascript',cjs:'javascript',ts:'typescript',tsx:'typescript',mts:'typescript',cts:'typescript',py:'python',pyw:'python',pyi:'python',rs:'rust',go:'go',java:'java',kt:'kotlin',kts:'kotlin',scala:'scala',sc:'scala',cs:'csharp',c:'c',h:'c',cpp:'cpp',hpp:'cpp',cc:'cpp',cxx:'cpp',hh:'cpp',swift:'swift',rb:'ruby',rake:'ruby',php:'php',html:'xml',htm:'xml',vue:'xml',svelte:'xml',xml:'xml',svg:'xml',css:'css',scss:'scss',less:'less',json:'json',jsonc:'json',yaml:'yaml',yml:'yaml',toml:'ini',ini:'ini',service:'ini',timer:'ini',sh:'bash',bash:'bash',zsh:'bash',sql:'sql',md:'markdown',mdx:'markdown',markdown:'markdown',dockerfile:'dockerfile',lua:'lua',r:'r',pl:'perl',pm:'perl',pas:'delphi',pp:'delphi',dpr:'delphi'};
+        var hljsLang=HLJS_LANG_MAP[ext]||(baseName==='Dockerfile'?'dockerfile':null);
+        var hljsObj=(typeof hljs!=='undefined'&&hljs&&typeof hljs.highlight==='function')?hljs:((typeof window!=='undefined'&&window.hljs&&typeof window.hljs.highlight==='function')?window.hljs:null);
+        if(hljsObj&&hljsLang&&(!hljsObj.getLanguage||hljsObj.getLanguage(hljsLang))){
+            try{
+                var hlMarkup=hljsObj.highlight(String(code),{language:hljsLang,ignoreIllegals:true}).value;
+                hlMarkup=hlMarkup.replace(/<span class="hljs-comment">([\s\S]*?)<\/span>/g,function(_,body){
+                    var enhanced=body.replace(/(@[a-zA-Z][\w-]*)/g,'<span class="hljs-doctag">$1</span>').replace(/(`[^`\n]+`)/g,'<span class="syn-doccode">$1</span>');
+                    return '<span class="hljs-comment">'+enhanced+'</span>';
+                });
+                return byLine(hlMarkup);
+            }catch(e){}
         }
         return byLine(scanCode(code));
     }
@@ -18579,7 +18602,8 @@ function App(){
                                     React.createElement('div',{className:'gk-row-links'},
                                         React.createElement('a',{className:'gk-sha',href:p.sourceUrl||undefined,target:'_blank',rel:'noopener noreferrer',title:'Pinned commit SHA'},String(p.version||'')),
                                         p.domain&&React.createElement('a',{className:'gk-btn',href:'https://'+p.domain+'/',target:'_blank',rel:'noopener noreferrer'},p.domain+' ↗'),
-                                        p.sourceUrl&&React.createElement('a',{className:'gk-btn',href:p.sourceUrl,target:'_blank',rel:'noopener noreferrer'},'GitHub tree @ SHA ↗')
+                                        p.sourceUrl&&React.createElement('a',{className:'gk-btn',href:p.sourceUrl,target:'_blank',rel:'noopener noreferrer'},'GitHub tree @ SHA ↗'),
+                                        p.repository&&React.createElement('button',{type:'button',className:'gk-btn',onClick:function(){setRepoUrl(p.repository);analyze(p.repository);}},'Analyze Full GitHub Repo →')
                                     ),
                                     React.createElement('button',{type:'button',className:'gk-btn primary',onClick:function(){loadGkTargetBundle(p.targetId||('tenant-'+p.id),null,'graph');}},'Walk Code & Graph in CodeFlow →')
                                 );
@@ -18627,7 +18651,8 @@ function App(){
                         )
                     ),
                     React.createElement('div',{className:'mobile-secondary-row'},
-                        React.createElement('select',{className:'auth-select','aria-label':'Authentication Method',value:authMethod,onChange:function(e){setAuthMethod(e.target.value);}},
+                        React.createElement('select',{className:'auth-select','aria-label':'Authentication Method',value:authMethod,onChange:function(e){var v=e.target.value;setAuthMethod(v);GitHub.useTailnetProxy=(v==='tailnet');}},
+                            cliStatus&&cliStatus.githubAuth&&cliStatus.githubAuth.available&&React.createElement('option',{value:'tailnet'},'🔒 Tailnet Auth'),
                             React.createElement('option',{value:'none'},'No Auth'),
                             React.createElement('option',{value:'pat'},'Token'),
                             React.createElement('option',{value:'github_app'},'App')
@@ -18681,7 +18706,8 @@ function App(){
             ),
             React.createElement('div',{className:'repo-input-group'},
                 React.createElement('input',{className:'repo-input','aria-label':'Repository URL',placeholder:'owner/repo or GitHub URL',value:repoUrl,onChange:function(e){setRepoUrl(e.target.value);},onKeyDown:function(e){if(e.key==='Enter'&&!loading)analyze();}}),
-                React.createElement('select',{className:'auth-select','aria-label':'Authentication Method',value:authMethod,onChange:function(e){setAuthMethod(e.target.value);}},
+                React.createElement('select',{className:'auth-select','aria-label':'Authentication Method',value:authMethod,onChange:function(e){var v=e.target.value;setAuthMethod(v);GitHub.useTailnetProxy=(v==='tailnet');}},
+                    cliStatus&&cliStatus.githubAuth&&cliStatus.githubAuth.available&&React.createElement('option',{value:'tailnet'},'🔒 Tailnet Auth (Auto)'),
                     React.createElement('option',{value:'none'},'No Auth'),
                     React.createElement('option',{value:'pat'},'Token (PAT)'),
                     React.createElement('option',{value:'github_app'},'GitHub App')
@@ -19721,7 +19747,6 @@ function App(){
                             var fpMeta=getFileTypeMeta(filePreview.path||filePreview.filename);
                             var lineCount=filePreview.content?filePreview.content.split('\n').length:0;
                             return React.createElement('span',{className:'file-lang-badge',style:{borderColor:fpMeta.color}},
-                                renderFileTypeIcon(filePreview.path||filePreview.filename,'s'),
                                 fpMeta.label+(lineCount?' · '+lineCount+' lines':'')
                             );
                         })(),

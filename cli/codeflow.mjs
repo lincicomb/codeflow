@@ -6,7 +6,7 @@ import { existsSync, promises as fs, statSync, watch } from 'node:fs';
 import http from 'node:http';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
-import { spawn } from 'node:child_process';
+import { execFileSync, spawn } from 'node:child_process';
 import { buildGkManifest, buildGkTargetBundle, detectGkRoot } from './gk-manifest.mjs';
 
 const IGNORE = new Set([
@@ -239,6 +239,43 @@ function sendJsonWithEtag(req, res, status, body, etagToken) {
   if (etag) headers.ETag = etag;
   res.writeHead(status, headers);
   res.end(payload);
+}
+
+let cachedGithubToken = null;
+let cachedGithubTokenAt = 0;
+const GITHUB_TOKEN_TTL_MS = 10 * 60 * 1000;
+
+export function resolveServerGithubToken() {
+  const envTok = (process.env.CODEFLOW_GITHUB_TOKEN || process.env.GITHUB_TOKEN || process.env.GH_TOKEN || '').trim();
+  if (envTok) return envTok;
+  const now = Date.now();
+  if (cachedGithubToken !== null && now - cachedGithubTokenAt < GITHUB_TOKEN_TTL_MS) {
+    return cachedGithubToken;
+  }
+  for (const bin of ['gh', '/usr/bin/gh', '/opt/homebrew/bin/gh', '/usr/local/bin/gh']) {
+    try {
+      const tok = execFileSync(bin, ['auth', 'token'], {
+        encoding: 'utf8',
+        stdio: ['ignore', 'pipe', 'ignore'],
+        timeout: 3000
+      }).trim();
+      if (tok && tok.length >= 20) {
+        cachedGithubToken = tok;
+        cachedGithubTokenAt = now;
+        return tok;
+      }
+    } catch {}
+  }
+  cachedGithubToken = '';
+  cachedGithubTokenAt = now;
+  return '';
+}
+
+export function isAllowedGithubApiPath(subPath) {
+  const clean = String(subPath || '').replace(/^\/+/, '');
+  if (!clean || clean.includes('..') || clean.includes('//') || clean.includes('\\')) return false;
+  if (clean === 'rate_limit') return true;
+  return /^repos\/[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+(?:\/(?:git\/trees\/[^/]+|contents(?:\/.+)?|commits(?:\/[^/]+)?|pulls(?:\/[0-9]+(?:\/files|\/commits)?)?|branches(?:\/.+)?|languages|contributors|compare\/.+))?$/.test(clean);
 }
 
 export const CLI_FILE_MAX_BYTES = 2 * 1024 * 1024;
@@ -519,6 +556,7 @@ export function createCodeflowServer(options) {
       }
       const url = parsed.url;
       if (url.pathname === '/__codeflow/status') {
+        const ghTok = resolveServerGithubToken();
         sendJson(res, 200, {
           ok: true,
           root: watchRoot,
@@ -526,8 +564,47 @@ export function createCodeflowServer(options) {
           watch: !!watchSession.watching,
           gkMode: Boolean(gkRoot),
           gkRoot: gkRoot || null,
-          defaultTarget: 'gk-system'
+          defaultTarget: 'gk-system',
+          githubAuth: {
+            available: Boolean(ghTok),
+            mode: ghTok ? 'tailnet-proxy' : 'none'
+          }
         });
+        return;
+      }
+      if (url.pathname.startsWith('/__codeflow/github-api/')) {
+        if (req.method !== 'GET') {
+          sendJson(res, 405, { ok: false, error: 'Method not allowed; read-only GET proxy' });
+          return;
+        }
+        const subPath = url.pathname.slice('/__codeflow/github-api/'.length);
+        if (!isAllowedGithubApiPath(subPath)) {
+          sendJson(res, 403, { ok: false, error: 'GitHub API path not allowlisted for read-only proxy' });
+          return;
+        }
+        const ghTok = resolveServerGithubToken();
+        const upstreamUrl = `https://api.github.com/${subPath}${url.search || ''}`;
+        const headers = {
+          Accept: 'application/vnd.github.v3+json',
+          'User-Agent': 'CodeFlow-GK-Tailnet-Proxy/1.0'
+        };
+        if (ghTok) headers.Authorization = `Bearer ${ghTok}`;
+        try {
+          const upstreamRes = await fetch(upstreamUrl, { method: 'GET', headers });
+          const bodyText = await upstreamRes.text();
+          const outHeaders = {
+            'Content-Type': upstreamRes.headers.get('content-type') || 'application/json; charset=utf-8',
+            'Cache-Control': 'private, no-store'
+          };
+          for (const h of ['x-ratelimit-limit', 'x-ratelimit-remaining', 'x-ratelimit-reset']) {
+            const v = upstreamRes.headers.get(h);
+            if (v !== null) outHeaders[h] = v;
+          }
+          res.writeHead(upstreamRes.status, outHeaders);
+          res.end(bodyText);
+        } catch {
+          sendJson(res, 502, { ok: false, error: 'Upstream GitHub API request failed' });
+        }
         return;
       }
       if (url.pathname === '/__codeflow/gk-manifest') {

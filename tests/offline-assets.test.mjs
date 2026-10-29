@@ -15,7 +15,7 @@ test('browser runtime dependencies are local', () => {
   const scriptSources = Array.from(html.matchAll(/<script\b[^>]*\bsrc=["']([^"']+)["']/gi), (match) => match[1]);
   const stylesheetSources = Array.from(html.matchAll(/<link\b[^>]*\brel=["']stylesheet["'][^>]*\bhref=["']([^"']+)["']/gi), (match) => match[1]);
 
-  assert.equal(scriptSources.length, 12);
+  assert.equal(scriptSources.length, 13);
   assert.equal(scriptSources.every((source) => source.startsWith('./vendor/')), true);
   assert.equal(stylesheetSources.some((source) => /^https?:/i.test(source)), false);
   assert.doesNotMatch(html, /importScripts\(\\?["']https?:\/\//i);
@@ -24,7 +24,7 @@ test('browser runtime dependencies are local', () => {
 
 test('vendored asset hashes match the recorded manifest', async () => {
   assert.equal(manifest.version, 1);
-  assert.equal(manifest.assets.length, 35);
+  assert.equal(manifest.assets.length, 36);
 
   for (const asset of manifest.assets) {
     const bytes = await readFile(join(vendorRoot, asset.file));

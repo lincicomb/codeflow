@@ -245,6 +245,13 @@
       "file": "tree-sitter/tree-sitter.wasm",
       "source": "https://cdn.jsdelivr.net/npm/web-tree-sitter@0.20.8/tree-sitter.wasm",
       "sha256": "17382e1a69bd628107e8dfe37d31d57f7ba948e5f2da77e56a8aa010488dc5ae"
+    },
+    {
+      "package": "highlight.js",
+      "version": "11.12.0",
+      "file": "highlight/highlight.min.js",
+      "source": "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.12.0/highlight.min.js",
+      "sha256": "8ab71eb09c51f501e5e25157d9cff100e46cc29bcbfc744d0b746d451fca7f53"
     }
   ]
 }

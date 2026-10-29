@@ -19,5 +19,6 @@ The exact source URL and SHA-256 digest for every distributed asset are recorded
 | `3d-force-graph` | `1.80.0` | MIT | [`licenses/3d-force-graph-LICENSE.txt`](./licenses/3d-force-graph-LICENSE.txt) |
 | `tree-sitter-wasms` | `0.1.13` | MIT | [`licenses/tree-sitter-wasms-LICENSE.txt`](./licenses/tree-sitter-wasms-LICENSE.txt) |
 | `@fontsource/jetbrains-mono` | `5.3.0` | OFL-1.1 | [`licenses/fontsource-jetbrains-mono-LICENSE.txt`](./licenses/fontsource-jetbrains-mono-LICENSE.txt) |
+| `highlight.js` | `11.12.0` | BSD-3-Clause | [`licenses/highlight-js-LICENSE.txt`](./licenses/highlight-js-LICENSE.txt) |
 
 Regenerate the checked-in files with `node scripts/vendor-browser-deps.mjs`.
