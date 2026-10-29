@@ -472,28 +472,45 @@ body{font-family:'JetBrains Mono',monospace;background:var(--bg0);color:var(--t0
 .file-preview-error-icon{font-size:48px;opacity:0.5}
 .view-file-btn{font-size:9px;padding:4px 8px;background:var(--bg2);border:1px solid var(--border);color:var(--t2);border-radius:4px;cursor:pointer;display:inline-flex;align-items:center;gap:4px;transition:all 0.15s}
 .view-file-btn:hover{background:var(--accbg);border-color:var(--acc);color:var(--acc)}
-.syn-kw{color:#c678dd}
+.syn-kw{color:#c678dd;font-weight:600}
 .syn-str{color:#98c379}
 .syn-num{color:#d19a66}
-.syn-com{color:#5c6370;font-style:italic}
+.syn-com{color:#7a8296;font-style:italic}
+.syn-doctag{color:#c678dd;font-style:normal;font-weight:600}
+.syn-doccode{color:#56b6c2;font-style:normal}
 .syn-fn{color:#61afef}
 .syn-type{color:#e5c07b}
+.syn-const{color:#ff9f43;font-weight:600}
+.syn-prop{color:#7ec8e3}
 .syn-op{color:#56b6c2}
 .syn-var{color:#e06c75}
 .syn-tag{color:#e06c75}
 .syn-attr{color:#d19a66}
-.syn-punct{color:#abb2bf}
-.light .syn-kw{color:#a626a4}
+.syn-regex{color:#f472b6}
+.syn-meta{color:#a78bfa}
+.syn-punct{color:#9ca3af}
+.light .syn-kw{color:#a626a4;font-weight:600}
 .light .syn-str{color:#50a14f}
 .light .syn-num{color:#986801}
-.light .syn-com{color:#a0a1a7}
+.light .syn-com{color:#6b7280;font-style:italic}
+.light .syn-doctag{color:#a626a4;font-style:normal;font-weight:600}
+.light .syn-doccode{color:#0184bc;font-style:normal}
 .light .syn-fn{color:#4078f2}
 .light .syn-type{color:#c18401}
+.light .syn-const{color:#b45309;font-weight:600}
+.light .syn-prop{color:#0369a1}
 .light .syn-op{color:#0184bc}
 .light .syn-var{color:#e45649}
 .light .syn-tag{color:#e45649}
 .light .syn-attr{color:#986801}
-.light .syn-punct{color:#383a42}
+.light .syn-regex{color:#be185d}
+.light .syn-meta{color:#6d28d9}
+.light .syn-punct{color:#4b5563}
+.file-lang-icon{display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;line-height:0}
+.file-lang-badge{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:600;padding:3px 9px;border-radius:999px;border:1px solid var(--border);background:var(--bg0);color:var(--t1);white-space:nowrap}
+.code-card-title-row{display:flex;align-items:center;gap:6px;min-width:0}
+.code-card-expand-btn{padding:2px 6px;font-size:8px;font-weight:600;border-radius:4px;border:1px solid var(--border);background:var(--bg0);color:var(--t2);cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:3px}
+.code-card-expand-btn:hover{border-color:var(--acc);color:var(--acc);background:var(--accbg)}
 .code-canvas{position:relative;width:100%;height:100%;min-width:0;min-height:0;overflow:hidden}
 .code-canvas svg{width:100%;height:100%;display:block}
 @keyframes force-link-particle-flow{to{stroke-dashoffset:-28}}
@@ -774,13 +791,17 @@ body{height:100dvh;min-height:100dvh}
 .legend.with-color-by{bottom:70px}
 }
 /* ---- GK Live Architecture Map & Dependencies ---- */
-.gk-topbar-group{display:flex;align-items:center;gap:6px;flex-wrap:wrap;flex:0 1 auto;min-width:0}
-.gk-target-select{padding:6px 26px 6px 10px;background:var(--bg1);border:1px solid var(--acc);border-radius:6px;color:var(--acc);font-family:inherit;font-size:10px;font-weight:600;cursor:pointer;max-width:280px;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2300ff9d' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 8px center;text-overflow:ellipsis}
+.topbar{gap:10px;padding:0 12px}
+.repo-input-group{gap:6px;align-items:center}
+.repo-input-group>.repo-input:first-child{min-width:130px;max-width:240px}
+.topbar-actions{flex-wrap:nowrap;flex-shrink:0}
+.gk-topbar-group{display:flex;align-items:center;gap:6px;flex:0 0 auto;min-width:0}
+.gk-target-select{padding:6px 24px 6px 9px;background:var(--bg0);border:1px solid var(--acc);border-radius:6px;color:var(--acc);font-family:inherit;font-size:10px;font-weight:600;cursor:pointer;max-width:210px;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2300ff9d' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 7px center;text-overflow:ellipsis;white-space:nowrap;overflow:hidden}
 .gk-target-select option,.gk-target-select optgroup{background:var(--bg1);color:var(--t0)}
 .gk-pill{display:inline-flex;align-items:center;gap:5px;font-size:9px;font-weight:600;padding:4px 9px;border-radius:999px;border:1px solid var(--border);background:rgba(0,0,0,0.25);color:var(--t1);text-decoration:none;white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis}
+.light .gk-pill{background:rgba(0,0,0,0.04)}
 a.gk-pill:hover{border-color:var(--acc);color:var(--acc)}
-.canvas-area:has(.gk-quickbar) .viz-selector{left:28px;transform:none;top:12px}
-.gk-quickbar{position:absolute;top:12px;right:28px;z-index:50;display:flex;align-items:center;gap:4px;padding:4px;border:1px solid var(--border);border-radius:8px;background:var(--bg1);flex-wrap:nowrap;overflow-x:auto;max-width:calc(100% - 260px)}
+.gk-quickbar{display:inline-flex;align-items:center;gap:4px;padding:4px;border:1px solid var(--border);border-radius:8px;background:var(--bg1);flex-wrap:wrap;margin-top:10px}
 .gk-quick-btn{padding:4px 9px;border-radius:6px;border:1px solid transparent;background:none;color:var(--t2);font-family:inherit;font-size:10px;font-weight:600;cursor:pointer;white-space:nowrap}
 .gk-quick-btn:hover{background:var(--hover);color:var(--t0)}
 .gk-quick-btn.active{background:var(--accbg);border-color:var(--acc);color:var(--acc)}
@@ -12024,6 +12045,19 @@ function annotateHtmlWithSymbols(html,symbols,activeSymbol){
         var lastLt=before.lastIndexOf('<');
         var lastGt=before.lastIndexOf('>');
         if(lastLt>lastGt)continue;
+        if(before.indexOf('syn-')>=0){
+            var tagScanRe=/<span class="([^"]+)">|<\/span>/g,tagScanMatch,openSpans=[];
+            while((tagScanMatch=tagScanRe.exec(before))){
+                if(tagScanMatch[1])openSpans.push(tagScanMatch[1]);
+                else if(openSpans.length)openSpans.pop();
+            }
+            var insideCommentOrStr=false;
+            for(var si=0;si<openSpans.length;si++){
+                var sc=openSpans[si];
+                if(sc==='syn-com'||sc==='syn-doctag'||sc==='syn-doccode'||sc==='syn-str'||sc==='syn-regex'){insideCommentOrStr=true;break;}
+            }
+            if(insideCommentOrStr)continue;
+        }
         out+=source.slice(last,idx);
         var kind=safeSymbolKind(kindByName[match[1]]||'var');
         var active=activeSymbol&&activeSymbol===match[1]?' active':'';
@@ -12541,6 +12575,93 @@ function Icon(props){
         case 'security':
             children=[React.createElement('path',Object.assign({key:'p1',d:'M12 3l7 3v6c0 5-3.5 8-7 9-3.5-1-7-4-7-9V6z'},common)),React.createElement('path',Object.assign({key:'p2',d:'M9 12l2 2 4-4'},common))];
             break;
+        case 'lang-ts':
+            children=[React.createElement('path',{key:'b1',fill:'currentColor',stroke:'none',d:'M1.125 0C.502 0 0 .502 0 1.125v21.75C0 23.498.502 24 1.125 24h21.75c.623 0 1.125-.502 1.125-1.125V1.125C24 .502 23.498 0 22.875 0zm17.363 9.75c.612 0 1.154.037 1.627.111a6.38 6.38 0 0 1 1.306.34v2.458a3.95 3.95 0 0 0-.643-.361 5.093 5.093 0 0 0-.717-.26 5.453 5.453 0 0 0-1.426-.2c-.3 0-.573.028-.819.086a2.1 2.1 0 0 0-.623.242c-.17.104-.3.229-.393.374a.888.888 0 0 0-.14.49c0 .196.053.373.156.529.104.156.252.304.443.444s.423.276.696.41c.273.135.582.274.926.416.47.197.892.407 1.266.628.374.222.695.473.963.753.268.279.472.598.614.957.142.359.214.776.214 1.253 0 .657-.125 1.21-.373 1.656a3.033 3.033 0 0 1-1.012 1.085 4.38 4.38 0 0 1-1.487.596c-.566.12-1.163.18-1.79.18a9.916 9.916 0 0 1-1.84-.164 5.544 5.544 0 0 1-1.512-.493v-2.63a5.033 5.033 0 0 0 3.237 1.2c.333 0 .624-.03.872-.09.249-.06.456-.144.623-.25.166-.108.29-.234.373-.38a1.023 1.023 0 0 0-.074-1.089 2.12 2.12 0 0 0-.537-.5 5.597 5.597 0 0 0-.807-.444 27.72 27.72 0 0 0-1.007-.436c-.918-.383-1.602-.852-2.053-1.405-.45-.553-.676-1.222-.676-2.005 0-.614.123-1.141.369-1.582.246-.441.58-.804 1.004-1.089a4.494 4.494 0 0 1 1.47-.629 7.536 7.536 0 0 1 1.77-.201zm-15.113.188h9.563v2.166H9.506v9.646H6.789v-9.646H3.375z'})];
+            break;
+        case 'lang-js':
+            children=[React.createElement('path',{key:'b1',fill:'currentColor',stroke:'none',d:'M0 0h24v24H0V0zm22.034 18.276c-.175-1.095-.888-2.015-3.003-2.873-.736-.345-1.554-.585-1.797-1.14-.091-.33-.105-.51-.046-.705.15-.646.915-.84 1.515-.66.39.12.75.42.976.9 1.034-.676 1.034-.676 1.755-1.125-.27-.42-.404-.601-.586-.78-.63-.705-1.469-1.065-2.834-1.034l-.705.089c-.676.165-1.32.525-1.71 1.005-1.14 1.291-.811 3.541.569 4.471 1.365 1.02 3.361 1.244 3.616 2.205.24 1.17-.87 1.545-1.966 1.41-.811-.18-1.26-.586-1.755-1.336l-1.83 1.051c.21.48.45.689.81 1.109 1.74 1.756 6.09 1.666 6.871-1.004.029-.09.24-.705.074-1.65l.046.067zm-8.983-7.245h-2.248c0 1.938-.009 3.864-.009 5.805 0 1.232.063 2.363-.138 2.711-.33.689-1.18.601-1.566.48-.396-.196-.597-.466-.83-.855-.063-.105-.11-.196-.127-.196l-1.825 1.125c.305.63.75 1.172 1.324 1.517.855.51 2.004.675 3.207.405.783-.226 1.458-.691 1.811-1.411.51-.93.402-2.07.397-3.346.012-2.054 0-4.109 0-6.179l.004-.056z'})];
+            break;
+        case 'lang-react':
+            children=[
+                React.createElement('circle',{key:'c1',cx:'12',cy:'12',r:'2.1',fill:'currentColor',stroke:'none'}),
+                React.createElement('ellipse',Object.assign({key:'e1',cx:'12',cy:'12',rx:'10',ry:'4.2'},common)),
+                React.createElement('ellipse',Object.assign({key:'e2',cx:'12',cy:'12',rx:'10',ry:'4.2',transform:'rotate(60 12 12)'},common)),
+                React.createElement('ellipse',Object.assign({key:'e3',cx:'12',cy:'12',rx:'10',ry:'4.2',transform:'rotate(120 12 12)'},common))
+            ];
+            break;
+        case 'lang-py':
+            children=[React.createElement('path',{key:'b1',fill:'currentColor',stroke:'none',d:'M11.914 0C5.82 0 6.2 2.656 6.2 2.656l.007 2.752h5.814v.826H3.9S0 5.789 0 11.969c0 6.18 3.403 5.96 3.403 5.96h2.03v-2.867s-.109-3.42 3.35-3.42h5.766s3.24.052 3.24-3.148V3.202S18.28 0 11.914 0zM8.708 1.85c.578 0 1.046.47 1.046 1.052 0 .581-.468 1.051-1.046 1.051-.579 0-1.046-.47-1.046-1.051 0-.582.467-1.052 1.046-1.052zm3.378 22.15c6.094 0 5.714-2.656 5.714-2.656l-.007-2.752h-5.814v-.826h8.121S24 18.211 24 12.031c0-6.18-3.403-5.96-3.403-5.96h-2.03v2.867s.109 3.42-3.35 3.42H9.451s-3.24-.052-3.24 3.148v5.292S5.72 24 12.086 24zm3.206-1.85c-.578 0-1.046-.47-1.046-1.052 0-.581.468-1.051 1.046-1.051.579 0 1.046.47 1.046 1.051 0 .582-.467 1.052-1.046 1.052z'})];
+            break;
+        case 'lang-go':
+            children=[React.createElement('path',{key:'b1',fill:'currentColor',stroke:'none',d:'M1.811 10.231c-.047 0-.058-.023-.035-.059l.246-.315c.023-.035.081-.058.128-.058h4.172c.046 0 .058.035.035.07l-.199.303c-.023.036-.082.07-.117.07zM.047 11.306c-.047 0-.059-.023-.035-.058l.245-.316c.023-.035.082-.058.129-.058h5.328c.047 0 .07.035.058.07l-.093.28c-.012.047-.058.07-.105.07zm2.828 1.075c-.047 0-.059-.035-.035-.07l.163-.292c.023-.035.07-.07.117-.07h2.337c.047 0 .07.035.07.082l-.023.28c0 .047-.047.082-.082.082zm12.129-2.36c-.736.187-1.239.327-1.963.514-.176.046-.187.058-.34-.117-.175-.199-.303-.327-.549-.444-.736-.362-1.449-.257-2.115.175-.795.514-1.204 1.274-1.192 2.22.011.935.654 1.706 1.577 1.835.795.105 1.46-.175 1.987-.771.105-.129.198-.269.315-.433H10.47c-.245 0-.304-.152-.222-.35.152-.362.432-.97.596-1.274.035-.07.117-.187.292-.187h4.254c-.023.316-.023.631-.07.947-.129.841-.444 1.612-.958 2.29-.842 1.11-1.94 1.8-3.33 1.987-1.146.152-2.209-.07-3.144-.772-.865-.654-1.356-1.52-1.484-2.595-.152-1.273.222-2.419.993-3.424.83-1.087 1.928-1.776 3.272-2.022 1.099-.199 2.15-.07 3.097.573.619.409 1.063.97 1.355 1.648.07.105.024.164-.116.2zm3.868 6.463c-1.064-.024-2.034-.328-2.852-1.029-.689-.596-1.121-1.356-1.262-2.255-.21-1.32.152-2.49.947-3.53.853-1.121 1.881-1.706 3.272-1.951 1.192-.21 2.314-.094 3.331.596.923.631 1.496 1.484 1.648 2.606.198 1.578-.257 2.863-1.344 3.962-.772.783-1.718 1.274-2.805 1.496-.315.058-.631.081-.935.105zm2.781-4.721c-.012-.152-.012-.269-.035-.386-.21-1.157-1.274-1.811-2.384-1.554-1.087.245-1.788.935-2.045 2.033-.21.912.234 1.835 1.075 2.209.643.28 1.286.245 1.905-.07.923-.48 1.426-1.227 1.484-2.232z'})];
+            break;
+        case 'lang-rs':
+            children=[
+                React.createElement('circle',Object.assign({key:'c1',cx:'12',cy:'12',r:'8.5'},common)),
+                React.createElement('path',Object.assign({key:'p1',d:'M9 15V9h3.5a2 2 0 0 1 0 4H9m3.5 0L15 15M12 2v2m0 16v2M2 12h2m16 0h2'},common))
+            ];
+            break;
+        case 'lang-vue':
+            children=[React.createElement('path',{key:'b1',fill:'currentColor',stroke:'none',d:'M24,1.61H14.06L12,5.16,9.94,1.61H0L12,22.39ZM12,14.08,5.16,2.23H9.59L12,6.41l2.41-4.18h4.43Z'})];
+            break;
+        case 'lang-svelte':
+            children=[React.createElement('path',{key:'b1',fill:'currentColor',stroke:'none',d:'M10.354 21.125a4.324 4.324 0 0 1-4.631-1.701 4.104 4.104 0 0 1-.575-3.511 3.96 3.96 0 0 1 .201-.525l.159-.351.326.215a7.369 7.369 0 0 0 2.264 1.025l.215.065-.02.215a1.26 1.26 0 0 0 .228.838 1.351 1.351 0 0 0 1.454.525 1.258 1.258 0 0 0 .353-.144l5.495-3.505a1.189 1.189 0 0 0 .54-.801 1.249 1.249 0 0 0-.184-.907 1.352 1.352 0 0 0-1.454-.524 1.258 1.258 0 0 0-.353.144l-2.094 1.336a4.161 4.161 0 0 1-1.168.478 4.462 4.462 0 0 1-4.8-1.737 4.104 4.104 0 0 1-.575-3.511 3.924 3.924 0 0 1 1.787-2.427l5.495-3.505a4.161 4.161 0 0 1 1.168-.478 4.462 4.462 0 0 1 4.8 1.737 4.104 4.104 0 0 1 .575 3.511 3.96 3.96 0 0 1-.201.525l-.159.351-.326-.215a7.369 7.369 0 0 0-2.264-1.025l-.215-.065.02-.215a1.26 1.26 0 0 0-.228-.838 1.351 1.351 0 0 0-1.454-.525 1.258 1.258 0 0 0-.353.144L8.587 9.754a1.189 1.189 0 0 0-.54.801 1.249 1.249 0 0 0 .184.907 1.352 1.352 0 0 0 1.454.524c.125-.03.244-.079.353-.144l2.094-1.336a4.161 4.161 0 0 1 1.168-.478 4.462 4.462 0 0 1 4.8 1.737 4.104 4.104 0 0 1 .575 3.511 3.924 3.924 0 0 1-1.787 2.427l-5.495 3.505a4.161 4.161 0 0 1-1.039.417'})];
+            break;
+        case 'lang-node':
+            children=[React.createElement('path',{key:'b1',fill:'currentColor',stroke:'none',d:'M11.998,24c-0.321,0-0.641-0.084-0.922-0.247l-2.936-1.737c-0.438-0.245-0.224-0.332-0.08-0.383 c0.585-0.203,0.703-0.25,1.328-0.604c0.065-0.037,0.151-0.023,0.218,0.017l2.256,1.339c0.082,0.045,0.197,0.045,0.272,0l8.795-5.076 c0.082-0.047,0.134-0.141,0.134-0.238V6.921c0-0.099-0.053-0.192-0.137-0.242l-8.791-5.072c-0.081-0.047-0.189-0.047-0.271,0 L3.075,6.68C2.99,6.729,2.936,6.825,2.936,6.921v10.15c0,0.097,0.054,0.189,0.139,0.235l2.409,1.392 c1.307,0.654,2.108-0.116,2.108-0.89V7.787c0-0.142,0.114-0.253,0.256-0.253h1.115c0.139,0,0.255,0.112,0.255,0.253v10.021 c0,1.745-0.95,2.745-2.604,2.745c-0.508,0-0.909,0-2.026-0.551L2.28,18.675c-0.57-0.329-0.922-0.945-0.922-1.604V6.921 c0-0.659,0.353-1.275,0.922-1.603l8.795-5.082c0.557-0.315,1.296-0.315,1.848,0l8.794,5.082c0.57,0.329,0.924,0.944,0.924,1.603 v10.15c0,0.659-0.354,1.273-0.924,1.604l-8.794,5.078C12.643,23.916,12.324,24,11.998,24z'})];
+            break;
+        case 'lang-sh':
+        case 'gk-terminal':
+            children=[
+                React.createElement('rect',Object.assign({key:'r1',x:'2',y:'4',width:'20',height:'16',rx:'2.5'},common)),
+                React.createElement('path',Object.assign({key:'p1',d:'M6.5 9l3.5 3-3.5 3M12 15h5.5'},common))
+            ];
+            break;
+        case 'lang-json':
+            children=[React.createElement('path',Object.assign({key:'p1',d:'M8 4H6a2 2 0 0 0-2 2v3.5a2 2 0 0 1-2 2 2 2 0 0 1 2 2V17a2 2 0 0 0 2 2h2M16 4h2a2 2 0 0 1 2 2v3.5a2 2 0 0 0 2 2 2 2 0 0 0-2 2V17a2 2 0 0 1-2 2h-2'},common))];
+            break;
+        case 'lang-yaml':
+            children=[React.createElement('path',Object.assign({key:'p1',d:'M4 6h16M8 12h12M12 18h8M4 12h1.01M8 18h1.01'},common))];
+            break;
+        case 'lang-md':
+            children=[
+                React.createElement('rect',Object.assign({key:'r1',x:'2',y:'5',width:'20',height:'14',rx:'2'},common)),
+                React.createElement('path',Object.assign({key:'p1',d:'M5.5 15V9l2.5 3 2.5-3v6M16.5 9v6m0 0-2.5-2.5M16.5 15l2.5-2.5'},common))
+            ];
+            break;
+        case 'lang-sql':
+            children=[
+                React.createElement('ellipse',Object.assign({key:'e1',cx:'12',cy:'5',rx:'8',ry:'3'},common)),
+                React.createElement('path',Object.assign({key:'p1',d:'M4 5v14c0 1.66 3.58 3 8 3s8-1.34 8-3V5M4 12c0 1.66 3.58 3 8 3s8-1.34 8-3'},common))
+            ];
+            break;
+        case 'lang-docker':
+            children=[React.createElement('path',{key:'b1',fill:'currentColor',stroke:'none',d:'M13.983 11.078h2.119a.186.186 0 00.186-.185V9.006a.186.186 0 00-.186-.186h-2.119a.185.185 0 00-.185.185v1.888c0 .102.083.185.185.185m-2.954-5.43h2.118a.186.186 0 00.186-.186V3.574a.186.186 0 00-.186-.185h-2.118a.185.185 0 00-.185.185v1.888c0 .102.082.185.185.186m0 2.716h2.118a.187.187 0 00.186-.186V6.29a.186.186 0 00-.186-.185h-2.118a.185.185 0 00-.185.185v1.887c0 .102.082.185.185.186m-2.93 0h2.12a.186.186 0 00.184-.186V6.29a.185.185 0 00-.185-.185H8.1a.185.185 0 00-.185.185v1.887c0 .102.083.185.185.186m-2.964 0h2.119a.186.186 0 00.185-.186V6.29a.185.185 0 00-.185-.185H5.136a.186.186 0 00-.186.185v1.887c0 .102.084.185.186.186m5.893 2.715h2.118a.186.186 0 00.186-.185V9.006a.186.186 0 00-.186-.186h-2.118a.185.185 0 00-.185.185v1.888c0 .102.082.185.185.185m-2.93 0h2.12a.185.185 0 00.184-.185V9.006a.185.185 0 00-.184-.186h-2.12a.185.185 0 00-.184.185v1.888c0 .102.083.185.185.185m-2.964 0h2.119a.185.185 0 00.185-.185V9.006a.185.185 0 00-.184-.186h-2.12a.186.186 0 00-.186.186v1.887c0 .102.084.185.186.185m-2.92 0h2.12a.185.185 0 00.184-.185V9.006a.185.185 0 00-.184-.186h-2.12a.185.185 0 00-.184.185v1.888c0 .102.082.185.185.185M23.763 9.89c-.065-.051-.672-.51-1.954-.51-.338.001-.676.03-1.01.087-.248-1.7-1.653-2.53-1.716-2.566l-.344-.199-.226.327c-.284.438-.49.922-.612 1.43-.23.97-.09 1.882.403 2.661-.595.332-1.55.413-1.744.42H.751a.751.751 0 00-.75.748 11.376 11.376 0 00.692 4.062c.545 1.428 1.355 2.48 2.41 3.124 1.18.723 3.1 1.137 5.275 1.137.983.003 1.963-.086 2.93-.266a12.248 12.248 0 003.823-1.389c.98-.567 1.86-1.288 2.61-2.136 1.252-1.418 1.998-2.997 2.553-4.4h.221c1.372 0 2.215-.549 2.68-1.009.309-.293.55-.65.707-1.046l.098-.288Z'})];
+            break;
+        case 'lang-tf':
+            children=[React.createElement('path',{key:'b1',fill:'currentColor',stroke:'none',d:'M1.44 0v7.575l6.561 3.79V3.787zm21.12 4.227l-6.561 3.791v7.574l6.56-3.787zM8.72 4.23v7.575l6.561 3.787V8.018zm0 8.405v7.575L15.28 24v-7.578z'})];
+            break;
+        case 'lang-ansible':
+            children=[React.createElement('path',{key:'b1',fill:'currentColor',stroke:'none',d:'M10.617 11.473l4.686 3.695-3.102-7.662zM12 0C5.371 0 0 5.371 0 12s5.371 12 12 12 12-5.371 12-12S18.629 0 12 0zm5.797 17.305c-.011.471-.403.842-.875.83-.236 0-.416-.09-.664-.293l-6.19-5-2.079 5.203H6.191L11.438 5.44c.124-.314.427-.52.764-.506.326-.014.63.189.742.506l4.774 11.494c.045.111.08.234.08.348-.001.009-.001.009-.001.023z'})];
+            break;
+        case 'lang-cf':
+            children=[React.createElement('path',{key:'b1',fill:'currentColor',stroke:'none',d:'M16.5088 16.8447c.1475-.5068.0908-.9707-.1553-1.3154-.2246-.3164-.6045-.499-1.0615-.5205l-8.6592-.1123a.1559.1559 0 0 1-.1333-.0713c-.0283-.042-.0351-.0986-.021-.1553.0278-.084.1123-.1484.2036-.1562l8.7359-.1123c1.0351-.0489 2.1601-.8868 2.5537-1.9136l.499-1.3013c.0215-.0561.0293-.1128.0147-.168-.5625-2.5463-2.835-4.4453-5.5499-4.4453-2.5039 0-4.6284 1.6177-5.3876 3.8614-.4927-.3658-1.1187-.5625-1.794-.499-1.2026.1191-2.1665 1.083-2.2861 2.2856-.0283.31-.0069.6128.0635.894C1.5688 13.171 0 14.7754 0 16.752c0 .1748.0142.3515.0352.5273.0141.083.0844.1475.1689.1475h15.9814c.0909 0 .1758-.0645.2032-.1553l.12-.4268zm2.7568-5.5634c-.0771 0-.1611.0063-.2383.0142-.0566 0-.1054.0415-.127.0976l-.3378 1.1744c-.1475.5068-.0918.9707.1543 1.3164.2256.3164.6055.498 1.0625.5195l1.8437.1133c.0557 0 .1055.0263.1329.0703.0283.043.0351.1074.0214.1562-.0283.084-.1123.1485-.204.1553l-1.921.1123c-1.041.0488-2.1582.8867-2.5527 1.914l-.1406.3585c-.0283.0713.0215.1416.0986.1416h6.5977c.0771 0 .1474-.0489.169-.126.1122-.4082.1757-.837.1757-1.2803 0-2.6025-2.125-4.727-4.7344-4.727'})];
+            break;
+        case 'lang-gh':
+            children=[React.createElement('path',{key:'b1',fill:'currentColor',stroke:'none',d:'M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12'})];
+            break;
+        case 'lang-wasm':
+            children=[
+                React.createElement('path',Object.assign({key:'p1',d:'M12 2a3 3 0 0 1 3 3h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h4a3 3 0 0 1 3-3z'},common)),
+                React.createElement('path',Object.assign({key:'p2',d:'M6.5 11l1.4 5 1.4-4 1.4 4 1.4-5M14.5 16l2-5 2 5m-3.3-1.5h2.6'},common))
+            ];
+            break;
+        case 'gk-bot':
+            children=[
+                React.createElement('rect',Object.assign({key:'r1',x:'4',y:'7',width:'16',height:'12',rx:'3'},common)),
+                React.createElement('path',Object.assign({key:'p1',d:'M9 12h.01M15 12h.01M9.5 16h5M12 3v4M2 12h2m16 0h2'},common))
+            ];
+            break;
         default:
             children=[React.createElement('path',Object.assign({key:'p1',d:'M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z'},common)),React.createElement('polyline',Object.assign({key:'p2',points:'14 3 14 8 19 8'},common))];
     }
@@ -12563,7 +12684,49 @@ function getSeverityColor(level){
     return level==='critical'||level==='high'?'var(--red)':level==='medium'?'var(--orange)':level==='info'?'var(--t3)':'var(--blue)';
 }
 
+function getFileTypeMeta(filenameOrPath){
+    var raw=String(filenameOrPath||'').trim();
+    var base=(raw.split('/').pop()||raw).toLowerCase();
+    var ext=base.indexOf('.')>=0?base.split('.').pop():base;
+    if(base==='dockerfile'||base.indexOf('dockerfile.')===0||base.indexOf('docker-compose')===0)return{icon:'lang-docker',color:'#2496ED',label:'Docker'};
+    if(base==='package.json'||base==='package-lock.json')return{icon:'lang-node',color:'#5FA04E',label:'Node.js Manifest'};
+    if(base.indexOf('caddyfile')>=0||ext==='caddyfile')return{icon:'lang-cf',color:'#22d3ee',label:'Caddy Edge Config'};
+    if(base.indexOf('wrangler')===0)return{icon:'lang-cf',color:'#F38020',label:'Cloudflare Wrangler'};
+    if(ext==='tsx')return{icon:'lang-react',color:'#61DAFB',label:'TypeScript React (TSX)'};
+    if(ext==='jsx')return{icon:'lang-react',color:'#61DAFB',label:'JavaScript React (JSX)'};
+    if(ext==='ts'||ext==='mts'||ext==='cts')return{icon:'lang-ts',color:'#3178C6',label:'TypeScript'};
+    if(ext==='js'||ext==='mjs'||ext==='cjs')return{icon:'lang-js',color:'#F7DF1E',label:'JavaScript'};
+    if(ext==='py'||ext==='pyw'||ext==='pyi')return{icon:'lang-py',color:'#3776AB',label:'Python'};
+    if(ext==='rs')return{icon:'lang-rs',color:'#F74C00',label:'Rust'};
+    if(ext==='go')return{icon:'lang-go',color:'#00ADD8',label:'Go'};
+    if(ext==='vue')return{icon:'lang-vue',color:'#4FC08D',label:'Vue'};
+    if(ext==='svelte')return{icon:'lang-svelte',color:'#FF3E00',label:'Svelte'};
+    if(ext==='sh'||ext==='bash'||ext==='zsh'||ext==='fish')return{icon:'lang-sh',color:'#4EAA25',label:'Shell Script'};
+    if(ext==='json'||ext==='jsonc'||ext==='jsonl')return{icon:'lang-json',color:'#f59e0b',label:'JSON'};
+    if(ext==='yaml'||ext==='yml')return{icon:'lang-yaml',color:'#cb3837',label:'YAML'};
+    if(ext==='toml'||ext==='ini'||ext==='cfg'||ext==='conf')return{icon:'lang-yaml',color:'#9c4221',label:'TOML / Config'};
+    if(ext==='service'||ext==='timer'||ext==='socket'||ext==='target')return{icon:'settings',color:'#a78bfa',label:'Systemd Unit'};
+    if(ext==='md'||ext==='mdx'||ext==='markdown')return{icon:'lang-md',color:'#60a5fa',label:'Markdown'};
+    if(ext==='sql'||ext==='prisma'||ext==='db'||ext==='sqlite')return{icon:'lang-sql',color:'#38bdf8',label:'SQL / Database'};
+    if(ext==='tf'||ext==='tfvars'||ext==='hcl')return{icon:'lang-tf',color:'#844FBA',label:'Terraform / HCL'};
+    if(ext==='wasm')return{icon:'lang-wasm',color:'#654FF0',label:'WebAssembly'};
+    if(ext==='html'||ext==='htm')return{icon:'globe',color:'#E34F26',label:'HTML'};
+    if(ext==='css'||ext==='scss'||ext==='sass'||ext==='less')return{icon:'brush',color:'#38BDF8',label:'Stylesheet'};
+    if(ext==='svg')return{icon:'brush',color:'#FFB13B',label:'SVG Vector'};
+    if(!Parser.isCode(raw))return{icon:'file',color:'var(--t2)',label:'File'};
+    return{icon:'code',color:'var(--acc)',label:ext?ext.toUpperCase()+' Source':'Source'};
+}
+
+function renderFileTypeIcon(filenameOrPath,size,className){
+    var meta=getFileTypeMeta(filenameOrPath);
+    return React.createElement('span',{className:'file-lang-icon'+(className?' '+className:''),style:{color:meta.color},title:meta.label},
+        React.createElement(Icon,{name:meta.icon,size:size||'s'})
+    );
+}
+
 function getFilePreviewIconName(filename){
+    var meta=getFileTypeMeta(filename);
+    if(meta&&meta.icon)return meta.icon;
     if(!Parser.isCode(filename))return'file';
     if(Parser.isVBA(filename))return'chart';
     if(Parser.isHTML(filename))return'globe';
@@ -12640,7 +12803,7 @@ function TreeNode(props){
         ),
         isOpen&&React.createElement('div',{className:'tree-children'},
             children.map(function(c){return React.createElement(TreeNode,{key:c.path,node:c,selected:selected,onSelect:onSelect,expanded:expanded,toggle:toggle,filterFolder:filterFolder,activeFilter:activeFilter});}),
-            node.files.map(function(f){return React.createElement('div',{key:f.path,className:'tree-file'+(selected&&selected.path===f.path?' active':''),onClick:function(){onSelect(f.path);}},React.createElement(Icon,{name:'file',size:'s',className:'tree-entry-icon'}),React.createElement('span',{className:'tree-name'},f.name));})
+            node.files.map(function(f){return React.createElement('div',{key:f.path,className:'tree-file'+(selected&&selected.path===f.path?' active':''),onClick:function(){onSelect(f.path);}},renderFileTypeIcon(f.path||f.name,'s','tree-entry-icon'),React.createElement('span',{className:'tree-name'},f.name));})
         )
     );
 }
@@ -12664,7 +12827,7 @@ function HealthRing(props){
 // ---------------------------------------------------------------------------
 
 function App(){
-    var _a=useState(window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark'),theme=_a[0],setTheme=_a[1];
+    var _a=useState('dark'),theme=_a[0],setTheme=_a[1];
     var _b=useState(''),repoUrl=_b[0],setRepoUrl=_b[1];
     var _c=useState(''),token=_c[0],setToken=_c[1];
     var _authMethod=useState('none'),authMethod=_authMethod[0],setAuthMethod=_authMethod[1];// 'none', 'pat', 'github_app'
@@ -13414,7 +13577,7 @@ function App(){
         fetch('/__codeflow/status').then(function(res){return res.ok?res.json():null;}).then(function(status){
             if(!status||!status.ok)return;
             setCliStatus(status);
-            if(status.gkMode&&(wantedTarget||wantedFile)){
+            if(status.gkMode&&(!window.location.search||window.location.search.indexOf('repo=')<0)){
                 loadGkTargetBundle(wantedTarget||status.defaultTarget||'gk-system',wantedFile||null,wantedViz||(wantedFile?'code':'gk-map'));
             }else if(!window.location.search||window.location.search.indexOf('repo=')<0){
                 analyzeFromCli(false,status);
@@ -14406,51 +14569,219 @@ function App(){
     var toggleCard=useCallback(function(id){setExpandedCards(function(prev){var n=new Set(prev);if(n.has(id))n.delete(id);else n.add(id);return n;});},[]);
     var toggleFn=useCallback(function(name){setExpandedFns(function(prev){var n=new Set(prev);if(n.has(name))n.delete(name);else n.add(name);return n;});},[]);
 
-    // Syntax highlighting function
+    // Full-file multi-line lexical syntax highlighter + byLine span-balancer
     function highlightSyntax(code,filename){
         if(!code)return[''];
-        var ext=(filename||'').split('.').pop().toLowerCase();
-        var isJS=['js','jsx','ts','tsx','mjs','cjs'].includes(ext);
+        var rawName=String(filename||'');
+        var baseName=rawName.split('/').pop()||'';
+        var ext=baseName.indexOf('.')>=0?baseName.split('.').pop().toLowerCase():baseName.toLowerCase();
+        var isJS=['js','jsx','ts','tsx','mjs','cjs','mts','cts'].includes(ext);
         var isPy=['py','pyw','pyi'].indexOf(ext)>=0;
-        var isJava=['java','kt','scala','cs','go'].includes(ext);
-        var isHTML=['html','htm','vue','svelte'].includes(ext);
+        var isRust=ext==='rs';
+        var isGo=ext==='go';
+        var isJava=['java','kt','scala','cs','go','c','h','cpp','hpp','cc','cxx','hh','swift','dart','groovy'].includes(ext);
+        var isHTML=['html','htm','vue','svelte','xml','svg'].includes(ext);
         var isCSS=['css','scss','sass','less'].includes(ext);
-        var isJSON=['json','yaml','yml','toml'].includes(ext);
-        var isRuby=['rb','rake'].includes(ext);
+        var isJSON=['json','jsonc','yaml','yml','toml','ini','service','timer','socket','target','conf','cfg','nix'].includes(ext);
+        var isShell=['sh','bash','zsh','fish','env'].includes(ext)||baseName==='Dockerfile'||baseName.indexOf('Caddyfile')>=0||ext==='caddyfile';
+        var isSQL=['sql','prisma'].includes(ext);
+        var isMD=['md','mdx','markdown'].includes(ext);
+        var isRuby=['rb','rake','gemspec'].includes(ext);
         var isPHP=ext==='php';
         var isVBA=['vba','bas','cls','xlsm','xlam','xlsb','xla','xlw'].includes(ext);
-        function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
-        // Split into tokens while preserving structure
-        var result=code.split('\n').map(function(line){
-            var escaped=esc(line);
-            // Comments
-            if(isJS||isJava||isPHP||isCSS)escaped=escaped.replace(/(\/\/.*$)/gm,'<span class="syn-com">$1</span>');
-            if(isPy||isRuby)escaped=escaped.replace(/(#.*$)/gm,'<span class="syn-com">$1</span>');
-            if(isHTML)escaped=escaped.replace(/(&lt;!--[\s\S]*?--&gt;)/g,'<span class="syn-com">$1</span>');
-            // Strings - careful with order
-            escaped=escaped.replace(/(&quot;[^&]*&quot;|'[^']*'|`[^`]*`)/g,'<span class="syn-str">$1</span>');
-            // Numbers
-            escaped=escaped.replace(/\b(\d+\.?\d*)\b/g,'<span class="syn-num">$1</span>');
-            // Keywords
-            if(isJS)escaped=escaped.replace(/\b(const|let|var|function|return|if|else|for|while|do|switch|case|break|continue|try|catch|finally|throw|new|class|extends|import|export|from|default|async|await|yield|typeof|instanceof|in|of|this|super|null|undefined|true|false|void|static|get|set)\b/g,'<span class="syn-kw">$1</span>');
-            if(isPy){
-                escaped=escaped.replace(/\b(async|await|def|class|return|if|elif|else|for|while|try|except|finally|raise|import|from|as|with|pass|break|continue|lambda|yield|global|nonlocal|assert|True|False|None|and|or|not|in|is|del|match|case|type)\b/g,'<span class="syn-kw">$1</span>');
-                escaped=escaped.replace(/(@\w+)/g,'<span class="syn-fn">$1</span>');
-                escaped=escaped.replace(/\b(self|cls)\b/g,'<span class="syn-kw" style="opacity:0.7">$1</span>');
+        var hasSlashComments=isJS||isRust||isGo||isJava||isCSS||isPHP||ext==='jsonc'||baseName.indexOf('Caddyfile')>=0;
+        var hasHashComments=isPy||isShell||isJSON||isRuby;
+        var hasDashComments=isSQL||ext==='lua';
+        var hasHtmlComments=isHTML||isMD;
+        var KW_SET=new Set(['import','export','from','as','default','const','let','var','function','class','extends','implements','interface','type','enum','namespace','module','declare','readonly','public','private','protected','static','abstract','override','satisfies','keyof','infer','typeof','instanceof','in','of','new','delete','void','async','await','yield','return','if','else','elif','elsif','unless','switch','case','when','match','break','continue','for','foreach','while','until','do','loop','try','catch','except','rescue','finally','ensure','throw','raise','debugger','with','def','lambda','pass','global','nonlocal','assert','and','or','not','is','del','fn','pub','mod','use','crate','super','where','impl','trait','struct','mut','ref','move','unsafe','extern','dyn','package','defer','go','chan','select','fallthrough','range','local','then','end','begin','get','set']);
+        var TYPE_SET=new Set(['string','number','boolean','bigint','symbol','unknown','never','any','object','u8','u16','u32','u64','u128','usize','i8','i16','i32','i64','i128','isize','f32','f64','bool','char','str','int','float','double','long','short','byte','Map','Set','WeakMap','WeakSet','Array','Promise','Record','Partial','Required','Readonly','Pick','Omit','Exclude','Extract','NonNullable','ReturnType','Parameters','Error','RegExp','Date','URL','Buffer','Uint8Array','React','HTMLElement','Element','Node','Event']);
+        var LIT_SET=new Set(['true','false','null','undefined','NaN','Infinity','True','False','None','nil','this','super','self','cls']);
+        function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+        function formatComment(raw){
+            var safe=esc(raw);
+            safe=safe.replace(/(@[a-zA-Z][\w-]*)/g,'<span class="syn-doctag">$1</span>');
+            safe=safe.replace(/(`[^`\n]+`)/g,'<span class="syn-doccode">$1</span>');
+            return '<span class="syn-com">'+safe+'</span>';
+        }
+        function formatStr(raw){
+            var safe=esc(raw);
+            safe=safe.replace(/(\\[nrtbfv0\\"'\`]|\\x[0-9a-fA-F]{2}|\\u\{?[0-9a-fA-F]+\}?)/g,'<span class="syn-op">$1</span>');
+            return '<span class="syn-str">'+safe+'</span>';
+        }
+        function scanCode(src){
+            var out='',i=0,n=src.length,canRegex=true,lastKw='';
+            while(i<n){
+                var ch=src[i],next=i+1<n?src[i+1]:'';
+                if(hasHtmlComments&&src.startsWith('<!--',i)){
+                    var endH=src.indexOf('-->',i+4);
+                    var sH=endH>=0?src.slice(i,endH+3):src.slice(i);
+                    out+='<span class="syn-com">'+esc(sH)+'</span>';
+                    i+=sH.length;continue;
+                }
+                if((isPy||ext==='toml')&&(src.startsWith('"""',i)||src.startsWith("'''",i))){
+                    var q3=src.slice(i,i+3),endQ=src.indexOf(q3,i+3);
+                    var sQ=endQ>=0?src.slice(i,endQ+3):src.slice(i);
+                    out+=formatComment(sQ);i+=sQ.length;canRegex=false;continue;
+                }
+                if((hasSlashComments||isSQL)&&ch==='/'&&next==='*'){
+                    var endB=src.indexOf('*/',i+2);
+                    var sB=endB>=0?src.slice(i,endB+2):src.slice(i);
+                    out+=formatComment(sB);i+=sB.length;continue;
+                }
+                if(hasSlashComments&&ch==='/'&&next==='/'){
+                    var endL=src.indexOf('\n',i+2);
+                    var sL=endL>=0?src.slice(i,endL):src.slice(i);
+                    out+=formatComment(sL);i+=sL.length;continue;
+                }
+                if((hasHashComments||(i===0&&ch==='#'&&next==='!'))&&ch==='#'){
+                    if(!(isRust&&(next==='['||(next==='!'&&src[i+2]==='[')))){
+                        var endP=src.indexOf('\n',i+1);
+                        var sP=endP>=0?src.slice(i,endP):src.slice(i);
+                        out+=formatComment(sP);i+=sP.length;continue;
+                    }
+                }
+                if(hasDashComments&&ch==='-'&&next==='-'){
+                    var endD=src.indexOf('\n',i+2);
+                    var sD=endD>=0?src.slice(i,endD):src.slice(i);
+                    out+=formatComment(sD);i+=sD.length;continue;
+                }
+                if(isVBA&&ch==="'"){
+                    var endV=src.indexOf('\n',i+1);
+                    var sV=endV>=0?src.slice(i,endV):src.slice(i);
+                    out+=formatComment(sV);i+=sV.length;continue;
+                }
+                if(isJS&&ch==='`'){
+                    var j=i+1,chunk='`';
+                    out+='<span class="syn-str">';
+                    while(j<n){
+                        if(src[j]==='\\'){chunk+=src.slice(j,j+2);j+=2;continue;}
+                        if(src[j]==='$'&&src[j+1]==='{'){
+                            out+=esc(chunk)+'</span><span class="syn-op">${</span>';
+                            chunk='';j+=2;
+                            var depth=1,exprStart=j;
+                            while(j<n&&depth>0){
+                                if(src[j]==='\\'){j+=2;continue;}
+                                if(src[j]==='{')depth++;
+                                else if(src[j]==='}'){depth--;if(depth===0)break;}
+                                j++;
+                            }
+                            out+=scanCode(src.slice(exprStart,j));
+                            if(j<n&&src[j]==='}'){out+='<span class="syn-op">}</span>';j++;}
+                            out+='<span class="syn-str">';
+                            continue;
+                        }
+                        if(src[j]==='`'){chunk+='`';j++;break;}
+                        chunk+=src[j];j++;
+                    }
+                    out+=esc(chunk)+'</span>';
+                    i=j;canRegex=false;lastKw='';continue;
+                }
+                if(ch==='"'||ch==="'"){
+                    if(isRust&&ch==="'"){
+                        var lifeM=src.slice(i).match(/^'([a-zA-Z_]\w*)\b(?!')/);
+                        if(lifeM){out+='<span class="syn-type">'+esc(lifeM[0])+'</span>';i+=lifeM[0].length;canRegex=false;continue;}
+                    }
+                    var quote=ch,k=i+1;
+                    while(k<n){
+                        if(src[k]==='\\'){k+=2;continue;}
+                        if(src[k]===quote){k++;break;}
+                        if(src[k]==='\n'&&!isSQL)break;
+                        k++;
+                    }
+                    var strTok=src.slice(i,k);
+                    if((isJSON||isJS)&&/^\s*:(?!:)/.test(src.slice(k))){
+                        out+='<span class="syn-attr">'+esc(strTok)+'</span>';
+                    }else{
+                        out+=formatStr(strTok);
+                    }
+                    i=k;canRegex=false;lastKw='';continue;
+                }
+                if((isJS||isRuby)&&ch==='/'&&canRegex){
+                    var rxM=src.slice(i).match(/^\/(?![*\/])(?:\\.|\[(?:\\.|[^\]\n])*\]|[^\/\\\n])+\/[dgimsuvy]*/);
+                    if(rxM){out+='<span class="syn-regex">'+esc(rxM[0])+'</span>';i+=rxM[0].length;canRegex=false;lastKw='';continue;}
+                }
+                if((ch==='@'&&/[a-zA-Z_]/.test(next))||(isCSS&&ch==='@')){
+                    var decM=src.slice(i).match(/^@[a-zA-Z_][\w.-]*/);
+                    if(decM){out+='<span class="syn-meta">'+esc(decM[0])+'</span>';i+=decM[0].length;continue;}
+                }
+                if(isRust&&ch==='#'&&(next==='['||(next==='!'&&src[i+2]==='['))){
+                    var attrM=src.slice(i).match(/^#!?\[[^\]]*\]/);
+                    if(attrM){out+='<span class="syn-meta">'+esc(attrM[0])+'</span>';i+=attrM[0].length;continue;}
+                }
+                if((isShell||isPHP)&&ch==='$'&&/[a-zA-Z_{0-9@#?*$!-]/.test(next)){
+                    var varM=src.slice(i).match(/^\$(?:\{[^}\n]+\}|[a-zA-Z_]\w*|[0-9@#?*$!-])/);
+                    if(varM){out+='<span class="syn-var">'+esc(varM[0])+'</span>';i+=varM[0].length;canRegex=false;continue;}
+                }
+                if(isHTML&&ch==='<'&&/[\/a-zA-Z!]/.test(next)){
+                    var tagM=src.slice(i).match(/^<\/?([a-zA-Z][\w:-]*)/);
+                    if(tagM){
+                        var pfx=tagM[0].slice(0,tagM[0].length-tagM[1].length);
+                        out+='<span class="syn-op">'+esc(pfx)+'</span><span class="syn-tag">'+esc(tagM[1])+'</span>';
+                        i+=tagM[0].length;continue;
+                    }
+                }
+                if(/[0-9]/.test(ch)&&(i===0||!/[a-zA-Z_$]/.test(src[i-1]))){
+                    var numM=src.slice(i).match(/^(?:0[xX][0-9a-fA-F_]+|0[bB][01_]+|0[oO][0-7_]+|\d[\d_]*(?:\.\d[\d_]*)?(?:[eE][+-]?\d+)?n?)/);
+                    if(numM){out+='<span class="syn-num">'+esc(numM[0])+'</span>';i+=numM[0].length;canRegex=false;lastKw='';continue;}
+                }
+                if(/[a-zA-Z_$]/.test(ch)){
+                    var idM=src.slice(i).match(/^[a-zA-Z_$][\w$]*/);
+                    if(idM){
+                        var word=idM[0],afterIdx=i+word.length,rest=src.slice(afterIdx),prevCh=i>0?src[i-1]:'',prev2=i>1?src.slice(i-2,i):'';
+                        if(isRust&&rest[0]==='!'){out+='<span class="syn-meta">'+esc(word+'!')+'</span>';i=afterIdx+1;canRegex=false;lastKw='';continue;}
+                        if(prevCh==='.'&&prev2!=='..'){
+                            out+='<span class="'+(/^\s*(?:<[^>(\n]{1,60}>)?\s*\(/.test(rest)?'syn-fn':'syn-prop')+'">'+esc(word)+'</span>';
+                            i=afterIdx;canRegex=false;lastKw='';continue;
+                        }
+                        if(KW_SET.has(word)||(isVBA&&/^(Public|Private|Friend|Static|Dim|Set|Let|Get|Call|Function|Sub|End|Exit|If|Then|Else|ElseIf|For|To|Step|Next|Do|Loop|While|Wend|Select|Case|With|On|Error|Resume|GoTo|ByVal|ByRef|Optional|ParamArray|As|Type|Enum|Const|True|False|Nothing|Empty|Null|Me)$/i.test(word))){
+                            out+='<span class="syn-kw">'+esc(word)+'</span>';
+                            i=afterIdx;canRegex=true;lastKw=word;continue;
+                        }
+                        if(LIT_SET.has(word)){out+='<span class="syn-num">'+esc(word)+'</span>';i=afterIdx;canRegex=false;lastKw='';continue;}
+                        if(TYPE_SET.has(word)||(/^[A-Z][a-zA-Z0-9]*$/.test(word)&&/[a-z]/.test(word))||lastKw==='type'||lastKw==='interface'||lastKw==='class'||lastKw==='enum'||lastKw==='struct'||lastKw==='trait'||lastKw==='extends'||lastKw==='implements'){
+                            out+='<span class="syn-type">'+esc(word)+'</span>';
+                            i=afterIdx;canRegex=false;lastKw='';continue;
+                        }
+                        if(/^[A-Z][A-Z0-9_]{1,}$/.test(word)){out+='<span class="syn-const">'+esc(word)+'</span>';i=afterIdx;canRegex=false;lastKw='';continue;}
+                        if(lastKw==='function'||lastKw==='def'||lastKw==='fn'||/^\s*(?:<[^>(\n]{1,60}>)?\s*\(/.test(rest)){
+                            out+='<span class="syn-fn">'+esc(word)+'</span>';
+                            i=afterIdx;canRegex=false;lastKw='';continue;
+                        }
+                        if(/^\s*:(?!:)/.test(rest)&&(isJSON||isJS||isGo||isRust)){
+                            out+='<span class="syn-attr">'+esc(word)+'</span>';
+                            i=afterIdx;canRegex=true;lastKw='';continue;
+                        }
+                        if(lastKw==='const'||lastKw==='let'||lastKw==='var'||lastKw==='import'||lastKw==='as'){
+                            out+='<span class="syn-var">'+esc(word)+'</span>';
+                            i=afterIdx;canRegex=false;if(lastKw!=='import')lastKw='';continue;
+                        }
+                        out+=esc(word);i=afterIdx;canRegex=false;continue;
+                    }
+                }
+                var opM=src.slice(i).match(/^(?:=>|===|!==|==|!=|<=|>=|&&|\|\||\?\?|\?\.|\.\.\.|::|->|\+=|-=|\*=|\/=|[=+\-*\/%&|^!~<>?:])/);
+                if(opM){out+='<span class="syn-op">'+esc(opM[0])+'</span>';i+=opM[0].length;canRegex=true;lastKw='';continue;}
+                if(/[({\[,;:]/.test(ch)){canRegex=true;if(ch===';'||ch==='}')lastKw='';out+='<span class="syn-punct">'+esc(ch)+'</span>';i++;continue;}
+                if(/[)}\]]/.test(ch)){canRegex=false;if(ch==='}')lastKw='';out+='<span class="syn-punct">'+esc(ch)+'</span>';i++;continue;}
+                if(ch==='\n'&&lastKw==='import')lastKw='';
+                out+=esc(ch);i++;
             }
-            if(isJava)escaped=escaped.replace(/\b(public|private|protected|static|final|void|class|interface|extends|implements|return|if|else|for|while|do|switch|case|break|continue|try|catch|finally|throw|new|import|package|this|super|null|true|false)\b/g,'<span class="syn-kw">$1</span>');
-            if(isRuby)escaped=escaped.replace(/\b(def|class|module|end|return|if|elsif|else|unless|case|when|for|while|until|do|begin|rescue|ensure|raise|require|include|extend|attr_accessor|attr_reader|attr_writer|true|false|nil|self)\b/g,'<span class="syn-kw">$1</span>');
-            if(isPHP)escaped=escaped.replace(/\b(function|class|return|if|else|elseif|for|foreach|while|do|switch|case|break|continue|try|catch|finally|throw|new|public|private|protected|static|const|use|namespace|extends|implements|true|false|null)\b/g,'<span class="syn-kw">$1</span>');
-            if(isVBA)escaped=escaped.replace(/\b(Public|Private|Friend|Static|Dim|Set|Let|Get|Call|Function|Sub|End Sub|End Function|Exit Sub|Exit Function|If|Then|Else|ElseIf|End If|For|To|Step|Next|Do|Loop|While|Wend|Select|Case|End Select|With|End With|On Error|Resume|GoTo|ByVal|ByRef|Optional|ParamArray|As|Type|Enum|Const|True|False|Nothing|Empty|Null|Me|Application|ThisWorkbook|Worksheets|Cells|Range|MsgBox|InputBox|Debug\.Print)\b/gi,'<span class="syn-kw">$1</span>');
-            if(isCSS)escaped=escaped.replace(/(@media|@import|@keyframes|@font-face|!important)/g,'<span class="syn-kw">$1</span>');
-            if(isHTML){escaped=escaped.replace(/(&lt;\/?)([\w-]+)/g,'$1<span class="syn-tag">$2</span>');escaped=escaped.replace(/([\w-]+)(=)/g,'<span class="syn-attr">$1</span>$2');}
-            // Function calls
-            escaped=escaped.replace(/\b([a-zA-Z_]\w*)\s*\(/g,'<span class="syn-fn">$1</span>(');
-            // Types (capitalized words in certain contexts)
-            if(isJS||isJava)escaped=escaped.replace(/:\s*([A-Z]\w*)/g,': <span class="syn-type">$1</span>');
-            return escaped;
-        });
-        return result;
+            return out;
+        }
+        function byLine(markup){
+            var lines=markup.split('\n'),open=[],out=[];
+            for(var l=0;l<lines.length;l++){
+                var line=lines[l],prefix=open.join(''),re=/<span\b[^>]*>|<\/span>/g,m;
+                while((m=re.exec(line))){
+                    if(m[0]==='</span>')open.pop();
+                    else open.push(m[0]);
+                }
+                var suffix='';
+                for(var s=open.length-1;s>=0;s--)suffix+='</span>';
+                out.push(prefix+line+suffix);
+            }
+            return out;
+        }
+        return byLine(scanCode(code));
     }
 
     function folderSourceIsLive(){
@@ -17078,13 +17409,20 @@ function App(){
             ),
             data.stats.languages&&data.stats.languages.length>0&&React.createElement(React.Fragment,null,
                 React.createElement('div',{className:'lang-bar'},
-                    data.stats.languages.slice(0,6).map(function(l,i){return React.createElement('div',{key:l.ext,className:'lang-bar-segment',style:{width:l.pct+'%',background:COLORS[i%COLORS.length]}});})
+                    data.stats.languages.slice(0,6).map(function(l,i){
+                        var lMeta=getFileTypeMeta('file'+l.ext);
+                        var barColor=lMeta&&lMeta.color&&lMeta.color.indexOf('var(')<0?lMeta.color:COLORS[i%COLORS.length];
+                        return React.createElement('div',{key:l.ext,className:'lang-bar-segment',style:{width:l.pct+'%',background:barColor}});
+                    })
                 ),
                 React.createElement('div',{className:'lang-legend'},
-                    data.stats.languages.slice(0,6).map(function(l,i){return React.createElement('div',{key:l.ext,className:'lang-item'},
-                        React.createElement('div',{className:'lang-dot',style:{background:COLORS[i%COLORS.length]}}),
-                        React.createElement('span',null,l.ext,' ',l.pct,'%')
-                    );})
+                    data.stats.languages.slice(0,6).map(function(l,i){
+                        var lMeta=getFileTypeMeta('file'+l.ext);
+                        return React.createElement('div',{key:l.ext,className:'lang-item',title:lMeta.label},
+                            renderFileTypeIcon('file'+l.ext,'s'),
+                            React.createElement('span',null,l.ext,' ',l.pct,'%')
+                        );
+                    })
                 )
             )
         );
@@ -17416,11 +17754,15 @@ function App(){
             }
         }},
             React.createElement('div',{className:'code-card-head',onPointerDown:function(e){beginCodeCardDrag(e,file);}},
-                React.createElement('div',null,
-                    React.createElement('div',{className:'code-card-name'},file.name),
+                React.createElement('div',{style:{minWidth:0}},
+                    React.createElement('div',{className:'code-card-title-row'},
+                        renderFileTypeIcon(file.path||file.name,'s'),
+                        React.createElement('div',{className:'code-card-name'},file.name)
+                    ),
                     React.createElement('div',{className:'code-card-path'},file.path)
                 ),
                 React.createElement('div',{className:'code-card-head-actions'},
+                    React.createElement('button',{type:'button',className:'code-card-expand-btn',title:'Open full source modal',onPointerDown:function(e){e.stopPropagation();},onClick:function(e){e.stopPropagation();openFilePreview(file.path);}},React.createElement(Icon,{name:'eye',size:'s'}),'Expand'),
                     namedCodeGroups.length?React.createElement('label',{className:'code-card-group',onPointerDown:function(e){e.stopPropagation();},onClick:function(e){e.stopPropagation();}},
                         React.createElement('select',{
                             className:'code-card-group-select',
@@ -18070,7 +18412,8 @@ function App(){
                         React.createElement('span',{className:'gk-pill'},'🕒 '+(arch.committedAt||git.committedAt||'')),
                         React.createElement('span',{className:'gk-pill'},'🎯 '+((gkManifest.targets||[]).length)+' walkable targets'),
                         React.createElement('span',{className:'gk-pill'},'🔒 Tailnet Private · 0 External Calls')
-                    )
+                    ),
+                    gkRenderQuickBar()
                 ),
                 React.createElement('div',{className:'gk-tabs'},
                     tabs.map(function(t){
@@ -18095,7 +18438,10 @@ function App(){
         var linkLabel=item.file?'Local asset ↗':(item.kind==='tenant-product'?'Domain ↗':'Live ↗');
         return React.createElement('div',{key:keyPrefix+'-'+index,className:'gk-row'},
             React.createElement('div',{className:'gk-row-main'},
-                React.createElement('div',{className:'gk-row-name'},item.name||item.id),
+                React.createElement('div',{className:'gk-row-name',style:{display:'flex',alignItems:'center',gap:6}},
+                    renderFileTypeIcon(item.file||item.checkoutPath||item.name||item.id||'package.json','m'),
+                    item.name||item.id
+                ),
                 React.createElement('div',{className:'gk-row-sub'},
                     (item.file?item.file+' · ':'')+
                     (item.checkoutPath?'checkout '+item.checkoutPath+' · ':'')+
@@ -18165,7 +18511,8 @@ function App(){
                         React.createElement('a',{className:'gk-pill',style:{borderColor:'var(--acc)',color:'var(--acc)'},href:'https://github.com/lincicomb/gk/commit/'+git.sha,target:'_blank',rel:'noopener noreferrer'},'main @ '+(git.shortSha||'')+' ↗'),
                         React.createElement('span',{className:'gk-pill'},'🕒 '+(gkManifest.generatedAt||'')),
                         React.createElement('span',{className:'gk-pill'},'🔒 Tailnet Private · 0 External Calls')
-                    )
+                    ),
+                    gkRenderQuickBar()
                 ),
                 React.createElement('div',{className:'gk-kpi-grid'},
                     React.createElement('div',{className:'gk-kpi'},
@@ -18203,7 +18550,10 @@ function App(){
                             var commitHref=gkCommitHref(t.repoUrl,t.commitSha);
                             return React.createElement('div',{key:'gk-target-row-'+t.id,className:'gk-row'},
                                 React.createElement('div',{className:'gk-row-main'},
-                                    React.createElement('div',{className:'gk-row-name'},t.title),
+                                    React.createElement('div',{className:'gk-row-name',style:{display:'flex',alignItems:'center',gap:6}},
+                                        renderFileTypeIcon(t.id==='dep-codeflow'?'package.json':(t.id.indexOf('sites')>=0?'Caddyfile':'.ts'),'m'),
+                                        t.title
+                                    ),
                                     React.createElement('div',{className:'gk-row-sub'},t.description||'')
                                 ),
                                 React.createElement('div',{className:'gk-row-links'},
@@ -18327,9 +18677,7 @@ function App(){
             gkManifest&&React.createElement('div',{className:'gk-topbar-group'},
                 React.createElement('select',{className:'gk-target-select','aria-label':'GK Walkthrough Target',value:gkTarget,title:'Choose which GK subsystem, dependency, or pinned tenant product to walk',onChange:function(e){loadGkTargetBundle(e.target.value,null,(graphConfig.vizType==='gk-map'||graphConfig.vizType==='gk-deps')?'graph':graphConfig.vizType);}},
                     gkRenderTargetOptions()
-                ),
-                gkManifest.git&&React.createElement('a',{className:'gk-pill',style:{borderColor:'var(--acc)',color:'var(--acc)'},href:'https://github.com/lincicomb/gk/commit/'+gkManifest.git.sha,target:'_blank',rel:'noopener noreferrer',title:'This page is built from this exact commit'},'gk @ '+(gkManifest.git.shortSha||'')),
-                React.createElement('span',{className:'gk-pill',title:'Served from the private tailnet with no third-party loads'},'🔒 Tailnet Private · 0 External Calls')
+                )
             ),
             React.createElement('div',{className:'repo-input-group'},
                 React.createElement('input',{className:'repo-input','aria-label':'Repository URL',placeholder:'owner/repo or GitHub URL',value:repoUrl,onChange:function(e){setRepoUrl(e.target.value);},onKeyDown:function(e){if(e.key==='Enter'&&!loading)analyze();}}),
@@ -18424,9 +18772,24 @@ function App(){
                 )
             ),
             React.createElement('div',{className:'canvas-area'},
-                loading?React.createElement('div',{className:'loading'},React.createElement('div',{className:'spinner'}),React.createElement('div',{className:'loading-text'},'Analyzing...'),React.createElement('div',{className:'loading-progress'},progress)):
+                (loading&&!(gkManifest&&(graphConfig.vizType==='gk-map'||graphConfig.vizType==='gk-deps')))?React.createElement('div',{className:'loading'},React.createElement('div',{className:'spinner'}),React.createElement('div',{className:'loading-text'},'Analyzing...'),React.createElement('div',{className:'loading-progress'},progress)):
                 gkManifest&&!data&&(graphConfig.vizType==='gk-map'||graphConfig.vizType==='gk-deps')?React.createElement(React.Fragment,null,
-                    gkRenderQuickBar(),
+                    React.createElement('div',{className:'viz-selector'},
+                        React.createElement('select',{className:'viz-select','aria-label':'Visualization type',value:graphConfig.vizType,onChange:function(e){var v=e.target.value;setGraphConfig(Object.assign({},graphConfig,{vizType:v}));}},
+                            React.createElement('option',{value:'gk-map'},'🗺️ GK Architecture Map'),
+                            React.createElement('option',{value:'gk-deps'},'📦 GK Dependencies & Versions'),
+                            React.createElement('option',{value:'graph'},'Graph'),
+                            React.createElement('option',{value:'code'},'Code'),
+                            React.createElement('option',{value:'graph3d'},'3D Graph'),
+                            React.createElement('option',{value:'treemap'},'Treemap'),
+                            React.createElement('option',{value:'matrix'},'Matrix'),
+                            React.createElement('option',{value:'dendro'},'Tree'),
+                            React.createElement('option',{value:'sankey'},'Flow'),
+                            React.createElement('option',{value:'disjoint'},'Cluster'),
+                            React.createElement('option',{value:'bundle'},'Bundle'),
+                            React.createElement('option',{value:'architecture'},'Block Diagram')
+                        )
+                    ),
                     graphConfig.vizType==='gk-map'&&renderGkArchitectureMapView(),
                     graphConfig.vizType==='gk-deps'&&renderGkDependenciesView()
                 ):
@@ -18458,7 +18821,6 @@ function App(){
                             React.createElement('option',{value:'architecture'},'Block Diagram')
                         )
                     ),
-                    gkRenderQuickBar(),
                     graphConfig.vizType==='gk-map'&&renderGkArchitectureMapView(),
                     graphConfig.vizType==='gk-deps'&&renderGkDependenciesView(),
                     graphConfig.vizType==='graph'&&React.createElement('svg',{ref:svgRef}),
@@ -18597,7 +18959,7 @@ function App(){
                             React.createElement('div',{className:'panel-header',style:{margin:'0 -12px 12px',padding:12}},
                                 React.createElement('div',{style:{display:'flex',justifyContent:'space-between',alignItems:'flex-start'}},
                                     React.createElement('div',null,
-                                        React.createElement('div',{className:'panel-title'},React.createElement(Icon,{name:'file',size:'m'}),' ',selected.name),
+                                        React.createElement('div',{className:'panel-title',style:{display:'flex',alignItems:'center',gap:6}},renderFileTypeIcon(selected.path||selected.name,'m'),selected.name),
                                         React.createElement('div',{className:'panel-subtitle'},selected.folder||'root',' • ',selected.layer,' • ',selected.lines,' lines',selected.complexity&&selected.complexity.score>0?' • Complexity: '+selected.complexity.score:'')
                                     ),
                                     React.createElement('button',{className:'view-file-btn',onClick:function(){openFilePreview(selected.path);}},iconLabel('eye','View Source'))
@@ -18631,12 +18993,12 @@ function App(){
                                     ),
                                     blastRadius.affected.length>0&&React.createElement('div',{className:'blast-detail'},
                                         React.createElement('div',{style:{fontSize:9,fontWeight:600,marginBottom:6}},'Files that import from this:'),
-                                        blastRadius.affected.slice(0,8).map(function(path){return React.createElement('div',{key:path,className:'blast-file',onClick:function(){goToFile(path);}},React.createElement(Icon,{name:'file',size:'s'}),' ',path.split('/').pop());}),
+                                        blastRadius.affected.slice(0,8).map(function(path){return React.createElement('div',{key:path,className:'blast-file',onClick:function(){goToFile(path);}},renderFileTypeIcon(path,'s'),' ',path.split('/').pop());}),
                                         blastRadius.affected.length>8&&React.createElement('div',{style:{fontSize:9,color:'var(--t3)',marginTop:4}},'+',blastRadius.affected.length-8,' more')
                                     ),
                                     (blastRadius.dependencies||[]).length>0&&React.createElement('div',{className:'blast-detail',style:{marginTop:8}},
                                         React.createElement('div',{style:{fontSize:9,fontWeight:600,marginBottom:6,color:'var(--orange)'}},'Dependencies (risk if these change):'),
-                                        blastRadius.dependencies.slice(0,5).map(function(path){return React.createElement('div',{key:path,className:'blast-file',onClick:function(){goToFile(path);}},React.createElement(Icon,{name:'file',size:'s'}),' ',path.split('/').pop());}),
+                                        blastRadius.dependencies.slice(0,5).map(function(path){return React.createElement('div',{key:path,className:'blast-file',onClick:function(){goToFile(path);}},renderFileTypeIcon(path,'s'),' ',path.split('/').pop());}),
                                         blastRadius.dependencies.length>5&&React.createElement('div',{style:{fontSize:9,color:'var(--t3)',marginTop:4}},'+',blastRadius.dependencies.length-5,' more')
                                     )
                                 )
@@ -18669,7 +19031,7 @@ function App(){
                                                 return React.createElement('div',{key:conn.file,className:'conn-item'},
                                                     React.createElement('div',{className:'conn-header',onClick:function(e){e.stopPropagation();toggleCard('conn-out-'+conn.file);}},
                                                         React.createElement('span',{className:'card-toggle'+(isOpen?' open':''),style:{fontSize:8,marginRight:6}},'▶'),
-                                                        React.createElement('span',{className:'conn-file-icon'},React.createElement(Icon,{name:'file',size:'s'})),
+                                                        React.createElement('span',{className:'conn-file-icon'},renderFileTypeIcon(conn.file,'s')),
                                                         React.createElement('span',{className:'conn-file-name'},conn.file.split('/').pop()),
                                                         React.createElement('span',{className:'badge badge-default',style:{marginLeft:'auto'}},conn.fns.length,' fn',conn.fns.length!==1?'s':'')
                                                     ),
@@ -18691,7 +19053,7 @@ function App(){
                                                 return React.createElement('div',{key:conn.file,className:'conn-item'},
                                                     React.createElement('div',{className:'conn-header',onClick:function(e){e.stopPropagation();toggleCard('conn-in-'+conn.file);}},
                                                         React.createElement('span',{className:'card-toggle'+(isOpen?' open':''),style:{fontSize:8,marginRight:6}},'▶'),
-                                                        React.createElement('span',{className:'conn-file-icon'},React.createElement(Icon,{name:'file',size:'s'})),
+                                                        React.createElement('span',{className:'conn-file-icon'},renderFileTypeIcon(conn.file,'s')),
                                                         React.createElement('span',{className:'conn-file-name'},conn.file.split('/').pop()),
                                                         React.createElement('span',{className:'badge badge-default',style:{marginLeft:'auto'}},conn.fns.length,' fn',conn.fns.length!==1?'s':'')
                                                     ),
@@ -19350,11 +19712,19 @@ function App(){
             React.createElement('div',{className:'file-preview-modal',onClick:function(e){e.stopPropagation();}},
                 React.createElement('div',{className:'file-preview-header'},
                     React.createElement('div',{className:'file-preview-title'},
-                        React.createElement('span',{className:'file-preview-icon'},React.createElement(Icon,{name:getFilePreviewIconName(filePreview.filename),size:'l'})),
+                        renderFileTypeIcon(filePreview.path||filePreview.filename,'l','file-preview-icon'),
                         React.createElement('span',{className:'file-preview-name'},filePreview.filename),
                         React.createElement('span',{className:'file-preview-path'},filePreview.path)
                     ),
                     React.createElement('div',{className:'file-preview-actions'},
+                        (function(){
+                            var fpMeta=getFileTypeMeta(filePreview.path||filePreview.filename);
+                            var lineCount=filePreview.content?filePreview.content.split('\n').length:0;
+                            return React.createElement('span',{className:'file-lang-badge',style:{borderColor:fpMeta.color}},
+                                renderFileTypeIcon(filePreview.path||filePreview.filename,'s'),
+                                fpMeta.label+(lineCount?' · '+lineCount+' lines':'')
+                            );
+                        })(),
                         filePreview.line&&React.createElement('span',{className:'file-preview-line-badge'},'Line ',filePreview.line),
                         React.createElement('button',{className:'file-preview-close',onClick:function(){setFilePreview(null);}},'×')
                     )

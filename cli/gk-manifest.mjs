@@ -40,7 +40,50 @@ function readJsonSafe(filePath, fallback = null) {
   }
 }
 
-function gitInfo(gkRoot) {
+const GIT_INFO_CACHE = new Map();
+const GITMODULES_CACHE = new Map();
+const MANIFEST_CACHE = new Map();
+const BUNDLE_CACHE = new Map();
+const MAX_CACHED_BUNDLES = 8;
+
+export function readGitRevisionStamp(gkRoot) {
+  try {
+    const gitDirPath = path.join(gkRoot, '.git');
+    let gitDir = gitDirPath;
+    const st = statSync(gitDirPath);
+    if (st.isFile()) {
+      const ptr = readFileSync(gitDirPath, 'utf8').trim();
+      if (ptr.startsWith('gitdir:')) {
+        gitDir = path.resolve(gkRoot, ptr.slice('gitdir:'.length).trim());
+      }
+    }
+    const headRaw = readFileSync(path.join(gitDir, 'HEAD'), 'utf8').trim();
+    let refSha = headRaw;
+    if (headRaw.startsWith('ref:')) {
+      const refRel = headRaw.slice(4).trim();
+      const refFile = path.join(gitDir, refRel);
+      if (existsSync(refFile)) {
+        refSha = `${refRel}:${readFileSync(refFile, 'utf8').trim()}`;
+      } else {
+        const packed = path.join(gitDir, 'packed-refs');
+        const packedMtime = existsSync(packed) ? statSync(packed).mtimeMs : 0;
+        refSha = `${refRel}:packed-${packedMtime}`;
+      }
+    }
+    const idxFile = path.join(gitDir, 'index');
+    const idxMtime = existsSync(idxFile) ? Math.floor(statSync(idxFile).mtimeMs) : 0;
+    const actFile = path.join(gkRoot, '.gk', 'activation.yaml');
+    const actMtime = existsSync(actFile) ? Math.floor(statSync(actFile).mtimeMs) : 0;
+    return `${refSha}@idx:${idxMtime}@act:${actMtime}`;
+  } catch {
+    return 'unstamped';
+  }
+}
+
+function gitInfo(gkRoot, stamp = readGitRevisionStamp(gkRoot)) {
+  const cacheKey = `${path.resolve(gkRoot)}::${stamp}`;
+  const hit = GIT_INFO_CACHE.get(cacheKey);
+  if (hit) return hit;
   let sha = '561329893be360513dc2b2c9349d3595405b9187';
   let committedAt = new Date().toISOString();
   let branch = 'main';
@@ -58,12 +101,15 @@ function gitInfo(gkRoot) {
       stdio: ['ignore', 'pipe', 'ignore']
     }).trim() || branch;
   } catch {}
-  return {
+  const info = {
     sha,
     shortSha: sha.slice(0, 8),
     committedAt,
     branch
   };
+  if (GIT_INFO_CACHE.size >= 16) GIT_INFO_CACHE.clear();
+  GIT_INFO_CACHE.set(cacheKey, info);
+  return info;
 }
 
 export function detectGkRoot(startDir) {
@@ -120,7 +166,10 @@ function loadEdgeSites(gkRoot) {
   return Array.isArray(sitesFile?.sites) ? sitesFile.sites : [];
 }
 
-function loadGitmodules(gkRoot) {
+function loadGitmodules(gkRoot, stamp = readGitRevisionStamp(gkRoot)) {
+  const cacheKey = `${path.resolve(gkRoot)}::${stamp}`;
+  const hit = GITMODULES_CACHE.get(cacheKey);
+  if (hit) return hit;
   const gmPath = path.join(gkRoot, '.gitmodules');
   if (!existsSync(gmPath)) return [];
   const raw = readFileSync(gmPath, 'utf8');
@@ -153,6 +202,8 @@ function loadGitmodules(gkRoot) {
       mod.shortSha = mod.sha ? mod.sha.slice(0, 8) : null;
     }
   } catch {}
+  if (GITMODULES_CACHE.size >= 16) GITMODULES_CACHE.clear();
+  GITMODULES_CACHE.set(cacheKey, modules);
   return modules;
 }
 
@@ -402,10 +453,19 @@ function collectFilesFromDir(gkRoot, relDir, outFiles, seenPaths, maxFiles) {
   walk(absDir, relDir.replace(/\\/g, '/').replace(/^\/+|\/+$/g, ''));
 }
 
-export function buildGkTargetBundle(gkRoot, targetId) {
+export function buildGkTargetBundle(gkRoot, targetId, options = {}) {
   if (!gkRoot) return null;
   const cleanId = String(targetId || 'gk-system').trim();
   if (!/^[a-z0-9-]+$/i.test(cleanId)) return null;
+  const watchEpoch = Number(options.watchEpoch) || 0;
+  const stamp = readGitRevisionStamp(gkRoot);
+  const cacheKey = `${path.resolve(gkRoot)}::${cleanId}::${stamp}::${watchEpoch}`;
+  if (!options.noCache && BUNDLE_CACHE.has(cacheKey)) {
+    const cached = BUNDLE_CACHE.get(cacheKey);
+    BUNDLE_CACHE.delete(cacheKey);
+    BUNDLE_CACHE.set(cacheKey, cached);
+    return cached;
+  }
   const targets = listGkTargets(gkRoot);
   const target = targets.find((t) => t.id === cleanId);
   if (!target) return null;
@@ -511,7 +571,7 @@ export function buildGkTargetBundle(gkRoot, targetId) {
     }
   }
 
-  return {
+  const bundle = {
     ok: true,
     target: target.id,
     title: target.title,
@@ -519,6 +579,7 @@ export function buildGkTargetBundle(gkRoot, targetId) {
     category: target.category,
     version: target.version,
     commitSha: target.commitSha,
+    cacheKey: `${target.commitSha || stamp}:${watchEpoch}`,
     repoUrl: target.repoUrl,
     liveUrl: target.liveUrl,
     description: target.description,
@@ -526,9 +587,21 @@ export function buildGkTargetBundle(gkRoot, targetId) {
     fileCount: files.length,
     files
   };
+  if (BUNDLE_CACHE.size >= MAX_CACHED_BUNDLES) {
+    const oldestKey = BUNDLE_CACHE.keys().next().value;
+    if (oldestKey) BUNDLE_CACHE.delete(oldestKey);
+  }
+  BUNDLE_CACHE.set(cacheKey, bundle);
+  return bundle;
 }
 
-export function buildGkManifest(gkRoot) {
+export function buildGkManifest(gkRoot, options = {}) {
+  const watchEpoch = Number(options.watchEpoch) || 0;
+  const stamp = readGitRevisionStamp(gkRoot);
+  const cacheKey = `${path.resolve(gkRoot)}::${stamp}::${watchEpoch}`;
+  if (!options.noCache && MANIFEST_CACHE.has(cacheKey)) {
+    return MANIFEST_CACHE.get(cacheKey);
+  }
   const git = gitInfo(gkRoot);
   const rootPkg = readJsonSafe(path.join(gkRoot, 'package.json'), {});
   const codeflowPkg = readJsonSafe(resolveCodeflowPath(gkRoot, 'package.json'), { version: '1.0.0' });
@@ -545,7 +618,7 @@ export function buildGkManifest(gkRoot) {
   const tenants = loadTenants(gkRoot);
   const clients = loadClients(gkRoot);
   const edgeSites = loadEdgeSites(gkRoot);
-  const gitmodules = loadGitmodules(gkRoot);
+  const gitmodules = loadGitmodules(gkRoot, stamp);
   const targets = listGkTargets(gkRoot).map(({ tenantRecord, ...rest }) => rest);
 
   const ghBlob = (relPath) => `https://github.com/lincicomb/gk/blob/${git.sha}/${relPath}`;
@@ -953,9 +1026,10 @@ export function buildGkManifest(gkRoot) {
     };
   });
 
-  return {
+  const manifest = {
     ok: true,
     generatedAt: new Date().toISOString(),
+    cacheKey: `${git.sha}:${watchEpoch}`,
     git,
     privacy: {
       robots: 'noindex, nofollow, noarchive',
@@ -997,4 +1071,7 @@ export function buildGkManifest(gkRoot) {
       }))
     }
   };
+  if (MANIFEST_CACHE.size >= 8) MANIFEST_CACHE.clear();
+  MANIFEST_CACHE.set(cacheKey, manifest);
+  return manifest;
 }

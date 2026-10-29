@@ -221,6 +221,26 @@ function sendJson(res, status, body) {
   res.end(payload);
 }
 
+function sendJsonWithEtag(req, res, status, body, etagToken) {
+  const etag = etagToken ? `W/"${String(etagToken).replace(/"/g, '')}"` : null;
+  if (etag && req && req.headers && req.headers['if-none-match'] === etag) {
+    res.writeHead(304, {
+      ETag: etag,
+      'Cache-Control': 'private, no-cache'
+    });
+    res.end();
+    return;
+  }
+  const payload = JSON.stringify(body);
+  const headers = {
+    'Content-Type': 'application/json; charset=utf-8',
+    'Cache-Control': etag ? 'private, no-cache' : 'no-store'
+  };
+  if (etag) headers.ETag = etag;
+  res.writeHead(status, headers);
+  res.end(payload);
+}
+
 export const CLI_FILE_MAX_BYTES = 2 * 1024 * 1024;
 
 export function isMissingFsError(err) {
@@ -473,10 +493,12 @@ export function createCodeflowServer(options) {
   );
   const clients = new Set();
   const watchRevs = new Map();
+  let watchEpoch = 0;
 
   const watchSession = startFileWatchers(watchRoot, (rel) => {
     const pathKey = normalizeWatchRel(rel);
     const rev = bumpWatchRev(watchRevs, pathKey);
+    watchEpoch += 1;
     const payload = `data: ${JSON.stringify({ type: 'change', path: pathKey, rev })}\n\n`;
     for (const client of clients) client.write(payload);
   }, undefined, watchOptions);
@@ -514,7 +536,8 @@ export function createCodeflowServer(options) {
           return;
         }
         try {
-          sendJson(res, 200, buildGkManifest(gkRoot));
+          const manifest = buildGkManifest(gkRoot, { watchEpoch });
+          sendJsonWithEtag(req, res, 200, manifest, manifest && manifest.cacheKey);
         } catch {
           console.error('codeflow: failed to build the GK manifest');
           sendPublicError(res, 500, 'Could not build the GK manifest');
@@ -525,7 +548,7 @@ export function createCodeflowServer(options) {
         const targetId = url.searchParams.get('target') || 'gk-system';
         let bundle = null;
         try {
-          bundle = gkRoot ? buildGkTargetBundle(gkRoot, targetId) : null;
+          bundle = gkRoot ? buildGkTargetBundle(gkRoot, targetId, { watchEpoch }) : null;
         } catch {
           bundle = null;
         }
@@ -533,7 +556,7 @@ export function createCodeflowServer(options) {
           sendJson(res, 404, { ok: false, error: 'Unknown target' });
           return;
         }
-        sendJson(res, 200, bundle);
+        sendJsonWithEtag(req, res, 200, bundle, bundle.cacheKey ? `${targetId}:${bundle.cacheKey}` : null);
         return;
       }
       if (url.pathname === '/__codeflow/files') {

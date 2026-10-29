@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import http from 'node:http';
-import { mkdtemp, rm, writeFile } from 'node:fs/promises';
+import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -153,4 +153,37 @@ test('GK manifest route rejects a rebound Host but accepts the tailnet site', as
 
   const viaTailnetIp = await rawRequest(port, '/__codeflow/gk-manifest', { Host: '100.124.235.45:4179' });
   assert.equal(viaTailnetIp.status, 200);
+});
+
+test('GK manifest and bundle routes support ETag and 304 Not Modified', async (t) => {
+  const { base } = await startGkServer(t);
+  const first = await fetch(base + '/__codeflow/gk-manifest');
+  assert.equal(first.status, 200);
+  const etag = first.headers.get('etag');
+  assert.ok(etag && etag.startsWith('W/"'), 'expected weak ETag');
+  const second = await fetch(base + '/__codeflow/gk-manifest', {
+    headers: { 'If-None-Match': etag }
+  });
+  assert.equal(second.status, 304);
+
+  const b1 = await fetch(base + '/__codeflow/gk-bundle?target=dep-codeflow');
+  assert.equal(b1.status, 200);
+  const bEtag = b1.headers.get('etag');
+  assert.ok(bEtag && bEtag.startsWith('W/"'));
+  const b2 = await fetch(base + '/__codeflow/gk-bundle?target=dep-codeflow', {
+    headers: { 'If-None-Match': bEtag }
+  });
+  assert.equal(b2.status, 304);
+});
+
+test('multi-line JSDoc block comments and brand icons render without keyword/string corruption', async () => {
+  const html = await readFile(join(uiRoot, 'index.html'), 'utf8');
+  assert.match(html, /function getFileTypeMeta\(filenameOrPath\)/);
+  assert.match(html, /function renderFileTypeIcon\(filenameOrPath,size,className\)/);
+  assert.match(html, /case 'lang-ts':/);
+  assert.match(html, /case 'lang-py':/);
+  assert.match(html, /case 'lang-rs':/);
+  assert.match(html, /case 'lang-go':/);
+  assert.match(html, /function byLine\(markup\)/);
+  assert.doesNotMatch(html, /\.canvas-area:has\(\.gk-quickbar\)\s*\.viz-selector/);
 });

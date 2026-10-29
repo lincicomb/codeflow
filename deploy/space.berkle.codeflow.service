@@ -15,8 +15,15 @@ User=gk
 Group=gk
 WorkingDirectory=/srv/homepage/gk
 # Loopback only, and the browser is never launched from a service.
-ExecStart=/bin/sh -c 'if [ -f /srv/homepage/gk/system/codeflow/cli/codeflow.mjs ]; then exec node /srv/homepage/gk/system/codeflow/cli/codeflow.mjs /srv/homepage/gk --port 4179 --host 127.0.0.1 --no-open; else exec node /srv/codeflow/cli/codeflow.mjs /srv/homepage/gk --port 4179 --host 127.0.0.1 --no-open; fi'
+ExecStart=/bin/sh -c 'if [ -f /srv/codeflow/cli/codeflow.mjs ] && { [ ! -f /srv/homepage/gk/system/codeflow/cli/codeflow.mjs ] || [ /srv/codeflow/index.html -nt /srv/homepage/gk/system/codeflow/index.html ]; }; then exec node /srv/codeflow/cli/codeflow.mjs /srv/homepage/gk --port 4179 --host 127.0.0.1 --no-open; else exec node /srv/homepage/gk/system/codeflow/cli/codeflow.mjs /srv/homepage/gk --port 4179 --host 127.0.0.1 --no-open; fi'
 Environment=NODE_ENV=production
+Nice=10
+CPUWeight=20
+CPUQuota=100%
+MemoryHigh=384M
+MemoryMax=512M
+OOMScoreAdjust=800
+ProtectSystem=full
 Restart=always
 RestartSec=3
 SyslogIdentifier=codeflow
