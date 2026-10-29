@@ -124,8 +124,8 @@ body{font-family:'JetBrains Mono',monospace;background:var(--bg0);color:var(--t0
 .canvas-minimap canvas{display:block;width:100%;height:100%;pointer-events:none}
 .info-chip{padding:6px 10px;background:var(--bg1);border:1px solid var(--border);border-radius:6px;font-size:10px;color:var(--t2)}
 .info-chip strong{color:var(--acc)}
-.tool-btn{width:32px;height:32px;background:var(--bg1);border:1px solid var(--border);border-radius:6px;color:var(--t2);font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;touch-action:manipulation}
-.tool-btn:hover{background:var(--bg2);color:var(--t0);border-color:var(--acc)}
+.tool-btn{min-width:32px;height:30px;padding:0 8px;gap:4px;background:rgba(15,15,18,0.9);backdrop-filter:blur(8px);border:1px solid var(--border);border-radius:6px;color:var(--t1);font-family:inherit;font-size:10px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;white-space:nowrap;touch-action:manipulation}
+.tool-btn:hover{background:var(--bg2);color:var(--acc);border-color:var(--acc)}
 .legend{position:absolute;top:12px;right:12px;background:var(--bg1);border:1px solid var(--border);border-radius:8px;z-index:50;min-width:140px;max-height:300px;overflow-y:auto;transition:all 0.2s}
 .legend.collapsed{padding:8px;min-width:auto;max-height:none;overflow:hidden}
 .legend.collapsed .legend-content{display:none}
@@ -144,7 +144,7 @@ body{font-family:'JetBrains Mono',monospace;background:var(--bg0);color:var(--t0
 .right-panel{width:360px;min-width:280px;max-width:500px;background:var(--bg1);border-left:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;position:relative;min-height:0}
 .right-panel .resize-handle{right:auto;left:-4px}
 .panel-tabs{display:flex;flex-wrap:nowrap;align-items:stretch;border-bottom:1px solid var(--border);background:var(--bg2)}
-.panel-tab{flex:1 1 0;min-width:0;display:inline-flex;flex-direction:row;flex-wrap:nowrap;align-items:center;justify-content:center;gap:4px;height:34px;padding:0 4px;line-height:16px;white-space:nowrap;overflow:hidden;background:transparent;border:none;border-bottom:2px solid transparent;color:var(--t3);font-family:inherit;font-size:9px;font-weight:600;cursor:pointer}
+.panel-tab{flex:1 1 auto;min-width:0;display:inline-flex;flex-direction:row;flex-wrap:nowrap;align-items:center;justify-content:center;gap:4px;height:34px;padding:0 5px;line-height:16px;white-space:nowrap;overflow:hidden;background:transparent;border:none;border-bottom:2px solid transparent;color:var(--t3);font-family:inherit;font-size:8.5px;font-weight:600;cursor:pointer}
 .panel-tab:hover{color:var(--t1)}
 .panel-tab.active{color:var(--acc);border-bottom-color:var(--acc)}
 .panel-tab .icon{flex-shrink:0}
@@ -188,22 +188,22 @@ body{font-family:'JetBrains Mono',monospace;background:var(--bg0);color:var(--t0
 .pattern-metric{text-align:center}
 .pattern-metric-value{font-size:14px;font-weight:600;color:var(--acc)}
 .pattern-metric-label{font-size:8px;color:var(--t3);text-transform:uppercase}
-.security-item{padding:12px;background:var(--bg0);border-radius:8px;margin-bottom:8px;border:1px solid transparent;cursor:pointer;transition:transform 0.15s ease,border-color 0.15s ease,box-shadow 0.15s ease}
-.security-item:hover{transform:translateY(-1px);box-shadow:0 10px 24px rgba(0,0,0,0.18)}
-.security-item.high{background:linear-gradient(180deg,rgba(255,95,95,0.08) 0%,var(--bg0) 55%);border-color:rgba(255,95,95,0.36)}
-.security-item.medium{background:linear-gradient(180deg,rgba(255,159,67,0.08) 0%,var(--bg0) 55%);border-color:rgba(255,159,67,0.34)}
-.security-item.low{background:linear-gradient(180deg,rgba(77,159,255,0.08) 0%,var(--bg0) 55%);border-color:rgba(77,159,255,0.34)}
-.security-item.info{background:linear-gradient(180deg,rgba(92,92,102,0.08) 0%,var(--bg0) 55%);border-color:rgba(92,92,102,0.34)}
-.security-header{display:flex;align-items:center;gap:8px;margin-bottom:6px}
-.security-title{font-size:11px;color:var(--t0);font-weight:500}
-.security-desc{font-size:10px;color:var(--t2);margin-bottom:6px;line-height:1.4}
-.security-path{font-size:9px;color:var(--t3);font-family:monospace}
+.security-item{padding:11px 12px;background:var(--bg0);border-radius:8px;margin-bottom:8px;border:1px solid var(--border2);cursor:pointer;min-width:0;overflow:hidden;transition:border-color 0.15s ease,background 0.15s ease}
+.security-item:hover{border-color:var(--acc)}
+.security-item.high{background:linear-gradient(180deg,rgba(255,95,95,0.07) 0%,var(--bg0) 60%);border-color:rgba(255,95,95,0.32)}
+.security-item.medium{background:linear-gradient(180deg,rgba(255,159,67,0.07) 0%,var(--bg0) 60%);border-color:rgba(255,159,67,0.30)}
+.security-item.low{background:linear-gradient(180deg,rgba(77,159,255,0.07) 0%,var(--bg0) 60%);border-color:rgba(77,159,255,0.30)}
+.security-item.info{background:linear-gradient(180deg,rgba(92,92,102,0.07) 0%,var(--bg0) 60%);border-color:rgba(92,92,102,0.30)}
+.security-header{display:flex;align-items:center;gap:8px;margin-bottom:5px;min-width:0}
+.security-title{font-size:11px;color:var(--t0);font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.security-desc{font-size:10px;color:var(--t2);margin-bottom:6px;line-height:1.45;word-break:break-word}
+.security-path{font-size:9px;color:var(--t3);font-family:'JetBrains Mono',monospace;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .security-line{font-size:9px;color:var(--acc);margin-top:4px}
-.security-code{font-size:9px;background:var(--bg3);padding:6px 8px;border-radius:4px;margin-top:6px;font-family:monospace;color:var(--orange);overflow-x:auto;white-space:pre}
-.debug-patch-panel{margin:0 0 14px;padding:10px;border:1px solid var(--border);border-radius:8px;background:var(--bg2)}
-.debug-patch-card{background:var(--bg0);border:1px solid var(--border2);border-radius:8px;padding:10px;margin-bottom:8px}
-.debug-patch-reason{font-size:10px;color:var(--orange);margin-top:4px;line-height:1.4}
-.patch-preview{margin-top:8px;background:var(--bg3);border-radius:6px;padding:8px;font-family:monospace;font-size:10px;line-height:1.45;overflow:auto;max-height:200px;white-space:pre}
+.security-code{font-size:9px;background:var(--bg2);border:1px solid var(--border2);padding:6px 8px;border-radius:6px;margin-top:6px;font-family:'JetBrains Mono',monospace;color:var(--t1);overflow-x:hidden;white-space:pre-wrap;word-break:break-word;max-height:110px;overflow-y:auto}
+.debug-patch-panel{margin:0 0 12px;padding:10px 12px;border:1px solid var(--border);border-radius:8px;background:var(--bg2);min-width:0;overflow:hidden}
+.debug-patch-card{background:var(--bg0);border:1px solid var(--border2);border-radius:7px;padding:9px 10px;margin-bottom:6px;min-width:0;overflow:hidden}
+.debug-patch-reason{font-size:9.5px;color:var(--orange);margin-top:3px;line-height:1.4}
+.patch-preview{margin-top:6px;background:var(--bg2);border:1px solid var(--border2);border-radius:6px;padding:6px 8px;font-family:'JetBrains Mono',monospace;font-size:9px;line-height:1.45;overflow-x:hidden;overflow-y:auto;max-height:120px;white-space:pre-wrap;word-break:break-word}
 .patch-line-meta{color:var(--t3)}
 .patch-line-del{color:var(--red)}
 .patch-line-ctx{color:var(--t2)}
@@ -288,17 +288,17 @@ body{font-family:'JetBrains Mono',monospace;background:var(--bg0);color:var(--t0
 .fn-callers-title{font-size:9px;font-weight:600;color:var(--t3);text-transform:uppercase;margin-bottom:6px}
 .fn-caller{display:flex;align-items:center;gap:6px;padding:4px 6px;border-radius:4px;font-size:10px;color:var(--t2);cursor:pointer}
 .fn-caller:hover{background:var(--hover);color:var(--acc)}
-.graph-config{position:absolute;top:12px;left:180px;background:var(--bg1);border:1px solid var(--border);border-radius:8px;padding:12px;z-index:50;width:220px}
-.graph-config.thickness-only{left:56px}
-.graph-config-title{font-size:9px;font-weight:600;color:var(--t3);text-transform:uppercase;margin-bottom:10px}
-.config-row{display:flex;align-items:center;gap:8px;margin-bottom:10px}
-.config-label{font-size:10px;color:var(--t2);min-width:60px}
-.config-slider{flex:1;height:4px;appearance:none;-webkit-appearance:none;background:var(--bg3);border:0;border-radius:2px;cursor:pointer;outline:none}
+.graph-config{position:absolute;top:50px;left:12px;background:rgba(15,15,18,0.95);backdrop-filter:blur(12px);border:1px solid var(--border);border-radius:10px;padding:12px;z-index:60;width:246px;box-shadow:0 12px 32px rgba(0,0,0,0.45);box-sizing:border-box}
+.graph-config.thickness-only{left:12px}
+.graph-config-title{font-size:9px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px}
+.config-row{display:flex;align-items:center;gap:8px;margin-bottom:8px;min-width:0}
+.config-label{font-size:10px;color:var(--t2);min-width:54px;flex-shrink:0}
+.config-slider{flex:1 1 0;min-width:0;width:100%;height:4px;appearance:none;-webkit-appearance:none;background:var(--bg3);border:0;border-radius:2px;cursor:pointer;outline:none}
 .config-slider:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
 .config-slider::-webkit-slider-thumb{appearance:none;-webkit-appearance:none;width:12px;height:12px;background:var(--acc);border:0;border-radius:50%;cursor:pointer}
 .config-slider::-moz-range-track{height:4px;background:var(--bg3);border:0;border-radius:2px}
 .config-slider::-moz-range-thumb{width:12px;height:12px;background:var(--acc);border:0;border-radius:50%;cursor:pointer}
-.config-value{font-size:9px;color:var(--t3);min-width:28px;text-align:right}
+.config-value{font-size:9px;color:var(--t2);min-width:26px;text-align:right;flex-shrink:0;font-variant-numeric:tabular-nums}
 .view-toggle{display:flex;gap:4px;margin-bottom:10px}
 .view-btn{flex:1;padding:6px 8px;background:var(--bg0);border:1px solid var(--border);border-radius:4px;font-size:9px;color:var(--t2);cursor:pointer;text-align:center}
 .view-btn:hover{border-color:var(--acc)}
@@ -528,10 +528,11 @@ path.force-link-active{cursor:pointer}
 path.force-link-particle.is-on{animation:none;stroke-dasharray:none;display:none}
 }
 .code-canvas-cards{position:absolute;inset:0;pointer-events:none;transform-origin:0 0;z-index:4}
-.code-canvas-hud{position:absolute;top:56px;left:12px;z-index:51;display:flex;flex-direction:column;align-items:stretch;gap:6px;width:168px;max-width:calc(100% - 24px);pointer-events:none}
-.code-canvas-hint{font-size:10px;color:var(--t3);background:var(--bg1);border:1px solid var(--border);border-radius:8px;padding:6px 8px;line-height:1.4}
-.code-sym-list{display:flex;flex-direction:column;gap:2px;padding:6px;border:1px solid var(--border);border-radius:8px;background:var(--bg1);max-height:min(420px,calc(100% - 140px));overflow-x:hidden;overflow-y:auto;pointer-events:auto}
-.code-sym-chip{display:block;width:100%;box-sizing:border-box;font-size:9px;padding:4px 7px;border-radius:6px;border:1px solid var(--border);background:var(--bg0);color:var(--t2);cursor:pointer;font-family:inherit;text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.code-canvas-hud{position:absolute;bottom:12px;left:108px;right:198px;transform:none;top:auto;z-index:51;display:flex;flex-direction:row;align-items:center;justify-content:center;gap:6px;width:auto;max-width:none;pointer-events:none}
+.code-canvas-hint{font-size:9px;font-weight:600;color:var(--t2);background:rgba(15,15,18,0.9);backdrop-filter:blur(10px);border:1px solid var(--border);border-radius:8px;padding:5px 9px;line-height:1.2;white-space:nowrap;pointer-events:auto;flex-shrink:0;cursor:help}
+.code-sym-list{display:flex;flex-direction:row;align-items:center;gap:4px;padding:4px 6px;border:1px solid var(--border);border-radius:9px;background:rgba(15,15,18,0.9);backdrop-filter:blur(10px);box-shadow:0 8px 24px rgba(0,0,0,0.35);max-width:560px;max-height:none;overflow-x:auto;overflow-y:hidden;pointer-events:auto;scrollbar-width:none}
+.code-sym-list::-webkit-scrollbar{display:none}
+.code-sym-chip{display:inline-flex;align-items:center;width:auto;flex:0 0 auto;box-sizing:border-box;font-size:9px;font-weight:600;padding:3px 8px;border-radius:999px;border:1px solid var(--border);background:var(--bg0);color:var(--t1);cursor:pointer;font-family:inherit;text-align:center;white-space:nowrap;max-width:140px;overflow:hidden;text-overflow:ellipsis}
 .code-sym-chip:hover{border-color:var(--acc);color:var(--acc)}
 .code-sym-chip.active{background:var(--accbg);border-color:var(--acc);color:var(--acc)}
 .code-sym-chip.fn{box-shadow:inset 3px 0 0 #61afef}
@@ -558,11 +559,12 @@ path.force-link-particle.is-on{animation:none;stroke-dasharray:none;display:none
 .code-card.wrap .file-preview-line{align-items:flex-start;height:auto}
 .code-card.wrap .file-preview-text{white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word;min-width:0}
 .code-card-body .file-preview-code{padding:8px 0;font-size:11px}
-.color-by.code-view-prefs{flex-direction:column;align-items:stretch;gap:2px;padding:3px 4px;max-width:min(320px,calc(100% - 24px))}
-.code-view-prefs-row{display:flex;flex-direction:row;align-items:center;gap:2px;flex-wrap:wrap}
-.code-named-group-list{display:flex;flex-wrap:wrap;gap:2px;max-width:100%}
+.color-by.code-view-prefs{flex-direction:row;flex-wrap:wrap;align-items:center;justify-content:flex-end;gap:4px 6px;padding:5px 7px;max-width:288px;background:rgba(15,15,18,0.92);backdrop-filter:blur(10px);border:1px solid var(--border);border-radius:9px;box-shadow:0 8px 24px rgba(0,0,0,0.35)}
+.code-view-prefs-row{display:inline-flex;flex-direction:row;align-items:center;gap:2px;flex-wrap:nowrap}
+.code-view-prefs-row:first-child{padding-left:0;border-left:none}
+.code-named-group-list{display:inline-flex;flex-wrap:wrap;gap:2px;max-width:180px}
 .code-named-group-chip{display:inline-flex;align-items:center;gap:2px;max-width:100%}
-.code-named-group-chip .color-by-btn{max-width:140px;overflow:hidden;text-overflow:ellipsis}
+.code-named-group-chip .color-by-btn{max-width:110px;overflow:hidden;text-overflow:ellipsis}
 .code-card-head-actions{display:flex;align-items:center;gap:6px;flex-shrink:0}
 .code-card-group{flex-shrink:0;display:flex;align-items:center}
 .code-card-group-select{max-width:110px;font-size:8px;padding:2px 4px;border-radius:5px;border:1px solid var(--border);background:var(--bg0);color:var(--t2);font-family:inherit;cursor:pointer}
@@ -595,15 +597,15 @@ svg.color-blocks text.node-label{display:none}
 .sym-mark.export{background:rgba(152,195,121,0.18)}
 .sym-mark.var{background:rgba(224,108,117,0.16)}
 .sym-mark.active{outline:1px solid var(--acc);background:rgba(0,255,157,0.22);color:var(--t0)}
-.recent-list{display:flex;flex-direction:column;gap:4px}
-.recent-item{display:flex;align-items:flex-start;gap:8px;padding:8px;border-radius:6px;background:var(--bg0);border:1px solid var(--border2);cursor:pointer}
-.recent-item:hover{border-color:var(--acc);background:var(--hover)}
-.recent-item.active{border-color:var(--acc);background:var(--accbg)}
+.recent-list{display:flex;flex-direction:column;gap:6px}
+.recent-item{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:9px 10px;border-radius:8px;background:var(--bg0);border:1px solid var(--border2);cursor:pointer;transition:border-color 0.15s,background 0.15s}
+.recent-item:hover{border-color:var(--border);background:var(--hover)}
+.recent-item.active{border-color:rgba(0,255,157,0.45);background:rgba(0,255,157,0.05)}
 .recent-item-main{flex:1;min-width:0}
-.recent-item-title{font-size:11px;color:var(--t0);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.recent-item-meta{font-size:9px;color:var(--t3);margin-top:2px}
-.recent-item-actions{display:flex;flex-direction:column;gap:4px;flex-shrink:0}
-.recent-mini-btn{font-size:8px;padding:3px 6px;border-radius:4px;border:1px solid var(--border);background:var(--bg2);color:var(--t2);cursor:pointer;font-family:inherit}
+.recent-item-title{font-size:10.5px;font-weight:600;color:var(--t0);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.recent-item-meta{font-size:8.5px;color:var(--t3);margin-top:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.recent-item-actions{display:inline-flex;flex-direction:row;align-items:center;gap:4px;flex-shrink:0}
+.recent-mini-btn{font-size:8.5px;font-weight:600;padding:3px 7px;border-radius:5px;border:1px solid var(--border);background:var(--bg2);color:var(--t1);cursor:pointer;font-family:inherit;white-space:nowrap}
 .recent-mini-btn:hover{border-color:var(--acc);color:var(--acc)}
 .recent-mini-btn.danger:hover{border-color:var(--red);color:var(--red)}
 .recent-mini-btn.danger.armed{background:var(--red);border-color:var(--red);color:#fff}
@@ -792,21 +794,49 @@ body{height:100dvh;min-height:100dvh}
 .legend.with-color-by{bottom:70px}
 }
 /* ---- GK Live Architecture Map & Dependencies ---- */
-.topbar{gap:10px;padding:0 12px}
-.repo-input-group{gap:6px;align-items:center}
-.repo-input-group>.repo-input:first-child{min-width:130px;max-width:240px}
-.topbar-actions{flex-wrap:nowrap;flex-shrink:0}
-.gk-topbar-group{display:flex;align-items:center;gap:6px;flex:0 0 auto;min-width:0}
-.gk-target-select{padding:6px 24px 6px 9px;background:var(--bg0);border:1px solid var(--acc);border-radius:6px;color:var(--acc);font-family:inherit;font-size:10px;font-weight:600;cursor:pointer;max-width:210px;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2300ff9d' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 7px center;text-overflow:ellipsis;white-space:nowrap;overflow:hidden}
-.gk-target-select option,.gk-target-select optgroup{background:var(--bg1);color:var(--t0)}
+.topbar{gap:8px;padding:0 12px}
+.repo-input-group{gap:6px;align-items:center;flex:1 1 auto;min-width:0}
+.topbar-actions{display:flex;align-items:center;gap:5px;flex-wrap:nowrap;flex-shrink:0}
+.source-switcher{position:relative;display:inline-flex;align-items:center;min-width:0;max-width:340px;flex:0 1 320px}
+.source-switcher-btn{width:100%;height:30px;padding:0 10px;background:var(--bg0);border:1px solid var(--border);border-radius:7px;color:var(--t0);font-family:inherit;font-size:10.5px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:7px;min-width:0;transition:border-color 0.15s,background 0.15s}
+.source-switcher-btn:hover,.source-switcher-btn.open{border-color:var(--acc);background:var(--bg2)}
+.source-switcher-badge{font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:0.4px;padding:2px 5px;border-radius:4px;background:var(--accbg);color:var(--acc);border:1px solid rgba(0,255,157,0.3);flex-shrink:0}
+.source-switcher-label{flex:1 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:left}
+.source-switcher-caret{color:var(--t3);font-size:9px;flex-shrink:0}
+.cf-popover-wrap{position:relative;display:inline-flex;align-items:center}
+.cf-popover-btn{height:30px;padding:0 10px;background:var(--bg0);border:1px solid var(--border);border-radius:7px;color:var(--t0);font-family:inherit;font-size:10px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:6px;white-space:nowrap;transition:border-color 0.15s,background 0.15s}
+.cf-popover-btn:hover,.cf-popover-btn.open{border-color:var(--acc);color:var(--acc);background:var(--bg2)}
+.viz-selector .cf-popover-btn{height:32px;padding:0 12px;background:rgba(15,15,18,0.92);backdrop-filter:blur(10px);border:1px solid var(--border);border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,0.35);font-size:10.5px}
+.cf-popover-menu{position:absolute;top:calc(100% + 6px);left:0;z-index:1200;min-width:240px;max-width:380px;max-height:420px;overflow-y:auto;background:var(--bg1);border:1px solid var(--border);border-radius:10px;padding:6px;box-shadow:0 18px 42px rgba(0,0,0,0.55)}
+.viz-selector .cf-popover-menu{left:50%;transform:translateX(-50%);min-width:250px}
+.cf-popover-section{padding:4px 0;border-top:1px solid var(--border2)}
+.cf-popover-section:first-child{border-top:none;padding-top:0}
+.cf-popover-group-label{font-size:8.5px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--t3);padding:4px 8px 3px}
+.cf-popover-item{width:100%;padding:6px 8px;border:none;border-radius:6px;background:transparent;color:var(--t1);font-family:inherit;font-size:10px;font-weight:500;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:8px;text-align:left}
+.cf-popover-item:hover{background:var(--hover);color:var(--t0)}
+.cf-popover-item.active{background:var(--accbg);color:var(--acc);font-weight:600}
+.cf-popover-item-main{display:flex;align-items:center;gap:7px;min-width:0;flex:1 1 auto}
+.cf-popover-item-text{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cf-popover-item-meta{font-size:8.5px;color:var(--t3);flex-shrink:0}
+.cf-popover-search{width:100%;box-sizing:border-box;padding:6px 8px;margin-bottom:6px;background:var(--bg0);border:1px solid var(--border);border-radius:6px;color:var(--t0);font-family:inherit;font-size:10px}
+.cf-popover-search:focus{outline:none;border-color:var(--acc)}
+.cf-disclosure-row{display:flex;align-items:center;justify-content:space-between;gap:6px;margin-top:6px;padding-top:6px;border-top:1px solid var(--border2)}
+.cf-disclosure-btn{padding:2px 7px;border-radius:5px;border:1px solid var(--border);background:var(--bg2);color:var(--t1);font-family:inherit;font-size:8.5px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:4px}
+.cf-disclosure-btn:hover{border-color:var(--acc);color:var(--acc)}
+.cf-inline-chips{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
+.cf-inline-chip{font-size:8.5px;padding:2px 6px;border-radius:4px;background:var(--bg2);border:1px solid var(--border2);color:var(--t1);cursor:pointer;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cf-inline-chip:hover{border-color:var(--acc);color:var(--acc)}
 .gk-pill{display:inline-flex;align-items:center;gap:5px;font-size:9px;font-weight:600;padding:4px 9px;border-radius:999px;border:1px solid var(--border);background:rgba(0,0,0,0.25);color:var(--t1);text-decoration:none;white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis}
 .light .gk-pill{background:rgba(0,0,0,0.04)}
 a.gk-pill:hover{border-color:var(--acc);color:var(--acc)}
 .gk-quickbar{display:inline-flex;align-items:center;gap:4px;padding:4px;border:1px solid var(--border);border-radius:8px;background:var(--bg1);flex-wrap:wrap;margin-top:10px}
+.gk-quick-btn{padding:4px 9px;border-radius:6px;border:1px solid transparent;background:none;color:var(--t2);font-family:inherit;font-size:10px;font-weight:600;cursor:pointer;white-space:nowrap;display:inline-flex;align-items:center;gap:5px}
 .gk-quick-btn{padding:4px 9px;border-radius:6px;border:1px solid transparent;background:none;color:var(--t2);font-family:inherit;font-size:10px;font-weight:600;cursor:pointer;white-space:nowrap}
 .gk-quick-btn:hover{background:var(--hover);color:var(--t0)}
 .gk-quick-btn.active{background:var(--accbg);border-color:var(--acc);color:var(--acc)}
 .gk-view{width:100%;height:100%;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
+.canvas-area:has(.gk-view) .viz-selector{left:auto;right:28px;top:18px;transform:none}
+.canvas-area:has(.gk-view) .viz-selector .cf-popover-menu{left:auto;right:0;transform:none}
 .gk-inner{max-width:1440px;margin:0 auto}
 .gk-hero{border:1px solid var(--border);border-radius:14px;padding:18px 20px;background:linear-gradient(135deg,rgba(0,229,255,0.10),rgba(167,139,250,0.10) 48%,rgba(0,255,157,0.08));margin-bottom:16px}
 .gk-title{font-size:20px;font-weight:800;letter-spacing:-0.4px;color:var(--t0);line-height:1.3}
@@ -12896,6 +12926,29 @@ function App(){
     var _gkMapTab=useState(function(){try{var p=new URLSearchParams(window.location.search);var tab=p.get('map')||'event-arch';return tab==='capreg'?'capreg-system':tab;}catch(e){return 'event-arch';}}),gkMapTab=_gkMapTab[0],setGkMapTab=_gkMapTab[1];
     var _gkSelectedNode=useState(null),gkSelectedNode=_gkSelectedNode[0],setGkSelectedNode=_gkSelectedNode[1];
     var _gkMapDetail=useState(null),gkMapDetail=_gkMapDetail[0],setGkMapDetail=_gkMapDetail[1];
+    var _sourceMenuOpen=useState(false),sourceMenuOpen=_sourceMenuOpen[0],setSourceMenuOpen=_sourceMenuOpen[1];
+    var _sourceSearch=useState(''),sourceSearch=_sourceSearch[0],setSourceSearch=_sourceSearch[1];
+    var _authMenuOpen=useState(false),authMenuOpen=_authMenuOpen[0],setAuthMenuOpen=_authMenuOpen[1];
+    var _vizMenuOpen=useState(false),vizMenuOpen=_vizMenuOpen[0],setVizMenuOpen=_vizMenuOpen[1];
+    var _expandedIssueIds=useState(function(){return new Set();}),expandedIssueIds=_expandedIssueIds[0],setExpandedIssueIds=_expandedIssueIds[1];
+    function toggleIssueExpand(id,e){if(e)e.stopPropagation();setExpandedIssueIds(function(prev){var next=new Set(prev);if(next.has(id))next.delete(id);else next.add(id);return next;});}
+    useEffect(function(){
+        function onDocDown(e){
+            if(!e||!e.target||typeof e.target.closest!=='function')return;
+            if(!e.target.closest('.source-switcher'))setSourceMenuOpen(false);
+            if(!e.target.closest('.auth-switcher'))setAuthMenuOpen(false);
+            if(!e.target.closest('.viz-selector'))setVizMenuOpen(false);
+        }
+        function onDocKey(e){
+            if(e&&e.key==='Escape'){setSourceMenuOpen(false);setAuthMenuOpen(false);setVizMenuOpen(false);}
+        }
+        document.addEventListener('pointerdown',onDocDown);
+        document.addEventListener('keydown',onDocKey);
+        return function(){
+            document.removeEventListener('pointerdown',onDocDown);
+            document.removeEventListener('keydown',onDocKey);
+        };
+    },[]);
     var _gkDepFilter=useState('all'),gkDepFilter=_gkDepFilter[0],setGkDepFilter=_gkDepFilter[1];
     var _gkDepSearch=useState(''),gkDepSearch=_gkDepSearch[0],setGkDepSearch=_gkDepSearch[1];
     var isMobile=viewportWidth<=980;
@@ -13208,9 +13261,7 @@ function App(){
         var shouldAutoRun=params.get('run')==='1';
         if(repo&&repo.length<200&&!repo.includes('{')&&/^[a-zA-Z0-9_.\/-]+$/.test(repo)){
             setRepoUrl(repo);
-            if(shouldAutoRun){
-                setTimeout(function(){var btn=document.getElementById('analyze-btn');if(btn)btn.click();},500);
-            }
+            setGkTarget('');
         }
         refreshRecentList();
         probeCodeflowCli();
@@ -13577,17 +13628,24 @@ function App(){
                     setGkSelectedNode(m.eventArchitecture.nodes[0]);
                 }
                 if(wantedViz){setGraphConfig(function(prev){return Object.assign({},prev,{vizType:wantedViz});});}
-                else if(!wantedTarget&&!wantedFile){setGraphConfig(function(prev){return Object.assign({},prev,{vizType:'gk-map'});});}
+                else if(!wantedTarget&&!wantedFile&&!sp.get('repo')){setGraphConfig(function(prev){return Object.assign({},prev,{vizType:'gk-map'});});}
             }
         }).catch(function(){});
+        var wantedRepo=sp.get('repo');
+        var wantedAutoRun=sp.get('run')==='1'&&wantedRepo&&wantedRepo.length<200&&!wantedRepo.includes('{')&&/^[a-zA-Z0-9_.\/-]+$/.test(wantedRepo);
         fetch('/__codeflow/status').then(function(res){return res.ok?res.json():null;}).then(function(status){
-            if(!status||!status.ok)return;
+            if(!status||!status.ok){
+                if(wantedAutoRun){var btn=document.getElementById('analyze-btn');if(btn)btn.click();else analyze(false,wantedRepo);}
+                return;
+            }
             setCliStatus(status);
             if(status.githubAuth&&status.githubAuth.available){
                 GitHub.useTailnetProxy=true;
                 setAuthMethod(function(prev){return prev==='none'?'tailnet':prev;});
             }
-            if(status.gkMode&&(!window.location.search||window.location.search.indexOf('repo=')<0)){
+            if(wantedAutoRun){
+                analyze(false,wantedRepo);
+            }else if(status.gkMode&&(!window.location.search||window.location.search.indexOf('repo=')<0)){
                 loadGkTargetBundle(wantedTarget||status.defaultTarget||'gk-system',wantedFile||null,wantedViz||(wantedFile?'code':'gk-map'));
             }else if(!window.location.search||window.location.search.indexOf('repo=')<0){
                 analyzeFromCli(false,status);
@@ -13601,7 +13659,7 @@ function App(){
                     }catch(e){}
                 };
             }
-        }).catch(function(){});
+        }).catch(function(){if(wantedAutoRun)analyze(false,wantedRepo);});
     }
 
     useEffect(function(){
@@ -13801,8 +13859,8 @@ function App(){
                     applyCachedAnalysis(record);
                     return;
                 }
-                analyze(true);
-            }).catch(function(){analyze(true);});
+                analyze(true,explicitUrl);
+            }).catch(function(){analyze(true,explicitUrl);});
             return;
         }
         var currentExcludePatterns=activeExcludePatterns;
@@ -13817,6 +13875,8 @@ function App(){
         }
         
         resetAnalysisState();
+        setGkTarget('');
+        setSourceMenuOpen(false);
         setLocalDirHandle(null);
         setLocalSourceKind(null);
         zipArchiveRef.current=null;
@@ -13829,7 +13889,8 @@ function App(){
         GitHub.appId=null;
         GitHub.privateKey=null;
         GitHub.installationToken=null;
-        GitHub.useTailnetProxy=(authMethod==='tailnet');
+        var useTailnet=(authMethod==='tailnet')||(authMethod==='none'&&!!GitHub.useTailnetProxy);
+        GitHub.useTailnetProxy=useTailnet;
         
         if(authMethod==='pat'){
             GitHub.token=token;
@@ -13857,7 +13918,7 @@ function App(){
             setProgress('Checking rate limit...');
             return GitHub.getRateLimit();
         }).then(function(rl){
-            var hasAuth=!!GitHub.token||authMethod==='github_app'||authMethod==='tailnet';
+            var hasAuth=!!GitHub.token||authMethod==='github_app'||useTailnet;
             var estimatedRequests=50;// Conservative estimate for a small-medium repo
 
             // Warn if rate limit is very low and no authentication
@@ -13900,21 +13961,42 @@ function App(){
                 var max=Math.min(files.length,HARD_LIMIT);
                 var analyzed=[];
                 var allFns=[];
+                var concurrency=(useTailnet||GitHub.token||authMethod==='github_app')?12:1;
+                var nextIdx=0;
+                var doneCount=0;
+                var finished=false;
+
+                function stepNext(){
+                    if(finished)return;
+                    if(doneCount>=max){
+                        finished=true;
+                        finishAnalysis();
+                        return;
+                    }
+                    while(nextIdx<max&&(nextIdx-doneCount)<concurrency){
+                        processFile(nextIdx++);
+                    }
+                }
+
+                function onFileDone(){
+                    doneCount++;
+                    stepNext();
+                }
 
                 function processFile(i){
-                    if(i>=max){finishAnalysis();return;}
+                    if(i>=max)return;
                     var f=files[i];
-                    setProgress('Analyzing '+(i+1)+'/'+max+': '+f.name);
+                    setProgress('Analyzing '+Math.min(doneCount+1,max)+'/'+max+': '+f.name);
                     var isCodeFile=f.isCode!==false&&Parser.isCode(f.name);
                     if(Parser.isOversized(f.size)){
                         analyzed.push(makeOversizedAnalysisFile(f,f.size,isCodeFile));
-                        processFile(i+1);
+                        onFileDone();
                         return;
                     }
                     if(isCodeFile){
                         Promise.all([
                             GitHub.getFile(p.owner,p.repo,f.path),
-                            GitHub.getCommits(p.owner,p.repo,f.path,10).catch(function(){return[];})
+                            max<=60?GitHub.getCommits(p.owner,p.repo,f.path,10).catch(function(){return[];}):Promise.resolve([])
                         ]).then(function(results){
                             var content=results[0];
                             var commits=results[1];
@@ -13931,17 +14013,17 @@ function App(){
                                 // file visible instead of silently shrinking the repo.
                                 analyzed.push(makeFetchFailedAnalysisFile(f));
                             }
-                            processFile(i+1);
-                        }).catch(function(){analyzed.push(makeFetchFailedAnalysisFile(f));processFile(i+1);});
+                            onFileDone();
+                        }).catch(function(){analyzed.push(makeFetchFailedAnalysisFile(f));onFileDone();});
                     }else{
                         GitHub.getFile(p.owner,p.repo,f.path).then(function(content){
                             var layer=Parser.detectLayer(f.path);
                             var lines=content?content.split('\n').length:0;
                             analyzed.push({path:f.path,name:f.name,folder:f.folder,content:content||'',functions:[],lines:lines,layer:layer,churn:0,isCode:false});
-                            processFile(i+1);
+                            onFileDone();
                         }).catch(function(){
                             analyzed.push(makeFetchFailedAnalysisFile(f));
-                            processFile(i+1);
+                            onFileDone();
                         });
                     }
                 }
@@ -13971,7 +14053,7 @@ function App(){
                     }
                 }
 
-                processFile(0);
+                stepNext();
                 return null;
             }
 
@@ -14030,12 +14112,13 @@ function App(){
         }
         window.showDirectoryPicker().then(function(dirHandle){
             resetAnalysisState();
+            setGkTarget('');
+            setSourceMenuOpen(false);
             setRepoInfo(null);
             localFolderKeyRef.current=null;
             localFolderSelectionRef.current=newLocalSelectionId();
             setLocalDirHandle(dirHandle);
             setLocalSourceKind('folder');
-            zipArchiveRef.current=null;
             zipFileRef.current=null;
             setLoading(true);
             setProgress('Reading local folder...');
@@ -14066,10 +14149,11 @@ function App(){
         var file=e.target.files&&e.target.files[0];
         if(!file)return;
         resetAnalysisState();
+        setGkTarget('');
+        setSourceMenuOpen(false);
         setRepoInfo(null);
         setLocalDirHandle(null);
         setLocalSourceKind('zip');
-        zipArchiveRef.current=null;
         zipFileRef.current=file;
         zipKeyRef.current=null;
         setLoading(true);
@@ -14083,12 +14167,13 @@ function App(){
         var files=Array.from(fileList);
         localFilesRef.current=files;
         resetAnalysisState();
+        setGkTarget('');
+        setSourceMenuOpen(false);
         setRepoInfo(null);
         localFolderKeyRef.current=null;
         localFolderSelectionRef.current=newLocalSelectionId();
         setLocalDirHandle(null);
         setLocalSourceKind('folder');
-        zipArchiveRef.current=null;
         zipFileRef.current=null;
         setLoading(true);
         setProgress('Reading local folder...');
@@ -15413,9 +15498,11 @@ function App(){
     function placeRemainingCodeNodes(){
         var sim=simRef.current;
         if(!sim)return;
-        parkLeftoverCodeNodes(sim.nodes(),codeCardPathsRef.current,codeFolderCentersRef.current);
+        parkLeftoverCodeNodes(sim.nodes(),codeCardPathsRef.current,codeFolderCentersRef.current,{spacing:116});
         settleCodeViewAfterDrag(sim.nodes(),codeCardPathsRef.current,codeCardSizesRef.current,null,{
-            boxesByPath:readCodeCardWorldBoxes(codeCardsLayerRef.current)
+            boxesByPath:readCodeCardWorldBoxes(codeCardsLayerRef.current),
+            nodeGap:96,
+            nodePad:64
         });
         refreshCodeCardForces();
         redrawGraphLinksAndNodes();
@@ -15743,12 +15830,16 @@ function App(){
         });
         node.classed('has-code-card',function(d){return keepReadable&&nodeReplacedByCard(d.id,codeCardPathsRef.current);});
         node.attr('display',function(d){return keepReadable&&nodeReplacedByCard(d.id,codeCardPathsRef.current)?'none':null;});
+        var topHubSet=new Set(nodes.slice().sort(function(a,b){return getR(b)-getR(a);}).slice(0,12).map(function(n){return n.id;}));
+        function defaultLabelOpacity(d){if(keepReadable||nodes.length<=48)return 0.95;if(selected&&selected.path===d.id)return 1;return topHubSet.has(d.id)?0.92:0;}
         node.on('mouseenter',function(e,d){
+            if(!keepReadable)d3.select(this).select('.node-label').style('opacity',1);
             if(!codeViewNodeTooltipWanted({keepReadable:keepReadable,dragging:isCodeViewDragBusy()}))return;
             if(codeCardPathsRef.current.has(d.id))return;
             var r=svgRef.current.getBoundingClientRect();
             setTooltip({x:e.clientX-r.left+10,y:e.clientY-r.top,title:d.name,content:d.fnCount+' functions\n'+d.layer+' layer\n'+d.churn+' recent commits'});
         }).on('mouseleave',function(){
+            if(!keepReadable)d3.select(this).select('.node-label').style('opacity',function(d){return defaultLabelOpacity(d);});
             if(!codeViewNodeTooltipWanted({keepReadable:keepReadable,dragging:isCodeViewDragBusy()}))return;
             setTooltip(null);
         });
@@ -15776,7 +15867,7 @@ function App(){
         node.append('rect').attr('class','nb').attr('x',function(d){return -graphColorBlockSize(d)/2;}).attr('y',function(d){return -graphColorBlockSize(d)/2;}).attr('width',graphColorBlockSize).attr('height',graphColorBlockSize).attr('rx',3).attr('fill',function(d){return graphColorBlockFill(getC(d));}).attr('stroke',function(d){var c=d3.color(graphColorBlockFill(getC(d)));return c?c.darker(0.35):'#000';}).attr('stroke-width',1).attr('display','none');
         // Hide labels for large graphs to reduce DOM overhead. Code view keeps titles readable.
         if(keepReadable||!isLargeGraph||graphConfig.showLabels){
-            node.append('text').attr('class','node-label').attr('text-anchor','middle').attr('dy',0).attr('fill',theme==='light'?'#333':'#eee').attr('font-size',function(d){return (keepReadable?Math.max(9,Math.min(12,getR(d)*0.7)):Math.max(6,Math.min(10,getR(d)*0.6)))+'px';}).attr('font-family','JetBrains Mono').attr('font-weight','600').attr('pointer-events','none').text(function(d){var n=d.name.replace(/\.[^.]+$/,'');if(keepReadable)return n.length>18?n.slice(0,17)+'…':n;var maxLen=Math.max(4,Math.floor(getR(d)/2));return n.length>maxLen+1?n.slice(0,maxLen)+'…':n;});
+            node.append('text').attr('class','node-label').attr('text-anchor','middle').attr('dy',function(d){return keepReadable?(getR(d)+12):(getR(d)+10);}).attr('fill',theme==='light'?'#333':'#eee').attr('font-size',function(d){return (keepReadable?Math.max(9,Math.min(11,getR(d)*0.7)):Math.max(8,Math.min(10.5,getR(d)*0.65)))+'px';}).attr('font-family','JetBrains Mono').attr('font-weight','600').attr('pointer-events','none').style('paint-order','stroke').style('stroke','var(--bg0)').style('stroke-width','3px').style('stroke-linecap','round').style('stroke-linejoin','round').style('opacity',defaultLabelOpacity).text(function(d){var n=d.name.replace(/\.[^.]+$/,'');if(keepReadable)return n.length>18?n.slice(0,17)+'…':n;var maxLen=Math.max(8,Math.floor(getR(d)*1.1));return n.length>maxLen+1?n.slice(0,maxLen)+'…':n;});
         }
         function liveNodesByFolder(){
             var live=(simRef.current&&simRef.current.nodes())||nodes;
@@ -16491,9 +16582,9 @@ function App(){
         var links=[];
         Object.values(linkMap).forEach(function(l){
             var net=l.ab-l.ba;
-            if(net>0)links.push({source:l.a,target:l.b,value:net});
-            else if(net<0)links.push({source:l.b,target:l.a,value:-net});
-            else if(l.ab>0)links.push({source:l.a,target:l.b,value:l.ab});
+            var src=net>=0?l.a:l.b,tgt=net>=0?l.b:l.a;
+            var val=Math.abs(net)>0?Math.abs(net):l.ab;
+            if(val>0)links.push({source:src,target:tgt,value:val});
         });
         if(links.length===0){
             g.append('text').attr('x',w/2-20).attr('y',h/2).attr('fill','var(--t3)').attr('font-size','12px').text('No cross-folder dependencies to visualize');
@@ -16657,8 +16748,9 @@ function App(){
         var link=mainG.selectAll('path.bundle-link').data(links).join('path').attr('class','bundle-link')
             .attr('d',function(d){
                 var a1=d.source.angle,a2=d.target.angle;
-                var x1=Math.cos(a1-Math.PI/2)*(radius-15),y1=Math.sin(a1-Math.PI/2)*(radius-15);
-                var x2=Math.cos(a2-Math.PI/2)*(radius-15),y2=Math.sin(a2-Math.PI/2)*(radius-15);
+                var r1=Math.max(24,radius-18);
+                var x1=Math.cos(a1-Math.PI/2)*r1,y1=Math.sin(a1-Math.PI/2)*r1;
+                var x2=Math.cos(a2-Math.PI/2)*r1,y2=Math.sin(a2-Math.PI/2)*r1;
                 var midAngle=(a1+a2)/2;
                 var tension=0.3*radius;
                 var cx=Math.cos(midAngle-Math.PI/2)*tension,cy=Math.sin(midAngle-Math.PI/2)*tension;
@@ -16667,12 +16759,13 @@ function App(){
             .attr('fill','none').attr('stroke',getBundleLinkColor)
             .attr('stroke-width',scaleStrokeWidth(1.8,lineThickness)).attr('stroke-opacity',0.35);
         var tooltip=container.append('div').attr('class','treemap-tooltip').style('display','none').style('position','absolute');
+        var bundleLabelStride=Math.max(1,Math.ceil(nodes.length/48));
         var node=mainG.selectAll('g.bundle-node').data(nodes).join('g').attr('class','bundle-node').style('cursor','pointer')
             .attr('transform',function(d){return'rotate('+(d.angle*180/Math.PI-90)+') translate('+radius+',0)'+(d.angle>Math.PI?' rotate(180)':'');});
-        node.append('circle').attr('class','bundle-circle').attr('r',6).attr('fill',function(d){return colorMap[d.folder]||COLORS[0];}).attr('stroke','var(--bg0)').attr('stroke-width',1.5)
-            .attr('transform',function(d){return d.angle>Math.PI?'translate(-6,0)':'translate(6,0)';});
-        node.append('text').attr('dy','0.31em').attr('x',function(d){return d.angle>Math.PI?-14:14;}).attr('text-anchor',function(d){return d.angle>Math.PI?'end':'start';})
-            .attr('fill','var(--t2)').attr('font-size','9px').text(function(d){var n=d.name.replace(/\.[^.]+$/,'');return n.length>16?n.slice(0,13)+'…':n;});
+        node.append('circle').attr('class','bundle-circle').attr('r',5).attr('fill',function(d){return colorMap[d.folder]||COLORS[0];}).attr('stroke','var(--bg0)').attr('stroke-width',1.5)
+            .attr('transform',function(d){return d.angle>Math.PI?'translate(-5,0)':'translate(5,0)';});
+        node.append('text').attr('dy','0.31em').attr('x',function(d){return d.angle>Math.PI?-13:13;}).attr('text-anchor',function(d){return d.angle>Math.PI?'end':'start';})
+            .attr('fill','var(--t1)').attr('font-size','8.5px').style('paint-order','stroke').style('stroke','var(--bg0)').style('stroke-width','2.5px').style('opacity',function(d,idx){if(bundleLabelStride<=1||(selected&&selected.path===d.id))return 0.95;return (idx%bundleLabelStride===0)?0.9:0;}).text(function(d){var n=d.name.replace(/\.[^.]+$/,'');return n.length>18?n.slice(0,16)+'…':n;});
         function applyBundleDefaultState(){
             link.transition().duration(200)
                 .attr('stroke-opacity',0.35)
@@ -16734,19 +16827,19 @@ function App(){
                 selectFileRef.current(d.id);
             }
         });
-        var arcGen=d3.arc().innerRadius(radius+20).outerRadius(radius+30);
+        var arcGen=d3.arc().innerRadius(Math.max(24,radius-15)).outerRadius(Math.max(29,radius-9)).padAngle(0.018).cornerRadius(2);
         var folderAngleStart=0;
         sortedFolders.forEach(function(entry,i){
-            var folder=entry[0],count=entry[1].length;
-            var span=2*Math.PI*count/files.length;
+            var folder=entry[0],count=entry[1];
+            var span=(count/nodes.length)*2*Math.PI;
             mainG.append('path').attr('d',arcGen({startAngle:folderAngleStart,endAngle:folderAngleStart+span}))
-                .attr('fill',colorMap[folder]||COLORS[i%COLORS.length]).attr('opacity',0.5).style('cursor','pointer')
+                .attr('fill',colorMap[folder]||COLORS[i%COLORS.length]).attr('opacity',0.65).style('cursor','pointer')
                 .on('click',function(){filterByFolder(folder);});
-            if(span>0.15){
+            if(span>0.26){
                 var midAngle=folderAngleStart+span/2-Math.PI/2;
-                mainG.append('text').attr('x',Math.cos(midAngle)*(radius+40)).attr('y',Math.sin(midAngle)*(radius+40))
-                    .attr('text-anchor','middle').attr('fill','var(--t2)').attr('font-size','8px')
-                    .attr('transform','rotate('+(midAngle*180/Math.PI+90)+','+Math.cos(midAngle)*(radius+40)+','+Math.sin(midAngle)*(radius+40)+')')
+                var labelR=Math.max(18,radius-26);
+                mainG.append('text').attr('x',Math.cos(midAngle)*labelR).attr('y',Math.sin(midAngle)*labelR)
+                    .attr('text-anchor','middle').attr('dominant-baseline','middle').attr('fill','var(--t2)').attr('font-size','7.5px').style('paint-order','stroke').style('stroke','var(--bg0)').style('stroke-width','2.5px').style('pointer-events','none')
                     .text(folder.split('/').pop()||'root');
             }
             folderAngleStart+=span;
@@ -17096,7 +17189,7 @@ function App(){
     function downloadTextFile(filename,text,mime){if(!text)return;var blob=new Blob([text],{type:mime||'text/plain'});var url=URL.createObjectURL(blob);var a=document.createElement('a');a.href=url;a.download=filename;a.click();URL.revokeObjectURL(url);}
     function patchDownloadName(filePath){var base=String(filePath||'analysis').replace(/[^A-Za-z0-9._-]+/g,'-').replace(/^-+|-+$/g,'');if(!base)base='analysis';return 'codeflow-remove-debug-'+base+'.patch';}
     function renderPatchPreview(patch){if(!patch)return null;var lines=patch.split('\n');if(lines.length&&lines[lines.length-1]==='')lines.pop();return React.createElement('pre',{className:'patch-preview'},lines.map(function(line,idx){var cls='patch-line-ctx';if(line.indexOf('diff --git ')===0||line.indexOf('--- ')===0||line.indexOf('+++ ')===0||line.indexOf('@@')===0||line.charAt(0)==='\\')cls='patch-line-meta';else if(line.charAt(0)==='-')cls='patch-line-del';return React.createElement('div',{key:idx,className:cls},line.length?line:' ');}));}
-    function renderDebugPatchSites(filePath){var pack=data&&data.refactorSuggestions;if(!pack||!pack.sites||!pack.sites.length)return null;var sites=pack.sites.filter(function(site){return !filePath||site.filePath===filePath;});if(!sites.length)return null;var fileKeys=[];var grouped={};sites.forEach(function(site){if(!grouped[site.filePath]){grouped[site.filePath]=[];fileKeys.push(site.filePath);}grouped[site.filePath].push(site);});var appliable=sites.filter(function(site){return site.status==='appliable';}).length;return React.createElement('div',{className:'debug-patch-panel'},React.createElement('div',{style:{display:'flex',justifyContent:'space-between',alignItems:'center',gap:8,marginBottom:8,flexWrap:'wrap'}},React.createElement('div',{style:{fontSize:12,fontWeight:600}},'Debug statement patches'),!filePath&&pack.combinedPatch?React.createElement('button',{className:'view-file-btn',onClick:function(e){e.stopPropagation();downloadTextFile('codeflow-remove-debug-statement.patch',pack.combinedPatch,'text/x-diff');}},'Download all .patch'):null),React.createElement('div',{style:{fontSize:10,color:'var(--t3)',marginBottom:8,lineHeight:1.4}},appliable+' safe removal'+(appliable===1?'':'s')+' · '+(sites.length-appliable)+' report-only. Codeflow does not modify your files. Apply a downloaded patch from the repo root with git apply. A single-statement patch targets the original file; the combined patch removes every safe statement together.'),fileKeys.map(function(path){var group=grouped[path];var filePatch=pack.filePatches&&pack.filePatches[path];var safeCount=group.filter(function(site){return site.status==='appliable';}).length;return React.createElement('div',{key:path,style:{marginBottom:12}},React.createElement('div',{style:{display:'flex',justifyContent:'space-between',alignItems:'center',gap:8,marginBottom:6,flexWrap:'wrap'}},React.createElement('div',{style:{fontSize:10,fontFamily:'monospace',color:'var(--t1)',wordBreak:'break-all'}},path),filePatch?React.createElement('button',{className:'view-file-btn',onClick:function(e){e.stopPropagation();downloadTextFile(patchDownloadName(path),filePatch,'text/x-diff');}},'Download file .patch'):null),safeCount>1?React.createElement('div',{style:{fontSize:10,color:'var(--t2)',marginBottom:6}},'Remove '+safeCount+' standalone debug statements in '+path+'. This patch removes code.'):null,group.map(function(site){return React.createElement('div',{key:site.findingId,className:'debug-patch-card'},React.createElement('div',{style:{fontSize:10,color:'var(--t1)',marginBottom:4,lineHeight:1.4}},site.summary),site.status==='report-only'?React.createElement('div',{className:'debug-patch-reason'},'Report only: '+site.reason):null,site.snippet?React.createElement('div',{className:'security-code'},site.snippet):null,site.status==='appliable'?renderPatchPreview(site.patch):null,site.status==='appliable'&&site.patch?React.createElement('button',{className:'view-file-btn',style:{marginTop:8},onClick:function(e){e.stopPropagation();downloadTextFile(patchDownloadName(site.filePath+'-L'+site.line),site.patch,'text/x-diff');}},'Download .patch'):null);}));}));}
+    function renderDebugPatchSites(filePath){var pack=data&&data.refactorSuggestions;if(!pack||!pack.sites||!pack.sites.length)return null;var sites=pack.sites.filter(function(site){return !filePath||site.filePath===filePath;});if(!sites.length)return null;var fileKeys=[];var grouped={};sites.forEach(function(site){if(!grouped[site.filePath]){grouped[site.filePath]=[];fileKeys.push(site.filePath);}grouped[site.filePath].push(site);});var appliable=sites.filter(function(site){return site.status==='appliable';}).length;return React.createElement('div',{className:'debug-patch-panel'},React.createElement('div',{style:{display:'flex',justifyContent:'space-between',alignItems:'center',gap:8,marginBottom:6,flexWrap:'wrap'}},React.createElement('div',{style:{fontSize:11,fontWeight:700,color:'var(--t0)'}},'Automated Fix Preview ('+appliable+'/'+sites.length+')'),!filePath&&pack.combinedPatch?React.createElement('button',{className:'view-file-btn',onClick:function(e){e.stopPropagation();downloadTextFile('codeflow-remove-debug-statement.patch',pack.combinedPatch,'text/x-diff');}},iconLabel('export','Export Diff ('+appliable+')')):null),React.createElement('div',{style:{fontSize:9.5,color:'var(--t2)',marginBottom:8,lineHeight:1.4}},appliable+' ready · '+(sites.length-appliable)+' report-only'),fileKeys.slice(0,6).map(function(pathKey){var group=grouped[pathKey];return React.createElement('div',{key:pathKey,style:{marginTop:6}},!filePath?React.createElement('div',{style:{display:'flex',justifyContent:'space-between',alignItems:'center',gap:6,marginBottom:4}},React.createElement('span',{className:'security-path',title:pathKey},pathKey),React.createElement('span',{className:'badge badge-default'},group.length+' site'+(group.length===1?'':'s'))):null,group.slice(0,3).map(function(site){return React.createElement('div',{key:site.findingId,className:'debug-patch-card'},React.createElement('div',{style:{display:'flex',justifyContent:'space-between',alignItems:'center',gap:6,marginBottom:3}},React.createElement('span',{style:{fontSize:9.5,color:'var(--t1)',fontWeight:600}},site.summary),React.createElement('span',{className:'badge '+(site.status==='appliable'?'badge-success':'badge-warning')},site.status==='appliable'?'Ready · L'+site.line:'Report-only')),site.status==='report-only'?React.createElement('div',{className:'debug-patch-reason'},site.reason):null,site.snippet?React.createElement('div',{className:'security-code'},site.snippet):null);}))}));}
     function exportJSON(){if(!data)return;var blob=new Blob([JSON.stringify({stats:data.stats,files:data.files.map(function(f){return{path:f.path,fns:f.functions.length,layer:f.layer,lines:f.lines,dependencies:f.dependencies||[]};}),connections:data.connections,issues:data.issues,patterns:data.patterns,security:data.securityIssues,architectureDiagram:data.architectureDiagram,refactorSuggestions:data.refactorSuggestions||null},null,2)],{type:'application/json'});var url=URL.createObjectURL(blob);var a=document.createElement('a');a.href=url;a.download='codeflow-analysis.json';a.click();URL.revokeObjectURL(url);}
     function getAnalysisSourceLabel(){
         if(localSourceKind==='folder')return(repoInfo&&repoInfo.name)||'Local Folder';
@@ -17409,40 +17502,44 @@ function App(){
     function renderOverviewPane(){
         if(!data)return renderSidebarEmpty('No Repository','Enter a GitHub URL, open a folder, or load a ZIP archive');
         return React.createElement('div',{className:'sidebar-scroll'},
-            React.createElement('div',{className:'health-score',style:{marginBottom:10}},
-                React.createElement(HealthRing,{score:health.score,grade:health.grade}),
-                React.createElement('div',{className:'health-info'},
-                    React.createElement('div',{className:'health-grade',style:{color:health.score>=80?'var(--green)':health.score>=60?'var(--orange)':'var(--red)'}},health.score,'/100'),
-                    React.createElement('div',{className:'health-label'},'Health Score')
+            React.createElement('div',{className:'health-score',style:{marginBottom:8,padding:'10px 12px',display:'flex',alignItems:'center',justifyContent:'space-between',gap:10}},
+                React.createElement('div',{style:{display:'flex',alignItems:'center',gap:10}},
+                    React.createElement(HealthRing,{score:health.score,grade:health.grade}),
+                    React.createElement('div',{className:'health-info'},
+                        React.createElement('div',{className:'health-grade',style:{fontSize:16,color:health.score>=80?'var(--green)':health.score>=60?'var(--orange)':'var(--red)'}},health.score,'/100'),
+                        React.createElement('div',{className:'health-label'},'Health Score')
+                    )
+                ),
+                React.createElement('div',{style:{textAlign:'right'}},
+                    React.createElement('div',{style:{fontSize:13,fontWeight:700,color:'var(--acc)',fontVariantNumeric:'tabular-nums'}},data.stats.loc?data.stats.loc.toLocaleString():'0'),
+                    React.createElement('div',{style:{fontSize:8.5,color:'var(--t3)',textTransform:'uppercase'}},'LOC')
                 )
             ),
             (cachedFromId||cliDirty.length>0)&&React.createElement('div',{className:'stale-banner'},
-                React.createElement('span',null,cliDirty.length?'Watched files changed. Re-analyze to refresh.':'Cached analysis. Re-analyze to refresh.'),
+                React.createElement('span',null,cliDirty.length?'Watched files changed.':'Cached analysis.'),
                 React.createElement('button',{className:'top-btn primary',onClick:refreshAnalysis,disabled:loading},'Re-analyze')
             ),
-            React.createElement('div',{className:'stats-grid'},
-                React.createElement('div',{className:'stat-card'},React.createElement('div',{className:'stat-value'},data.stats.files),React.createElement('div',{className:'stat-label'},'Files')),
-                React.createElement('div',{className:'stat-card'},React.createElement('div',{className:'stat-value'},data.stats.functions),React.createElement('div',{className:'stat-label'},'Functions')),
-                React.createElement('div',{className:'stat-card'},React.createElement('div',{className:'stat-value'},data.stats.connections),React.createElement('div',{className:'stat-label'},'Links')),
-                React.createElement('div',{className:'stat-card'+(data.stats.dead>10?' warn':''),style:{cursor:data.stats.dead>0?'pointer':'default'},onClick:function(){if(data.stats.dead>0)setShowUnused(true);}},React.createElement('div',{className:'stat-value'},data.stats.dead),React.createElement('div',{className:'stat-label'},'Unused'))
-            ),
-            React.createElement('div',{className:'loc-stat'},
-                React.createElement('div',{className:'loc-value'},data.stats.loc?data.stats.loc.toLocaleString():'0'),
-                React.createElement('div',{className:'loc-label'},'Lines of Code')
+            React.createElement('div',{className:'stats-grid',style:{marginBottom:8}},
+                React.createElement('div',{className:'stat-card',style:{padding:'7px 8px'}},React.createElement('div',{className:'stat-value',style:{fontSize:14}},data.stats.files),React.createElement('div',{className:'stat-label'},'Files')),
+                React.createElement('div',{className:'stat-card',style:{padding:'7px 8px'}},React.createElement('div',{className:'stat-value',style:{fontSize:14}},data.stats.functions),React.createElement('div',{className:'stat-label'},'Functions')),
+                React.createElement('div',{className:'stat-card',style:{padding:'7px 8px'}},React.createElement('div',{className:'stat-value',style:{fontSize:14}},data.stats.connections),React.createElement('div',{className:'stat-label'},'Links')),
+                React.createElement('div',{className:'stat-card'+(data.stats.dead>10?' warn':''),style:{padding:'7px 8px',cursor:data.stats.dead>0?'pointer':'default'},onClick:function(){if(data.stats.dead>0)setShowUnused(true);}},React.createElement('div',{className:'stat-value',style:{fontSize:14}},data.stats.dead),React.createElement('div',{className:'stat-label'},'Unused'))
             ),
             data.stats.languages&&data.stats.languages.length>0&&React.createElement(React.Fragment,null,
                 React.createElement('div',{className:'lang-bar'},
                     data.stats.languages.slice(0,6).map(function(l,i){
-                        var lMeta=getFileTypeMeta('file'+l.ext);
+                        var lExt=String(l.ext||'').replace(/^\./,'');
+                        var lMeta=getFileTypeMeta('file.'+lExt);
                         var barColor=lMeta&&lMeta.color&&lMeta.color.indexOf('var(')<0?lMeta.color:COLORS[i%COLORS.length];
                         return React.createElement('div',{key:l.ext,className:'lang-bar-segment',style:{width:l.pct+'%',background:barColor}});
                     })
                 ),
                 React.createElement('div',{className:'lang-legend'},
                     data.stats.languages.slice(0,6).map(function(l,i){
-                        var lMeta=getFileTypeMeta('file'+l.ext);
+                        var lExt=String(l.ext||'').replace(/^\./,'');
+                        var lMeta=getFileTypeMeta('file.'+lExt);
                         return React.createElement('div',{key:l.ext,className:'lang-item',title:lMeta.label},
-                            renderFileTypeIcon('file'+l.ext,'s'),
+                            renderFileTypeIcon('file.'+lExt,'s'),
                             React.createElement('span',null,l.ext,' ',l.pct,'%')
                         );
                     })
@@ -17842,7 +17939,7 @@ function App(){
                 React.createElement('div',{className:'empty-desc'},codeViewRootGateMessage(rootCount,codeViewRootGate))
             ),
             React.createElement('div',{className:'code-canvas-hud'},
-                React.createElement('div',{className:'code-canvas-hint'},codeRootGateActive?codeViewRootGateMessage(rootCount,codeViewRootGate):(codeViewFiles.length?'Open files from leftover nodes or the Files tree. Open cards stay put. New Group wraps selected cards. Wheel pans · Ctrl+wheel zooms.':'No files to open as cards.')),
+                React.createElement('div',{className:'code-canvas-hint',title:'Open cards stay put · Drag cards or New Group · Wheel pans · Ctrl+wheel zooms'},codeRootGateActive?codeViewRootGateMessage(rootCount,codeViewRootGate):(codeViewFiles.length?('? Symbols ('+codeViewSymbols.length+')'):'No open cards')),
                 codeViewSymbols.length>0&&React.createElement('div',{className:'code-sym-list'},
                     codeViewSymbols.map(function(sym){
                         return React.createElement('button',{key:sym.name,className:'code-sym-chip '+sym.kind+(activeSymbol===sym.name?' active':''),title:sym.name,onClick:function(){setActiveSymbol(function(prev){return prev===sym.name?null:sym.name;});}},sym.name);
@@ -17957,12 +18054,236 @@ function App(){
     // ---------------------------------------------------------------------
     var GK_ICON_ALIAS={terminal:'code',zap:'bolt',rocket:'target','check-circle':'shield',cpu:'box','git-merge':'split',check:'route',heart:'activity',package:'box',tag:'link',grid:'layout',workflow:'flow'};
     var GK_QUICK_VIEWS=[
-        {viz:'gk-map',label:'🗺️ GK Architecture Map'},
-        {viz:'gk-deps',label:'📦 Dependencies & Versions'},
-        {viz:'code',label:'💻 Code Cards'},
-        {viz:'graph',label:'🕸️ Dependency Graph'},
-        {viz:'architecture',label:'📐 Block Diagram'}
+        {viz:'gk-map',icon:'layers',label:'GK Architecture Map'},
+        {viz:'gk-deps',icon:'box',label:'GK Dependencies & Versions'},
+        {viz:'code',icon:'code',label:'Code Cards'},
+        {viz:'graph',icon:'share',label:'Dependency Graph'},
+        {viz:'architecture',icon:'layout',label:'Block Diagram'}
     ];
+    var VIZ_MENU_OPTIONS=[
+        {viz:'gk-map',icon:'layers',label:'GK Architecture Map',group:'GK Live Architecture'},
+        {viz:'gk-deps',icon:'box',label:'GK Dependencies & Versions',group:'GK Live Architecture'},
+        {viz:'graph',icon:'share',label:'Dependency Graph',group:'Code & Graph Views'},
+        {value:'code',viz:'code',icon:'code',label:'Code Cards',group:'Code & Graph Views'},
+        {viz:'architecture',icon:'layout',label:'Block Diagram',group:'Code & Graph Views'},
+        {viz:'graph3d',icon:'globe',label:'3D Force Graph',group:'Structural Views'},
+        {viz:'treemap',icon:'grid',label:'Treemap',group:'Structural Views'},
+        {viz:'matrix',icon:'layers',label:'Adjacency Matrix',group:'Structural Views'},
+        {viz:'dendro',icon:'split',label:'Folder Tree',group:'Structural Views'},
+        {viz:'sankey',icon:'flow',label:'Layer Flow (Sankey)',group:'Structural Views'},
+        {viz:'disjoint',icon:'target',label:'Cluster Graph',group:'Structural Views'},
+        {viz:'bundle',icon:'clock',label:'Hierarchical Bundle',group:'Structural Views'}
+    ];
+    function getActiveVizOption(vizType){
+        for(var i=0;i<VIZ_MENU_OPTIONS.length;i++){if(VIZ_MENU_OPTIONS[i].viz===vizType)return VIZ_MENU_OPTIONS[i];}
+        return VIZ_MENU_OPTIONS[2];
+    }
+    function renderVizSelectorPopover(clearSelectionOnArch){
+        var currentOpt=getActiveVizOption(graphConfig.vizType);
+        var visibleOpts=gkManifest?VIZ_MENU_OPTIONS:VIZ_MENU_OPTIONS.filter(function(o){return o.group!=='GK Live Architecture';});
+        var groups=[];
+        visibleOpts.forEach(function(o){
+            var g=groups.find(function(x){return x.name===o.group;});
+            if(!g){g={name:o.group,items:[]};groups.push(g);}
+            g.items.push(o);
+        });
+        return React.createElement('div',{className:'viz-selector'},
+            React.createElement('button',{
+                type:'button',
+                className:'cf-popover-btn'+(vizMenuOpen?' open':''),
+                'aria-label':'Visualization type',
+                'aria-expanded':vizMenuOpen?'true':'false',
+                onClick:function(){setVizMenuOpen(function(v){return !v;});}
+            },
+                React.createElement(Icon,{name:gkIconName(currentOpt.icon),size:'s'}),
+                React.createElement('span',null,currentOpt.label),
+                React.createElement('span',{className:'source-switcher-caret'},'▾')
+            ),
+            vizMenuOpen&&React.createElement('div',{className:'cf-popover-menu',role:'listbox','aria-label':'Visualization options'},
+                groups.map(function(g){
+                    return React.createElement('div',{key:g.name,className:'cf-popover-section'},
+                        React.createElement('div',{className:'cf-popover-group-label'},g.name),
+                        g.items.map(function(item){
+                            var isAct=graphConfig.vizType===item.viz;
+                            return React.createElement('button',{
+                                key:item.viz,
+                                type:'button',
+                                role:'option',
+                                'aria-selected':isAct?'true':'false',
+                                className:'cf-popover-item'+(isAct?' active':''),
+                                onClick:function(){
+                                    setVizMenuOpen(false);
+                                    setGraphConfig(Object.assign({},graphConfig,{vizType:item.viz}));
+                                    if(clearSelectionOnArch&&(item.viz==='architecture'||item.viz==='gk-map'||item.viz==='gk-deps')){setSelected(null);setBlastRadius(null);}
+                                }
+                            },
+                                React.createElement('span',{className:'cf-popover-item-main'},
+                                    React.createElement(Icon,{name:gkIconName(item.icon),size:'s'}),
+                                    React.createElement('span',{className:'cf-popover-item-text'},item.label)
+                                ),
+                                isAct&&React.createElement('span',null,'✓')
+                            );
+                        })
+                    );
+                })
+            )
+        );
+    }
+    function getActiveSourceDescriptor(){
+        if(gkManifest&&gkTarget){
+            var targets=gkManifest.targets||[];
+            for(var i=0;i<targets.length;i++){
+                if(targets[i].id===gkTarget){
+                    return {badge:'GK Target',label:gkTargetOptionLabel(targets[i]),icon:'layers'};
+                }
+            }
+        }
+        if(localSourceKind==='folder')return {badge:'Folder',label:(repoInfo&&repoInfo.name)||'Local Folder',icon:'folder'};
+        if(localSourceKind==='zip')return {badge:'ZIP',label:(repoInfo&&repoInfo.name)||'ZIP Archive',icon:'archive'};
+        if(repoInfo&&(repoInfo.owner||repoInfo.repo)){
+            return {badge:'GitHub',label:(repoInfo.owner?repoInfo.owner+'/':'')+(repoInfo.repo||repoInfo.name||'Repository'),icon:'lang-gh'};
+        }
+        if(repoUrl)return {badge:'GitHub',label:repoUrl,icon:'lang-gh'};
+        return {badge:'Source',label:'Select GK Target or GitHub Repo…',icon:'search'};
+    }
+    function renderSourceSwitcherPopover(){
+        var activeDesc=getActiveSourceDescriptor();
+        var q=String(sourceSearch||'').trim().toLowerCase();
+        var groups=[
+            {id:'core',label:'GK Core & Subsystems',items:[]},
+            {id:'deps',label:'Dependencies',items:[]},
+            {id:'tenant',label:'Pinned Tenant Products (Live SHA)',items:[]}
+        ];
+        if(gkManifest&&Array.isArray(gkManifest.targets)){
+            gkManifest.targets.forEach(function(t){
+                var text=((t.shortTitle||'')+' '+(t.title||'')+' '+(t.id||'')+' '+(t.version||'')).toLowerCase();
+                if(q&&text.indexOf(q)<0)return;
+                var gid=gkCategoryGroup(t.category);
+                for(var gi=0;gi<groups.length;gi++){if(groups[gi].id===gid)groups[gi].items.push(t);}
+            });
+        }
+        return React.createElement('div',{className:'source-switcher'},
+            React.createElement('button',{
+                type:'button',
+                className:'source-switcher-btn'+(sourceMenuOpen?' open':''),
+                'aria-label':'Active repository or GK target',
+                'aria-expanded':sourceMenuOpen?'true':'false',
+                title:'Switch between GK targets, any GitHub repository, or a local folder/ZIP',
+                onClick:function(){setSourceMenuOpen(function(v){return !v;});}
+            },
+                React.createElement(Icon,{name:activeDesc.icon,size:'s'}),
+                React.createElement('span',{className:'source-switcher-badge'},activeDesc.badge),
+                React.createElement('span',{className:'source-switcher-label'},activeDesc.label),
+                React.createElement('span',{className:'source-switcher-caret'},'▾')
+            ),
+            sourceMenuOpen&&React.createElement('div',{className:'cf-popover-menu',style:{width:350,maxWidth:'92vw'},role:'dialog','aria-label':'Switch repository or GK target'},
+                React.createElement('div',{className:'cf-popover-section'},
+                    React.createElement('div',{className:'cf-popover-group-label'},'Analyze Any GitHub Repository'),
+                    React.createElement('div',{style:{display:'flex',gap:5,padding:'2px 4px'}},
+                        React.createElement('input',{
+                            className:'repo-input',
+                            style:{flex:'1 1 auto',minWidth:0,height:28,fontSize:10},
+                            'aria-label':'Repository URL',
+                            placeholder:'owner/repo or GitHub URL',
+                            value:repoUrl,
+                            onChange:function(e){setRepoUrl(e.target.value);setSourceSearch(e.target.value);},
+                            onKeyDown:function(e){if(e.key==='Enter'&&!loading&&repoUrl){setSourceMenuOpen(false);analyze();}}
+                        }),
+                        React.createElement('button',{
+                            id:'analyze-btn',
+                            type:'button',
+                            className:'top-btn primary',
+                            style:{height:28,padding:'0 10px',flexShrink:0},
+                            'aria-label':'Analyze repository',
+                            disabled:loading||!repoUrl,
+                            onClick:function(){setSourceMenuOpen(false);analyze();}
+                        },
+                            React.createElement(Icon,{name:loading?'activity':'search',size:'s'}),
+                            'Analyze'
+                        )
+                    ),
+                    React.createElement('div',{style:{display:'flex',gap:5,padding:'4px 4px 2px',flexWrap:'wrap'}},
+                        React.createElement('button',{type:'button',className:'top-btn',style:{height:26,fontSize:9.5},'aria-label':'Open local folder',onClick:function(){setSourceMenuOpen(false);openLocalFolder();},disabled:loading},React.createElement(Icon,{name:'folder',size:'s'}),'Folder'),
+                        React.createElement('button',{type:'button',className:'top-btn',style:{height:26,fontSize:9.5},'aria-label':'Open ZIP archive',onClick:function(){setSourceMenuOpen(false);openLocalZip();},disabled:loading},React.createElement(Icon,{name:'archive',size:'s'}),'ZIP'),
+                        parseUrl(repoUrl)&&React.createElement('button',{type:'button',className:'top-btn',style:{height:26,fontSize:9.5},'aria-label':'Download GitHub ZIP',onClick:function(){setSourceMenuOpen(false);downloadCurrentGithubZip();},disabled:loading},React.createElement(Icon,{name:'export',size:'s'}),'Download ZIP')
+                    )
+                ),
+                gkManifest&&groups.map(function(g){
+                    if(!g.items.length)return null;
+                    return React.createElement('div',{key:g.id,className:'cf-popover-section'},
+                        React.createElement('div',{className:'cf-popover-group-label'},g.label),
+                        g.items.map(function(t){
+                            var isCur=gkTarget===t.id;
+                            return React.createElement('button',{
+                                key:t.id,
+                                type:'button',
+                                className:'cf-popover-item'+(isCur?' active':''),
+                                onClick:function(){
+                                    setSourceMenuOpen(false);
+                                    setSourceSearch('');
+                                    loadGkTargetBundle(t.id,null,(graphConfig.vizType==='gk-map'||graphConfig.vizType==='gk-deps')?'graph':graphConfig.vizType);
+                                }
+                            },
+                                React.createElement('span',{className:'cf-popover-item-main'},
+                                    React.createElement(Icon,{name:t.category==='tenant-product'?'globe':t.category==='dependency'?'box':'layers',size:'s'}),
+                                    React.createElement('span',{className:'cf-popover-item-text'},t.shortTitle||t.title||t.id)
+                                ),
+                                React.createElement('span',{className:'cf-popover-item-meta'},isCur?'✓ Active':(t.version||''))
+                            );
+                        })
+                    );
+                })
+            )
+        );
+    }
+    function renderAuthMethodPopover(){
+        var hasTailnet=!!(cliStatus&&cliStatus.githubAuth&&cliStatus.githubAuth.available);
+        var opts=[
+            hasTailnet?{value:'tailnet',label:'Tailnet Auth (Auto)',icon:'shield'}:null,
+            {value:'none',label:'Public (No Auth)',icon:'globe'},
+            {value:'pat',label:'Token (PAT)',icon:'key'},
+            {value:'github_app',label:'GitHub App',icon:'lock'}
+        ].filter(Boolean);
+        var cur=opts.find(function(o){return o.value===authMethod;})||opts[0];
+        return React.createElement('div',{className:'cf-popover-wrap auth-switcher'},
+            React.createElement('button',{
+                type:'button',
+                className:'cf-popover-btn'+(authMenuOpen?' open':''),
+                'aria-label':'Authentication Method',
+                'aria-expanded':authMenuOpen?'true':'false',
+                title:'GitHub authentication method',
+                onClick:function(){setAuthMenuOpen(function(v){return !v;});}
+            },
+                React.createElement(Icon,{name:cur.icon,size:'s'}),
+                React.createElement('span',null,cur.label),
+                React.createElement('span',{className:'source-switcher-caret'},'▾')
+            ),
+            authMenuOpen&&React.createElement('div',{className:'cf-popover-menu',style:{minWidth:200}},
+                React.createElement('div',{className:'cf-popover-section'},
+                    React.createElement('div',{className:'cf-popover-group-label'},'GitHub API Auth'),
+                    opts.map(function(o){
+                        var isAct=authMethod===o.value;
+                        return React.createElement('button',{
+                            key:o.value,
+                            type:'button',
+                            className:'cf-popover-item'+(isAct?' active':''),
+                            onClick:function(){
+                                setAuthMenuOpen(false);
+                                setAuthMethod(o.value);
+                                GitHub.useTailnetProxy=(o.value==='tailnet');
+                            }
+                        },
+                            React.createElement('span',{className:'cf-popover-item-main'},
+                                React.createElement(Icon,{name:o.icon,size:'s'}),
+                                React.createElement('span',{className:'cf-popover-item-text'},o.label)
+                            ),
+                            isAct&&React.createElement('span',null,'✓')
+                        );
+                    })
+                )
+            )
+        );
+    }
     var GK_VIEW_STYLE={width:'100%',height:'100%',overflowY:'auto',padding:'58px 28px 40px',background:'var(--bg0)'};
 
     function gkIconName(name){
@@ -18006,7 +18327,10 @@ function App(){
         if(!gkManifest)return null;
         return React.createElement('div',{className:'gk-quickbar',role:'group','aria-label':'GK visualization shortcuts'},
             GK_QUICK_VIEWS.map(function(v){
-                return React.createElement('button',{key:'gk-quick-'+v.viz,type:'button',className:'gk-quick-btn'+(graphConfig.vizType===v.viz?' active':''),title:v.label,onClick:function(){gkSetViz(v.viz);}},v.label);
+                return React.createElement('button',{key:'gk-quick-'+v.viz,type:'button',className:'gk-quick-btn'+(graphConfig.vizType===v.viz?' active':''),title:v.label,onClick:function(){gkSetViz(v.viz);}},
+                    React.createElement(Icon,{name:gkIconName(v.icon),size:'s'}),
+                    v.label
+                );
             })
         );
     }
@@ -18603,7 +18927,7 @@ function App(){
                                         React.createElement('a',{className:'gk-sha',href:p.sourceUrl||undefined,target:'_blank',rel:'noopener noreferrer',title:'Pinned commit SHA'},String(p.version||'')),
                                         p.domain&&React.createElement('a',{className:'gk-btn',href:'https://'+p.domain+'/',target:'_blank',rel:'noopener noreferrer'},p.domain+' ↗'),
                                         p.sourceUrl&&React.createElement('a',{className:'gk-btn',href:p.sourceUrl,target:'_blank',rel:'noopener noreferrer'},'GitHub tree @ SHA ↗'),
-                                        p.repository&&React.createElement('button',{type:'button',className:'gk-btn',onClick:function(){setRepoUrl(p.repository);analyze(p.repository);}},'Analyze Full GitHub Repo →')
+                                        p.repository&&React.createElement('button',{type:'button',className:'gk-btn',onClick:function(){setRepoUrl(p.repository);analyze(false,p.repository);}},'Analyze Full GitHub Repo →')
                                     ),
                                     React.createElement('button',{type:'button',className:'gk-btn primary',onClick:function(){loadGkTargetBundle(p.targetId||('tenant-'+p.id),null,'graph');}},'Walk Code & Graph in CodeFlow →')
                                 );
@@ -18651,12 +18975,7 @@ function App(){
                         )
                     ),
                     React.createElement('div',{className:'mobile-secondary-row'},
-                        React.createElement('select',{className:'auth-select','aria-label':'Authentication Method',value:authMethod,onChange:function(e){var v=e.target.value;setAuthMethod(v);GitHub.useTailnetProxy=(v==='tailnet');}},
-                            cliStatus&&cliStatus.githubAuth&&cliStatus.githubAuth.available&&React.createElement('option',{value:'tailnet'},'🔒 Tailnet Auth'),
-                            React.createElement('option',{value:'none'},'No Auth'),
-                            React.createElement('option',{value:'pat'},'Token'),
-                            React.createElement('option',{value:'github_app'},'App')
-                        ),
+                        renderAuthMethodPopover(),
                         React.createElement('div',{className:'auth-inputs'},
                             authMethod==='pat'&&React.createElement('input',{className:'repo-input',type:'password','aria-label':'GitHub Token',placeholder:'Personal Access Token',value:token,onChange:function(e){setToken(e.target.value);},onKeyDown:function(e){if(e.key==='Enter'&&!loading)analyze();}}),
                             authMethod==='github_app'&&React.createElement(React.Fragment,null,
@@ -18699,72 +19018,56 @@ function App(){
                 React.createElement('div',{className:'logo-mark'},React.createElement(Icon,{name:'logo',size:'l'})),
                 React.createElement('span',{className:'logo-text'},'CODEFLOW')
             ),
-            gkManifest&&React.createElement('div',{className:'gk-topbar-group'},
-                React.createElement('select',{className:'gk-target-select','aria-label':'GK Walkthrough Target',value:gkTarget,title:'Choose which GK subsystem, dependency, or pinned tenant product to walk',onChange:function(e){loadGkTargetBundle(e.target.value,null,(graphConfig.vizType==='gk-map'||graphConfig.vizType==='gk-deps')?'graph':graphConfig.vizType);}},
-                    gkRenderTargetOptions()
-                )
-            ),
             React.createElement('div',{className:'repo-input-group'},
-                React.createElement('input',{className:'repo-input','aria-label':'Repository URL',placeholder:'owner/repo or GitHub URL',value:repoUrl,onChange:function(e){setRepoUrl(e.target.value);},onKeyDown:function(e){if(e.key==='Enter'&&!loading)analyze();}}),
-                React.createElement('select',{className:'auth-select','aria-label':'Authentication Method',value:authMethod,onChange:function(e){var v=e.target.value;setAuthMethod(v);GitHub.useTailnetProxy=(v==='tailnet');}},
-                    cliStatus&&cliStatus.githubAuth&&cliStatus.githubAuth.available&&React.createElement('option',{value:'tailnet'},'🔒 Tailnet Auth (Auto)'),
-                    React.createElement('option',{value:'none'},'No Auth'),
-                    React.createElement('option',{value:'pat'},'Token (PAT)'),
-                    React.createElement('option',{value:'github_app'},'GitHub App')
-                ),
+                renderSourceSwitcherPopover(),
+                renderAuthMethodPopover(),
                 React.createElement('div',{className:'auth-inputs'},
-                    authMethod==='pat'&&React.createElement('input',{className:'repo-input',type:'password','aria-label':'GitHub Token',placeholder:'Personal Access Token',value:token,onChange:function(e){setToken(e.target.value);},onKeyDown:function(e){if(e.key==='Enter'&&!loading)analyze();},style:{minWidth:140}}),
+                    authMethod==='pat'&&React.createElement('input',{className:'repo-input',type:'password','aria-label':'GitHub Token',placeholder:'Personal Access Token',value:token,onChange:function(e){setToken(e.target.value);},onKeyDown:function(e){if(e.key==='Enter'&&!loading)analyze();},style:{minWidth:130}}),
                     authMethod==='github_app'&&React.createElement(React.Fragment,null,
-                        React.createElement('input',{className:'repo-input','aria-label':'App ID',placeholder:'App ID',value:appId,onChange:function(e){setAppId(e.target.value);},onKeyDown:function(e){if(e.key==='Enter'&&!loading)analyze();},style:{width:80}}),
+                        React.createElement('input',{className:'repo-input','aria-label':'App ID',placeholder:'App ID',value:appId,onChange:function(e){setAppId(e.target.value);},onKeyDown:function(e){if(e.key==='Enter'&&!loading)analyze();},style:{width:76}}),
                         React.createElement('button',{className:'private-key-btn'+(privateKey?' has-key':''),'aria-label':'Set Private Key',onClick:function(){setShowKeyModal(true);},type:'button'},
-                            React.createElement(Icon,{name:privateKey?'key':'shield',size:'m'}),
+                            React.createElement(Icon,{name:privateKey?'key':'shield',size:'s'}),
                             privateKey?'Key Set':'Private Key'
                         )
                     )
                 ),
                 React.createElement('button',{className:'top-btn','aria-label':'Edit exclude patterns',title:'Edit exclude patterns'+(customExcludeCount>0?' ('+customExcludeCount+')':''),onClick:function(){openExcludeModal();},disabled:loading,style:customExcludeCount?{borderColor:'var(--acc)',color:'var(--acc)'}:null},
-                    React.createElement(Icon,{name:'ban',size:'m'}),
-                    !data&&'Excludes',
-                    (!data&&customExcludeCount>0)?' ('+customExcludeCount+')':''
-                ),
-                React.createElement('button',{id:'analyze-btn',className:'top-btn primary','aria-label':'Analyze repository',title:'Analyze repository',onClick:analyze,disabled:loading||!repoUrl},
-                    React.createElement(Icon,{name:loading?'activity':'search',size:'m'}),
-                    !data&&'Analyze'
+                    React.createElement(Icon,{name:'ban',size:'s'}),
+                    'Excludes',
+                    customExcludeCount>0?' ('+customExcludeCount+')':''
                 ),
                 React.createElement('button',{className:'top-btn','aria-label':'Open local folder',title:'Open local folder',onClick:function(){openLocalFolder();},disabled:loading},
-                    React.createElement(Icon,{name:'folder',size:'m'}),
-                    !data&&'Open Folder'
+                    React.createElement(Icon,{name:'folder',size:'s'}),
+                    'Folder'
                 ),
                 React.createElement('button',{className:'top-btn','aria-label':'Open ZIP archive',title:'Open ZIP archive',onClick:function(){openLocalZip();},disabled:loading},
-                    React.createElement(Icon,{name:'archive',size:'m'}),
-                    !data&&'Open ZIP'
+                    React.createElement(Icon,{name:'archive',size:'s'}),
+                    'ZIP'
                 ),
-                parseUrl(repoUrl)&&React.createElement('button',{className:'top-btn','aria-label':'Download GitHub ZIP',title:'Download a ZIP of this repo, then open it here',onClick:downloadCurrentGithubZip,disabled:loading},
-                    React.createElement(Icon,{name:'export',size:'m'}),
-                    !data&&'Download ZIP'
+                data&&React.createElement('button',{className:'top-btn refresh-btn','aria-label':'Re-analyze',onClick:refreshAnalysis,disabled:loading,title:cachedFromId||cliDirty.length?'Re-analyze (cached or stale)':'Refresh Analysis'},
+                    React.createElement(Icon,{name:'refresh',size:'s'}),
+                    'Refresh'
                 ),
-                data&&React.createElement('button',{className:'refresh-btn','aria-label':'Re-analyze',onClick:refreshAnalysis,disabled:loading,title:cachedFromId||cliDirty.length?'Re-analyze (cached or stale)':'Refresh Analysis'},
-                    React.createElement(Icon,{name:'refresh',size:'m'})
-                ),
-                data&&React.createElement('button',{className:'reset-btn','aria-label':'Reset analysis',onClick:resetAnalysis,title:'Clear & Reset'},
-                    React.createElement(Icon,{name:'close',size:'m'})
+                data&&React.createElement('button',{className:'top-btn reset-btn','aria-label':'Reset analysis',onClick:resetAnalysis,title:'Clear & Reset'},
+                    React.createElement(Icon,{name:'close',size:'s'}),
+                    'Reset'
                 )
             ),
             isMobile&&React.createElement('div',{className:'mobile-panel-actions'},
                 React.createElement('button',{className:'top-btn'+(mobilePanel==='explorer'?' active':''),'aria-label':'Toggle explorer panel',onClick:function(){toggleMobilePanel('explorer');},type:'button'},
-                    React.createElement(Icon,{name:'folder',size:'m'}),
+                    React.createElement(Icon,{name:'folder',size:'s'}),
                     'Explorer'
                 ),
                 React.createElement('button',{className:'top-btn'+(mobilePanel==='details'?' active':''),'aria-label':'Toggle details panel',onClick:function(){toggleMobilePanel('details');},disabled:!data,type:'button'},
-                    React.createElement(Icon,{name:selected?'file':'layout',size:'m'}),
+                    React.createElement(Icon,{name:selected?'file':'layout',size:'s'}),
                     selected?'Inspector':'Insights'
                 )
             ),
             React.createElement('div',{className:'topbar-actions'},
-                React.createElement('button',{className:'top-btn','aria-label':'Analyze Pull Request',title:'Analyze Pull Request',onClick:function(){setShowPR(true);},disabled:!data||!!localSourceKind},React.createElement(Icon,{name:'pull-request',size:'m'}),!data&&'PR'),
-                React.createElement('button',{className:'top-btn','aria-label':'Export analysis',title:'Export analysis',onClick:function(){setShowExport(true);},disabled:!data},React.createElement(Icon,{name:'export',size:'m'}),!data&&'Export'),
-                React.createElement('button',{className:'top-btn','aria-label':'Copy share link',title:'Copy share link',onClick:copyLink,disabled:!data||!!localSourceKind},React.createElement(Icon,{name:'share',size:'m'}),!data&&'Share'),
-                React.createElement('button',{className:'top-btn','aria-label':'Toggle theme',title:theme==='dark'?'Switch to light mode':'Switch to dark mode',onClick:function(){setTheme(function(t){return t==='dark'?'light':'dark';});}},React.createElement(Icon,{name:theme==='dark'?'sun':'moon',size:'m'}),!data&&(theme==='dark'?'Light':'Dark'))
+                React.createElement('button',{className:'top-btn','aria-label':'Analyze Pull Request',title:'Analyze Pull Request',onClick:function(){setShowPR(true);},disabled:!data||!!localSourceKind},React.createElement(Icon,{name:'pull-request',size:'s'}),'PR'),
+                React.createElement('button',{className:'top-btn','aria-label':'Export analysis',title:'Export analysis',onClick:function(){setShowExport(true);},disabled:!data},React.createElement(Icon,{name:'export',size:'s'}),'Export'),
+                React.createElement('button',{className:'top-btn','aria-label':'Copy share link',title:'Copy share link',onClick:copyLink,disabled:!data||!!localSourceKind},React.createElement(Icon,{name:'share',size:'s'}),'Share'),
+                React.createElement('button',{className:'top-btn','aria-label':'Toggle theme',title:theme==='dark'?'Switch to light mode':'Switch to dark mode',onClick:function(){setTheme(function(t){return t==='dark'?'light':'dark';});}},React.createElement(Icon,{name:theme==='dark'?'sun':'moon',size:'s'}),theme==='dark'?'Dark':'Light')
             )
         ),
         React.createElement('div',{className:'main'},
@@ -18800,22 +19103,7 @@ function App(){
             React.createElement('div',{className:'canvas-area'},
                 (loading&&!(gkManifest&&(graphConfig.vizType==='gk-map'||graphConfig.vizType==='gk-deps')))?React.createElement('div',{className:'loading'},React.createElement('div',{className:'spinner'}),React.createElement('div',{className:'loading-text'},'Analyzing...'),React.createElement('div',{className:'loading-progress'},progress)):
                 gkManifest&&!data&&(graphConfig.vizType==='gk-map'||graphConfig.vizType==='gk-deps')?React.createElement(React.Fragment,null,
-                    React.createElement('div',{className:'viz-selector'},
-                        React.createElement('select',{className:'viz-select','aria-label':'Visualization type',value:graphConfig.vizType,onChange:function(e){var v=e.target.value;setGraphConfig(Object.assign({},graphConfig,{vizType:v}));}},
-                            React.createElement('option',{value:'gk-map'},'🗺️ GK Architecture Map'),
-                            React.createElement('option',{value:'gk-deps'},'📦 GK Dependencies & Versions'),
-                            React.createElement('option',{value:'graph'},'Graph'),
-                            React.createElement('option',{value:'code'},'Code'),
-                            React.createElement('option',{value:'graph3d'},'3D Graph'),
-                            React.createElement('option',{value:'treemap'},'Treemap'),
-                            React.createElement('option',{value:'matrix'},'Matrix'),
-                            React.createElement('option',{value:'dendro'},'Tree'),
-                            React.createElement('option',{value:'sankey'},'Flow'),
-                            React.createElement('option',{value:'disjoint'},'Cluster'),
-                            React.createElement('option',{value:'bundle'},'Bundle'),
-                            React.createElement('option',{value:'architecture'},'Block Diagram')
-                        )
-                    ),
+                    renderVizSelectorPopover(false),
                     graphConfig.vizType==='gk-map'&&renderGkArchitectureMapView(),
                     graphConfig.vizType==='gk-deps'&&renderGkDependenciesView()
                 ):
@@ -18831,22 +19119,7 @@ function App(){
                     cliStatus&&cliStatus.ok&&React.createElement('div',{className:'cli-chip',style:{marginTop:10}},'CLI watching ',cliStatus.name||cliStatus.root)
                 ):
                 React.createElement(React.Fragment,null,
-                    React.createElement('div',{className:'viz-selector'},
-                        React.createElement('select',{className:'viz-select','aria-label':'Visualization type',value:graphConfig.vizType,onChange:function(e){var v=e.target.value;setGraphConfig(Object.assign({},graphConfig,{vizType:v}));if(v==='architecture'){setSelected(null);setBlastRadius(null);}}},
-                            React.createElement('option',{value:'gk-map'},'🗺️ GK Architecture Map'),
-                            React.createElement('option',{value:'gk-deps'},'📦 GK Dependencies & Versions'),
-                            React.createElement('option',{value:'graph'},'Graph'),
-                            React.createElement('option',{value:'code'},'Code'),
-                            React.createElement('option',{value:'graph3d'},'3D Graph'),
-                            React.createElement('option',{value:'treemap'},'Treemap'),
-                            React.createElement('option',{value:'matrix'},'Matrix'),
-                            React.createElement('option',{value:'dendro'},'Tree'),
-                            React.createElement('option',{value:'sankey'},'Flow'),
-                            React.createElement('option',{value:'disjoint'},'Cluster'),
-                            React.createElement('option',{value:'bundle'},'Bundle'),
-                            React.createElement('option',{value:'architecture'},'Block Diagram')
-                        )
-                    ),
+                    renderVizSelectorPopover(true),
                     graphConfig.vizType==='gk-map'&&renderGkArchitectureMapView(),
                     graphConfig.vizType==='gk-deps'&&renderGkDependenciesView(),
                     graphConfig.vizType==='graph'&&React.createElement('svg',{ref:svgRef}),
@@ -18860,12 +19133,13 @@ function App(){
                     graphConfig.vizType==='bundle'&&React.createElement('div',{ref:bundleRef,className:'bundle-container'}),
                     graphConfig.vizType==='architecture'&&renderArchitectureView(),
                     vizUsesLineThickness(graphConfig.vizType)&&React.createElement('div',{className:'canvas-toolbar'},
-                        vizHasGraphToolbar(graphConfig.vizType)&&React.createElement('button',{className:'tool-btn',onClick:zoomIn,'aria-label':'Zoom in'},'+'),
-                        vizHasGraphToolbar(graphConfig.vizType)&&React.createElement('button',{className:'tool-btn',onClick:zoomOut,'aria-label':'Zoom out'},'−'),
-                        vizHasGraphToolbar(graphConfig.vizType)&&React.createElement('button',{className:'tool-btn',onClick:resetZoom,'aria-label':'Reset zoom'},'⟲'),
-                        vizHasGraphToolbar(graphConfig.vizType)&&React.createElement('button',{className:'tool-btn',onClick:fitView,'aria-label':'Fit view'},'⊡'),
-                        React.createElement('button',{className:'tool-btn'+(showGraphConfig?' active':''),onClick:function(){setShowGraphConfig(!showGraphConfig);},'aria-label':'Graph settings',style:showGraphConfig?{background:'var(--accbg)',borderColor:'var(--acc)'}:{}},
-                            React.createElement(Icon,{name:'settings',size:'m'})
+                        vizHasGraphToolbar(graphConfig.vizType)&&React.createElement('button',{className:'tool-btn',onClick:zoomIn,'aria-label':'Zoom in',title:'Zoom in'},'+ Zoom'),
+                        vizHasGraphToolbar(graphConfig.vizType)&&React.createElement('button',{className:'tool-btn',onClick:zoomOut,'aria-label':'Zoom out',title:'Zoom out'},'− Out'),
+                        vizHasGraphToolbar(graphConfig.vizType)&&React.createElement('button',{className:'tool-btn',onClick:resetZoom,'aria-label':'Reset zoom',title:'Reset zoom'},'⟲ Reset'),
+                        vizHasGraphToolbar(graphConfig.vizType)&&React.createElement('button',{className:'tool-btn',onClick:fitView,'aria-label':'Fit view',title:'Fit graph to view'},'⊡ Fit'),
+                        React.createElement('button',{className:'tool-btn'+(showGraphConfig?' active':''),onClick:function(){setShowGraphConfig(!showGraphConfig);},'aria-label':'Graph settings',title:'Tune layout, spacing, and link thickness',style:showGraphConfig?{background:'var(--accbg)',borderColor:'var(--acc)',color:'var(--acc)'}:{}},
+                            React.createElement(Icon,{name:'settings',size:'s'}),
+                            'Tune'
                         )
                     ),
                     vizUsesLineThickness(graphConfig.vizType)&&showGraphConfig&&React.createElement('div',{className:'graph-config'+(vizHasGraphToolbar(graphConfig.vizType)?'':' thickness-only')},
@@ -19150,27 +19424,58 @@ function App(){
                         ):graphConfig.vizType==='architecture'?renderArchitectureSummary():React.createElement(React.Fragment,null,
                             React.createElement('div',{style:{fontSize:12,fontWeight:600,marginBottom:12}},React.createElement(Icon,{name:'search',size:'m'}),' Architecture Issues (',data.issues.length,')'),
                             data.issues.length===0?React.createElement('div',{style:{textAlign:'center',padding:20}},React.createElement(Icon,{name:'spark',size:'xxl',className:'empty-icon'}),React.createElement('div',{style:{color:'var(--green)'}},'No issues detected!')):
-                            data.issues.map(function(issue,i){return React.createElement('div',{key:i,className:'security-item '+(issue.type==='critical'?'high':'medium'),style:{cursor:'pointer'},onClick:function(){setDrillDown({type:'issue',data:issue});}},
-                                React.createElement('div',{className:'security-header'},
-                                    React.createElement(StatusDot,{color:issue.type==='critical'?'var(--red)':'var(--orange)'}),
-                                    React.createElement('span',{className:'security-title'},issue.title)
-                                ),
-                                React.createElement('div',{className:'security-desc'},issue.desc),
-                                React.createElement('div',{style:{fontSize:9,color:'var(--acc)',marginTop:6}},'Click for details (',issue.items?issue.items.length:0,' items) →')
-                            );})
+                            data.issues.map(function(issue,i){
+                                var expKey='issue-'+i;
+                                var isExp=expandedIssueIds.has(expKey);
+                                var items=issue.items||[];
+                                return React.createElement('div',{key:i,className:'security-item '+(issue.type==='critical'?'high':'medium'),onClick:function(e){toggleIssueExpand(expKey,e);}},
+                                    React.createElement('div',{className:'security-header'},
+                                        React.createElement(StatusDot,{color:issue.type==='critical'?'var(--red)':'var(--orange)'}),
+                                        React.createElement('span',{className:'security-title'},issue.title),
+                                        React.createElement('span',{className:'badge badge-default',style:{marginLeft:'auto'}},items.length)
+                                    ),
+                                    React.createElement('div',{className:'security-desc'},issue.desc),
+                                    isExp&&items.length>0&&React.createElement('div',{className:'cf-inline-chips'},
+                                        items.slice(0,10).map(function(it,ii){
+                                            var path=it.file||it.path||it.name||'';
+                                            return React.createElement('button',{key:ii,type:'button',className:'cf-inline-chip',title:path,onClick:function(e){e.stopPropagation();if(path)goToFile(path);}},(path.split('/').pop()||path));
+                                        }),
+                                        items.length>10&&React.createElement('span',{className:'cf-inline-chip'},'+'+(items.length-10)+' more')
+                                    ),
+                                    React.createElement('div',{className:'cf-disclosure-row'},
+                                        React.createElement('button',{type:'button',className:'cf-disclosure-btn',onClick:function(e){toggleIssueExpand(expKey,e);}},isExp?'Hide items ▴':'Inspect '+items.length+' items ▾'),
+                                        React.createElement('button',{type:'button',className:'cf-disclosure-btn',onClick:function(e){e.stopPropagation();setDrillDown({type:'issue',data:issue});}},'Modal ↗')
+                                    )
+                                );
+                            })
                         )),
                         rightTab==='patterns'&&React.createElement(React.Fragment,null,
                             React.createElement('div',{style:{fontSize:12,fontWeight:600,marginBottom:12}},React.createElement(Icon,{name:'puzzle',size:'m'}),' Design Patterns & Anti-Patterns'),
                             data.patterns.length===0?React.createElement('div',{style:{textAlign:'center',padding:20,color:'var(--t3)'}},React.createElement(Icon,{name:'puzzle',size:'xxl',className:'empty-icon'}),React.createElement('div',null,'No patterns detected'),React.createElement('div',{style:{fontSize:10,marginTop:8}},'Patterns are detected based on code structure')):
-                            data.patterns.map(function(p,i){return React.createElement('div',{key:i,className:'pattern-item'+(p.isAnti?' anti':''),style:{cursor:'pointer'},onClick:function(){setDrillDown({type:'pattern',data:p});}},
-                                React.createElement('div',{className:'pattern-header'},
-                                    React.createElement(Icon,{name:p.icon,size:'m',className:'pattern-icon'}),
-                                    React.createElement('span',{className:'pattern-name'},p.name),
-                                    p.isAnti&&React.createElement('span',{className:'badge badge-danger',style:{marginLeft:8}},'Anti-pattern')
-                                ),
-                                React.createElement('div',{className:'pattern-desc'},p.desc),
-                                React.createElement('div',{style:{fontSize:9,color:'var(--acc)',marginTop:6}},'Click for details (',p.files.length,' files) →')
-                            );})
+                            data.patterns.map(function(p,i){
+                                var expKey='pattern-'+i;
+                                var isExp=expandedIssueIds.has(expKey);
+                                var files=p.files||[];
+                                return React.createElement('div',{key:i,className:'pattern-item'+(p.isAnti?' anti':''),style:{cursor:'pointer'},onClick:function(e){toggleIssueExpand(expKey,e);}},
+                                    React.createElement('div',{className:'pattern-header'},
+                                        React.createElement(Icon,{name:p.icon,size:'m',className:'pattern-icon'}),
+                                        React.createElement('span',{className:'pattern-name'},p.name),
+                                        p.isAnti&&React.createElement('span',{className:'badge badge-danger',style:{marginLeft:'auto'}},'Anti-pattern')
+                                    ),
+                                    React.createElement('div',{className:'pattern-desc'},p.desc),
+                                    isExp&&files.length>0&&React.createElement('div',{className:'cf-inline-chips'},
+                                        files.slice(0,10).map(function(f,fi){
+                                            var path=f.path||f.name||'';
+                                            return React.createElement('button',{key:fi,type:'button',className:'cf-inline-chip',title:path,onClick:function(e){e.stopPropagation();if(path)goToFile(path);}},(path.split('/').pop()||path));
+                                        }),
+                                        files.length>10&&React.createElement('span',{className:'cf-inline-chip'},'+'+(files.length-10)+' more')
+                                    ),
+                                    React.createElement('div',{className:'cf-disclosure-row'},
+                                        React.createElement('button',{type:'button',className:'cf-disclosure-btn',onClick:function(e){toggleIssueExpand(expKey,e);}},isExp?'Hide files ▴':'Inspect '+files.length+' files ▾'),
+                                        React.createElement('button',{type:'button',className:'cf-disclosure-btn',onClick:function(e){e.stopPropagation();setDrillDown({type:'pattern',data:p});}},'Modal ↗')
+                                    )
+                                );
+                            })
                         ),
                         rightTab==='security'&&React.createElement(React.Fragment,null,
                             React.createElement('div',{style:{fontSize:12,fontWeight:600,marginBottom:12}},React.createElement(Icon,{name:'security',size:'m'}),' Security Analysis'),
@@ -19183,16 +19488,25 @@ function App(){
                                     React.createElement('div',{className:'badge badge-info'},data.securityIssues.filter(function(i){return i.severity==='low';}).length,' Low'),
                                     React.createElement('div',{className:'badge badge-default'},data.securityIssues.filter(function(i){return i.severity==='info';}).length,' Info')
                                 ),
-                                data.securityIssues.map(function(issue,i){return React.createElement('div',{key:i,className:'security-item '+issue.severity,style:{cursor:'pointer'},onClick:function(){setDrillDown({type:'security',data:issue});}},
-                                    React.createElement('div',{className:'security-header'},
-                                        React.createElement(StatusDot,{color:getSeverityColor(issue.severity)}),
-                                        React.createElement('span',{className:'security-title'},issue.title)
-                                    ),
-                                    React.createElement('div',{className:'security-desc'},issue.desc),
-                                    issue.title==='Debug Statements'&&data.refactorSuggestions&&data.refactorSuggestions.filePatches&&data.refactorSuggestions.filePatches[issue.path]&&React.createElement('div',{style:{fontSize:9,color:'var(--green)',marginTop:4}},'Patch available'),
-                                    React.createElement('div',{style:{fontSize:9,color:'var(--acc)',marginTop:6}},'Click for details →'),
-                                    issue.code&&React.createElement('div',{className:'security-code'},issue.code)
-                                );})
+                                data.securityIssues.map(function(issue,i){
+                                    var expKey='sec-'+i;
+                                    var isExp=expandedIssueIds.has(expKey);
+                                    return React.createElement('div',{key:i,className:'security-item '+issue.severity,onClick:function(e){toggleIssueExpand(expKey,e);}},
+                                        React.createElement('div',{className:'security-header'},
+                                            React.createElement(StatusDot,{color:getSeverityColor(issue.severity)}),
+                                            React.createElement('span',{className:'security-title'},issue.title),
+                                            issue.line&&React.createElement('span',{className:'badge badge-default',style:{marginLeft:'auto'}},'L'+issue.line)
+                                        ),
+                                        React.createElement('div',{className:'security-desc'},issue.desc),
+                                        issue.path&&React.createElement('div',{className:'security-path',title:issue.path},issue.path),
+                                        issue.title==='Debug Statements'&&data.refactorSuggestions&&data.refactorSuggestions.filePatches&&data.refactorSuggestions.filePatches[issue.path]&&React.createElement('div',{style:{fontSize:9,color:'var(--green)',marginTop:4,fontWeight:600}},'✓ Automated patch ready'),
+                                        isExp&&issue.code&&React.createElement('div',{className:'security-code'},issue.code),
+                                        React.createElement('div',{className:'cf-disclosure-row'},
+                                            React.createElement('button',{type:'button',className:'cf-disclosure-btn',onClick:function(e){toggleIssueExpand(expKey,e);}},isExp?'Hide snippet ▴':'Inspect snippet ▾'),
+                                            React.createElement('button',{type:'button',className:'cf-disclosure-btn',onClick:function(e){e.stopPropagation();setDrillDown({type:'security',data:issue});}},'Remediation ↗')
+                                        )
+                                    );
+                                })
                             )
                         ),
                         rightTab==='suggestions'&&React.createElement(React.Fragment,null,
@@ -19221,9 +19535,9 @@ function App(){
                                 );}),
                                 data.duplicates&&data.duplicates.length>0&&React.createElement('div',{style:{marginTop:16}},
                                     React.createElement('div',{style:{fontSize:11,fontWeight:600,marginBottom:8}},React.createElement(Icon,{name:'copy',size:'m'}),' Duplicate Functions (',data.duplicates.length,')'),
-                                    data.duplicates.slice(0,10).map(function(d,i){return React.createElement('div',{key:i,style:{background:'var(--bg0)',borderRadius:6,padding:8,marginBottom:6,fontSize:10,cursor:'pointer'},onClick:function(){setDrillDown({type:'duplicate',data:d});}},
-                                        React.createElement('div',{style:{fontWeight:600,color:d.type==='code'?'var(--purple)':'var(--orange)'}},d.type==='code'?'Similar Code':'Same Name',': ',d.name),
-                                        React.createElement('div',{style:{fontSize:9,color:'var(--acc)',marginTop:4}},'Click for details (',d.files.length,' locations) →')
+                                    data.duplicates.slice(0,10).map(function(d,i){return React.createElement('div',{key:i,style:{background:'var(--bg0)',border:'1px solid var(--border2)',borderRadius:6,padding:'8px 10px',marginBottom:6,fontSize:10,cursor:'pointer',display:'flex',alignItems:'center',justifyContent:'space-between',gap:8},onClick:function(){setDrillDown({type:'duplicate',data:d});}},
+                                        React.createElement('div',{style:{fontWeight:600,color:d.type==='code'?'var(--purple)':'var(--orange)',overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}},d.type==='code'?'Similar Code':'Same Name',': ',d.name),
+                                        React.createElement('span',{className:'cf-disclosure-btn'},d.files.length+' locs ↗')
                                     );})
                                 )
                             )
