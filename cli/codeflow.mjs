@@ -278,6 +278,153 @@ export function isAllowedGithubApiPath(subPath) {
   return /^repos\/[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+(?:\/(?:git\/trees\/[^/]+|contents(?:\/.+)?|commits(?:\/[^/]+)?|pulls(?:\/[0-9]+(?:\/files|\/commits)?)?|branches(?:\/.+)?|languages|contributors|compare\/.+))?$/.test(clean);
 }
 
+const PEER_COLORS = ['#32f3e9', '#a78bfa', '#22ff73', '#fbbf24', '#fb7185', '#38bdf8', '#f472b6', '#6ff7cc'];
+const GATE_IDENTITY_CACHE = new Map();
+const GATE_IDENTITY_TTL_MS = 60 * 1000;
+
+function hashColorForId(id) {
+  const s = String(id || 'peer');
+  let h = 2166136261;
+  for (let i = 0; i < s.length; i++) {
+    h ^= s.charCodeAt(i);
+    h = Math.imul(h, 16777619);
+  }
+  return PEER_COLORS[Math.abs(h) % PEER_COLORS.length];
+}
+
+function extractClientIp(req) {
+  const xff = String((req && req.headers && req.headers['x-forwarded-for']) || '').split(',')[0].trim();
+  if (xff) return xff.replace(/^::ffff:/, '');
+  const remote = String((req && req.socket && req.socket.remoteAddress) || '127.0.0.1').trim();
+  return remote.replace(/^::ffff:/, '');
+}
+
+export async function resolveCallerIdentity(req, gateApiUrl = process.env.CODEFLOW_GATE_ME_URL || 'http://127.0.0.1:8787/_gate/api/me') {
+  const ip = extractClientIp(req);
+  const cookie = String((req && req.headers && req.headers.cookie) || '');
+  const ua = String((req && req.headers && req.headers['user-agent']) || '');
+  const sessionKey = String((req && req.headers && req.headers['x-codeflow-session']) || '').slice(0, 48);
+  const cacheKey = `${ip}::${cookie.slice(0, 120)}::${ua.slice(0, 80)}`;
+  const now = Date.now();
+  const cached = GATE_IDENTITY_CACHE.get(cacheKey);
+  if (cached && now - cached.at < GATE_IDENTITY_TTL_MS) {
+    return { ...cached.identity, sessionId: sessionKey || cached.identity.id };
+  }
+  try {
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), 380);
+    const headers = {
+      Accept: 'application/json',
+      'X-Forwarded-For': ip,
+      'User-Agent': ua || 'CodeFlow-Gate-Probe/1.0'
+    };
+    if (cookie) headers.Cookie = cookie;
+    const resp = await fetch(gateApiUrl, { method: 'GET', headers, signal: ctrl.signal });
+    clearTimeout(timer);
+    if (resp && resp.ok) {
+      const data = await resp.json();
+      if (data && data.signed_in && (data.name || data.id)) {
+        const personId = String(data.id || data.name).toLowerCase().replace(/[^a-z0-9_-]/g, '-');
+        const identity = {
+          id: personId,
+          name: String(data.name || data.id),
+          role: String(data.role || 'member'),
+          device: String(data.device || (ip.startsWith('100.') ? `Tailscale (${ip})` : 'Passkey SSO')),
+          ip,
+          verified: true,
+          authSource: data.device ? 'gate-tailscale-device' : 'gate-passkey-session',
+          color: hashColorForId(personId)
+        };
+        GATE_IDENTITY_CACHE.set(cacheKey, { at: now, identity });
+        return { ...identity, sessionId: sessionKey || personId };
+      }
+    }
+  } catch {}
+
+  const isTailnet = ip.startsWith('100.');
+  const isLoopback = ip === '127.0.0.1' || ip === '::1';
+  const fallbackId = isTailnet ? `tailnet-${ip.replace(/\./g, '-')}` : 'berkeley-local';
+  const fallbackName = isTailnet ? `Berkeley · ${ip}` : (isLoopback ? 'Berkeley (Mac)' : `Operator · ${ip}`);
+  const identity = {
+    id: fallbackId,
+    name: fallbackName,
+    role: 'admin',
+    device: isTailnet ? `Tailscale (${ip})` : 'Loopback',
+    ip,
+    verified: isTailnet || isLoopback,
+    authSource: isTailnet ? 'tailnet-ip' : 'local-loopback',
+    color: hashColorForId(fallbackId)
+  };
+  GATE_IDENTITY_CACHE.set(cacheKey, { at: now, identity });
+  return { ...identity, sessionId: sessionKey || fallbackId };
+}
+
+function readJsonBody(req, maxBytes = 64 * 1024) {
+  return new Promise((resolve, reject) => {
+    const chunks = [];
+    let total = 0;
+    req.on('data', (chunk) => {
+      total += chunk.length;
+      if (total > maxBytes) {
+        reject(new Error('Payload too large'));
+        req.destroy();
+        return;
+      }
+      chunks.push(chunk);
+    });
+    req.on('end', () => {
+      try {
+        const raw = Buffer.concat(chunks).toString('utf8').trim();
+        resolve(raw ? JSON.parse(raw) : {});
+      } catch (e) {
+        reject(e);
+      }
+    });
+    req.on('error', reject);
+  });
+}
+
+function createDefaultRoomThreads(roomKey) {
+  if (roomKey !== 'gk-system') return [];
+  return [
+    {
+      id: 'pin-ctx-window',
+      mapKey: 'contextDataflow',
+      nodeId: 'ctxwin',
+      x: 54.5,
+      y: 34.0,
+      resolved: false,
+      author: { id: 'berkeley', name: 'Berkeley', color: '#32f3e9', device: 'Tailscale' },
+      createdAt: '2026-10-29T19:30:00Z',
+      messages: [
+        {
+          id: 'm-1',
+          author: { id: 'berkeley', name: 'Berkeley', color: '#32f3e9' },
+          text: 'Base prompt is 49,803 B after C1+C2 retirement — keep colab-mcp and progress-reminder out of default load.',
+          at: 'just now'
+        }
+      ]
+    },
+    {
+      id: 'pin-hole-land',
+      mapKey: 'verificationWorkflow',
+      nodeId: 'livefire',
+      x: 68.0,
+      y: 62.0,
+      resolved: false,
+      author: { id: 'gk-bot', name: 'GK Verifier', color: '#fb7185', device: 'core-vps' },
+      createdAt: '2026-10-29T19:32:00Z',
+      messages: [
+        {
+          id: 'm-2',
+          author: { id: 'gk-bot', name: 'GK Verifier', color: '#fb7185' },
+          text: 'e-hole-land: PRs that pass static capreg + adr-refs can still merge green unless runtime live-fire is checked.',
+          at: '2m ago'
+        }
+      ]
+    }
+  ];
+}
 export const CLI_FILE_MAX_BYTES = 2 * 1024 * 1024;
 
 export function isMissingFsError(err) {
@@ -530,16 +677,81 @@ export function createCodeflowServer(options) {
   );
   const clients = new Set();
   const watchRevs = new Map();
+  const rooms = new Map();
   let watchEpoch = 0;
+
+  function getOrCreateRoom(roomKey) {
+    const key = String(roomKey || 'gk-system').slice(0, 80);
+    if (!rooms.has(key)) {
+      rooms.set(key, {
+        room: key,
+        peers: new Map(),
+        leaderId: null,
+        leaderView: null,
+        threads: createDefaultRoomThreads(key)
+      });
+    }
+    return rooms.get(key);
+  }
+
+  function pruneRoomPeers(roomObj) {
+    const cutoff = Date.now() - 45 * 1000;
+    for (const [peerKey, peer] of roomObj.peers.entries()) {
+      if ((peer.updatedAt || 0) < cutoff) {
+        roomObj.peers.delete(peerKey);
+        if (roomObj.leaderId === peerKey) {
+          roomObj.leaderId = null;
+        }
+      }
+    }
+  }
+
+  function serializeRoom(roomObj, me) {
+    pruneRoomPeers(roomObj);
+    const pins = (roomObj.threads || []).map((th) => ({
+      id: th.id,
+      x: th.x,
+      y: th.y,
+      mapKey: th.mapKey,
+      nodeId: th.nodeId,
+      resolved: Boolean(th.resolved),
+      authorName: th.author?.name || 'Operator',
+      authorColor: th.author?.color || '#32f3e9',
+      text: th.messages?.[0]?.text || th.text || '',
+      replies: (th.messages || []).slice(1).map((m) => ({
+        id: m.id,
+        authorName: m.author?.name || 'Operator',
+        authorColor: m.author?.color || '#32f3e9',
+        text: m.text
+      }))
+    }));
+    return {
+      ok: true,
+      room: roomObj.room,
+      me: me || null,
+      peers: Array.from(roomObj.peers.values()),
+      leaderId: roomObj.leaderId,
+      leaderView: roomObj.leaderView,
+      threads: roomObj.threads,
+      pins
+    };
+  }
+
+  function broadcastEvent(obj) {
+    const payload = `data: ${JSON.stringify(obj)}\n\n`;
+    for (const client of clients) {
+      try {
+        client.write(payload);
+      } catch {}
+    }
+  }
 
   const watchSession = startFileWatchers(watchRoot, (rel) => {
     const pathKey = normalizeWatchRel(rel);
     const rev = bumpWatchRev(watchRevs, pathKey);
     watchEpoch += 1;
-    const payload = `data: ${JSON.stringify({ type: 'change', path: pathKey, rev })}\n\n`;
-    for (const client of clients) client.write(payload);
+    broadcastEvent({ type: 'change', path: pathKey, rev });
   }, undefined, watchOptions);
-
   const server = http.createServer(async (req, res) => {
     try {
       for (const [header, value] of Object.entries(PRIVACY_HEADERS)) res.setHeader(header, value);
@@ -570,6 +782,137 @@ export function createCodeflowServer(options) {
             mode: ghTok ? 'tailnet-proxy' : 'none'
           }
         });
+        return;
+      }
+      if (url.pathname === '/__codeflow/me') {
+        const me = await resolveCallerIdentity(req);
+        sendJson(res, 200, { ok: true, me });
+        return;
+      }
+      if (url.pathname === '/__codeflow/room') {
+        const me = await resolveCallerIdentity(req);
+        if (req.method === 'GET') {
+          const roomKey = url.searchParams.get('room') || 'gk-system';
+          const roomObj = getOrCreateRoom(roomKey);
+          sendJson(res, 200, serializeRoom(roomObj, me));
+          return;
+        }
+        if (req.method === 'POST') {
+          let body = {};
+          try {
+            body = await readJsonBody(req);
+          } catch {
+            sendJson(res, 400, { ok: false, error: 'Invalid JSON body' });
+            return;
+          }
+          const roomKey = String(body.room || url.searchParams.get('room') || 'gk-system').slice(0, 80);
+          const roomObj = getOrCreateRoom(roomKey);
+          const peerKey = String(body.sessionId || me.sessionId || me.id).slice(0, 64);
+          const existingPeer = roomObj.peers.get(peerKey) || {};
+          const peerRecord = {
+            id: me.id,
+            sessionId: peerKey,
+            personId: me.id,
+            name: me.name,
+            role: me.role,
+            device: me.device,
+            verified: me.verified,
+            authSource: me.authSource,
+            color: me.color,
+            x: typeof body.x === 'number' ? Math.max(0, Math.min(100, body.x)) : (existingPeer.x ?? null),
+            y: typeof body.y === 'number' ? Math.max(0, Math.min(100, body.y)) : (existingPeer.y ?? null),
+            viz: String(body.viz || existingPeer.viz || 'gk-map').slice(0, 32),
+            mapTab: String(body.mapTab || existingPeer.mapTab || 'event-arch').slice(0, 48),
+            capregMapKey: String(body.capregMapKey || body.mapKey || existingPeer.capregMapKey || 'contextDataflow').slice(0, 48),
+            mapKey: String(body.mapKey || body.capregMapKey || existingPeer.mapKey || 'eventArchitecture').slice(0, 48),
+            viewMode: String(body.viewMode || existingPeer.viewMode || 'stage').slice(0, 32),
+            guidedView: body.guidedView !== undefined ? body.guidedView : (existingPeer.guidedView ?? null),
+            selectedNode: body.selectedNode !== undefined ? body.selectedNode : (existingPeer.selectedNode ?? null),
+            updatedAt: Date.now()
+          };
+          roomObj.peers.set(peerKey, peerRecord);
+
+          const action = String(body.action || 'presence');
+          if (action === 'follow' || action === 'lead') {
+            const wantLead = body.lead !== undefined ? Boolean(body.lead) : Boolean(body.active);
+            if (!wantLead && (roomObj.leaderId === peerKey || roomObj.leaderId === me.id)) {
+              roomObj.leaderId = null;
+              roomObj.leaderView = null;
+            } else if (wantLead) {
+              roomObj.leaderId = me.id;
+              roomObj.leaderView = {
+                leaderId: me.id,
+                leaderName: me.name,
+                mapTab: peerRecord.mapTab,
+                capregMapKey: peerRecord.capregMapKey,
+                mapKey: peerRecord.mapKey,
+                viewMode: peerRecord.viewMode,
+                guidedView: peerRecord.guidedView,
+                selectedNode: peerRecord.selectedNode,
+                updatedAt: Date.now()
+              };
+            }
+          } else if ((roomObj.leaderId === peerKey || roomObj.leaderId === me.id) && (action === 'presence' || action === 'view')) {
+            roomObj.leaderView = {
+              leaderId: me.id,
+              leaderName: me.name,
+              mapTab: peerRecord.mapTab,
+              capregMapKey: peerRecord.capregMapKey,
+              mapKey: peerRecord.mapKey,
+              viewMode: peerRecord.viewMode,
+              guidedView: peerRecord.guidedView,
+              selectedNode: peerRecord.selectedNode,
+              updatedAt: Date.now()
+            };
+          } else if ((action === 'pin_add' || action === 'pin.add') && body.text) {
+            const newThread = {
+              id: 'pin-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 6),
+              mapKey: String(body.mapKey || 'contextDataflow').slice(0, 48),
+              nodeId: body.nodeId ? String(body.nodeId).slice(0, 64) : null,
+              x: typeof body.x === 'number' ? Math.max(2, Math.min(98, body.x)) : 50,
+              y: typeof body.y === 'number' ? Math.max(2, Math.min(98, body.y)) : 50,
+              resolved: false,
+              author: { id: me.id, name: me.name, color: me.color, device: me.device },
+              createdAt: new Date().toISOString(),
+              messages: [
+                {
+                  id: 'm-' + Date.now().toString(36),
+                  author: { id: me.id, name: me.name, color: me.color },
+                  text: String(body.text).slice(0, 600),
+                  at: 'just now'
+                }
+              ]
+            };
+            roomObj.threads.push(newThread);
+          } else if ((action === 'pin_reply' || action === 'pin.reply') && (body.threadId || body.pinId) && body.text) {
+            const targetId = body.threadId || body.pinId;
+            const th = roomObj.threads.find((t) => t.id === targetId);
+            if (th) {
+              th.messages.push({
+                id: 'm-' + Date.now().toString(36),
+                author: { id: me.id, name: me.name, color: me.color },
+                text: String(body.text).slice(0, 600),
+                at: 'just now'
+              });
+            }
+          } else if ((action === 'pin_resolve' || action === 'pin.resolve') && (body.threadId || body.pinId)) {
+            const targetId = body.threadId || body.pinId;
+            const th = roomObj.threads.find((t) => t.id === targetId);
+            if (th) th.resolved = Boolean(body.resolved !== false);
+          } else if ((action === 'pin_move' || action === 'pin.move') && (body.threadId || body.pinId)) {
+            const targetId = body.threadId || body.pinId;
+            const th = roomObj.threads.find((t) => t.id === targetId);
+            if (th && typeof body.x === 'number' && typeof body.y === 'number') {
+              th.x = Math.max(2, Math.min(98, body.x));
+              th.y = Math.max(2, Math.min(98, body.y));
+            }
+          }
+          const snapshot = serializeRoom(roomObj, me);
+          broadcastEvent({ type: 'room', ...snapshot });
+          sendJson(res, 200, snapshot);
+          return;
+        }
+        sendJson(res, 405, { ok: false, error: 'Method not allowed' });
         return;
       }
       if (url.pathname.startsWith('/__codeflow/github-api/')) {

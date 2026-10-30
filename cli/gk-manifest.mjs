@@ -282,11 +282,11 @@ export function listGkTargets(gkRoot) {
       title: 'GK Capability Registry, Matrix Compiler & Archify Maps',
       shortTitle: 'Capability Registry',
       category: 'gk-subsystem',
-      version: `208 rows · ${git.shortSha}`,
+      version: `289 rows · ${git.shortSha}`,
       commitSha: git.sha,
       repoUrl: 'https://github.com/lincicomb/gk/tree/main/system/capability-registry',
       liveUrl: 'https://codeflow.berkle.space/?viz=gk-map&map=capreg',
-      description: '208 capability rows, 6 static theorems, and 6 canonical Archify system/dataflow/workflow/sequence/lifecycle maps.',
+      description: '289 capability rows, 6 static theorems, and 6 canonical Archify system/dataflow/workflow/sequence/lifecycle maps.',
       includeDirs: ['system/capability-registry'],
       includeFiles: [],
       maxFiles: 300
@@ -628,7 +628,8 @@ export function buildGkManifest(gkRoot, options = {}) {
   const targets = listGkTargets(gkRoot).map(({ tenantRecord, ...rest }) => rest);
 
   const ghBlob = (relPath) => `https://github.com/lincicomb/gk/blob/${git.sha}/${relPath}`;
-
+  const capregRowMatch = String(systemMap?.meta?.note || '').match(/(\d+)\s+rows/i);
+  const capregRowsCount = capregRowMatch ? Number(capregRowMatch[1]) : 289;
   // Guaranteed Up-To-Date Event-Driven GK & OMP Architecture Map (Diagram #1 Enhanced)
   const planes = [
     {
@@ -833,10 +834,10 @@ export function buildGkManifest(gkRoot, options = {}) {
       id: 'capreg_matrix',
       plane: 'capability-matrix',
       title: 'Capability Matrix & map-sync.ts',
-      subtitle: 'Compiles 208 capability rows -> 6 Archify IRs & HTML maps',
+      subtitle: `Compiles ${capregRowsCount} capability rows -> 6 Archify IRs & HTML maps`,
       icon: 'layers',
       color: '#a78bfa',
-      badge: '208 ROWS',
+      badge: `${capregRowsCount} ROWS`,
       version: `6 IR maps · ${git.shortSha}`,
       metrics: 'system-map, context-dataflow, verification-workflow, sequences',
       targetId: 'gk-capreg',

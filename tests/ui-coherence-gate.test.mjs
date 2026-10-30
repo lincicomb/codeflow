@@ -94,3 +94,20 @@ test('UI Coherence Gate 6 (Images #5, #11, #12, #13, #15, #19, #20): official ic
     'STOP: Do not render the verbose 4-line .code-canvas-hint instructional paragraph over the canvas (Image #13).'
   );
 });
+
+test('UI Coherence Gate 7 (Image #1 & 1A/2A/3A/4A): full-bleed .gk-view stage, 2D Archify Stage + AnimatedBeams, RunTrace waterfall, 6-col Bento WidgetGrid, 4-edge ToolDock, ReviewPins, and Gate-verified CollabToolbar', async () => {
+  const html = await readFile(htmlPath, 'utf8');
+  assert.match(
+    html,
+    /\.main:has\(\.gk-view\)\s*>\s*\.sidebar:not\(\.mobile-visible\),\s*\.main:has\(\.gk-view\)\s*>\s*\.right-panel:not\(\.mobile-visible\)\{display:none!important\}/,
+    'STOP: .main:has(.gk-view) must auto-collapse empty left/right sidebars on desktop so .gk-inner gets full-bleed width without right-edge clipping (Image #1).'
+  );
+  assert.match(html, /function gkRenderInteractiveIrStage\(map,mapKey\)/);
+  assert.match(html, /function gkRenderSequenceWaterfall\(map,mapKey\)/);
+  assert.match(html, /function gkRenderToolDock\(\)/);
+  assert.match(html, /function gkRenderCollabBar\(\)/);
+  assert.match(html, /className:'gk-bento-grid'/);
+  assert.match(html, /className:'gk-tabstrip-row'/);
+  assert.match(html, /className:'gk-guided-bar'/);
+  assert.match(html, /className:'gk-filter-bar'/);
+});

@@ -834,12 +834,13 @@ a.gk-pill:hover{border-color:var(--acc);color:var(--acc)}
 .gk-quick-btn{padding:4px 9px;border-radius:6px;border:1px solid transparent;background:none;color:var(--t2);font-family:inherit;font-size:10px;font-weight:600;cursor:pointer;white-space:nowrap}
 .gk-quick-btn:hover{background:var(--hover);color:var(--t0)}
 .gk-quick-btn.active{background:var(--accbg);border-color:var(--acc);color:var(--acc)}
-.gk-view{width:100%;height:100%;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
+.main:has(.gk-view) > .sidebar:not(.mobile-visible),.main:has(.gk-view) > .right-panel:not(.mobile-visible){display:none!important}
+.gk-view{width:100%;height:100%;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;background:radial-gradient(120% 90% at 15% 0%,rgba(50,243,233,0.08),transparent 55%),radial-gradient(90% 80% at 88% 100%,rgba(167,139,250,0.08),transparent 60%),var(--bg0)}
 .canvas-area:has(.gk-view) .viz-selector{left:auto;right:28px;top:18px;transform:none}
 .canvas-area:has(.gk-view) .viz-selector .cf-popover-menu{left:auto;right:0;transform:none}
-.gk-inner{max-width:1440px;margin:0 auto}
-.gk-hero{border:1px solid var(--border);border-radius:14px;padding:18px 20px;background:linear-gradient(135deg,rgba(0,229,255,0.10),rgba(167,139,250,0.10) 48%,rgba(0,255,157,0.08));margin-bottom:16px}
-.gk-title{font-size:20px;font-weight:800;letter-spacing:-0.4px;color:var(--t0);line-height:1.3}
+.gk-inner{max-width:1440px;margin:0 auto;padding:18px 22px 68px;box-sizing:border-box;position:relative}
+.gk-hero{border:1px solid rgba(255,255,255,0.11);border-radius:16px;padding:16px 20px;background:linear-gradient(180deg,rgba(16,22,34,0.94) 0%,rgba(10,14,22,0.96) 100%);box-shadow:0 28px 80px rgba(0,0,0,0.62),inset 0 1px 0 rgba(255,255,255,0.08);margin-bottom:14px;position:relative;overflow:hidden}
+.gk-title{font-size:20px;font-weight:800;letter-spacing:-0.025em;color:#f4f7fb;line-height:1.25}
 .gk-sub{font-size:11px;color:var(--t2);line-height:1.7;margin-top:6px;max-width:1000px}
 .gk-pill-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
 .gk-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
@@ -906,6 +907,60 @@ a.gk-sha:hover{border-color:var(--purple);color:var(--t0)}
 .gk-chip{font-size:9px;padding:3px 7px;border-radius:999px;border:1px solid var(--border);background:var(--bg2);color:var(--t1);cursor:pointer;font-family:inherit}
 .gk-chip:hover{border-color:var(--acc);color:var(--acc)}
 .gk-chip-grid{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
+@keyframes gkBeamPulse{to{stroke-dashoffset:-28}}
+.gk-beam-live{stroke-dasharray:7 7;animation:gkBeamPulse 1.15s linear infinite}
+.gk-stage-card{border:1px solid rgba(255,255,255,0.11);border-radius:16px;background:radial-gradient(120% 90% at 15% 0%,rgba(50,243,233,0.06),transparent 55%),radial-gradient(90% 80% at 88% 100%,rgba(167,139,250,0.06),transparent 60%),#090d14;box-shadow:0 24px 64px rgba(0,0,0,0.55),inset 0 1px 0 rgba(255,255,255,0.07);padding:14px 16px;margin-bottom:14px;position:relative;overflow:hidden}
+.light .gk-stage-card,.light .gk-hero{background:var(--bg1);border-color:var(--border);box-shadow:0 12px 32px rgba(0,0,0,0.08)}
+.light .gk-title{color:var(--t0)}
+.gk-tabstrip-row{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:8px 10px;border:1px solid rgba(255,255,255,0.09);border-radius:12px;background:rgba(13,18,28,0.88);margin-bottom:12px}
+.light .gk-tabstrip-row{background:var(--bg1);border-color:var(--border)}
+.gk-tabstrip-pills{display:flex;align-items:center;gap:4px;flex-wrap:wrap}
+.gk-tabstrip-pill{padding:6px 11px;border-radius:8px;border:1px solid transparent;background:transparent;color:#94a3b8;font-family:inherit;font-size:10px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:all 0.14s ease;white-space:nowrap}
+.gk-tabstrip-pill:hover{color:#f4f7fb;background:rgba(255,255,255,0.05)}
+.gk-tabstrip-pill.active{background:rgba(50,243,233,0.12);border-color:rgba(50,243,233,0.45);color:#32f3e9;box-shadow:0 0 16px rgba(50,243,233,0.14)}
+.gk-view-toggle-group{display:inline-flex;align-items:center;gap:3px;padding:3px;border-radius:9px;background:rgba(0,0,0,0.42);border:1px solid rgba(255,255,255,0.09)}
+.gk-view-toggle-btn{padding:4px 9px;border-radius:6px;border:1px solid transparent;background:transparent;color:#94a3b8;font-family:inherit;font-size:9.5px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:5px}
+.gk-view-toggle-btn.active{background:rgba(167,139,250,0.16);border-color:rgba(167,139,250,0.48);color:#c4b5fd}
+.gk-filter-bar{display:flex;align-items:center;gap:6px;flex-wrap:wrap;padding:7px 10px;border:1px solid rgba(255,255,255,0.08);border-radius:10px;background:rgba(11,15,24,0.82);margin-bottom:12px}
+.gk-sentence-chip{display:inline-flex;align-items:center;gap:5px;padding:3px 8px;border-radius:999px;font-size:9px;font-weight:700;border:1px solid rgba(50,243,233,0.35);background:rgba(50,243,233,0.1);color:#32f3e9;cursor:pointer}
+.gk-sentence-chip .gk-chip-op{color:#94a3b8;font-weight:500}
+.gk-guided-bar{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:10px;padding:8px 10px;border-radius:10px;border:1px solid rgba(167,139,250,0.24);background:rgba(167,139,250,0.06)}
+.gk-guided-btn{padding:4px 9px;border-radius:999px;border:1px solid rgba(255,255,255,0.12);background:rgba(15,21,33,0.85);color:#cbd5e1;font-family:inherit;font-size:9.5px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:5px;transition:all 0.14s}
+.gk-guided-btn:hover{border-color:#32f3e9;color:#f8fafc}
+.gk-guided-btn.active{background:rgba(50,243,233,0.15);border-color:#32f3e9;color:#32f3e9;box-shadow:0 0 14px rgba(50,243,233,0.2)}
+.gk-bento-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px;margin-top:10px}
+@media(max-width:1100px){.gk-bento-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:740px){.gk-bento-grid{grid-template-columns:repeat(1,minmax(0,1fr))}}
+.gk-bento-tile{border:1px solid rgba(255,255,255,0.09);border-top:2px solid var(--acc);border-radius:12px;background:rgba(13,18,28,0.9);padding:12px;display:flex;flex-direction:column;gap:7px;min-width:0;position:relative;transition:border-color 0.15s,transform 0.15s,box-shadow 0.15s}
+.gk-bento-tile:hover{border-color:rgba(50,243,233,0.45);box-shadow:0 12px 32px rgba(0,0,0,0.42)}
+.gk-bento-tile.span-s{grid-column:span 2}
+.gk-bento-tile.span-m{grid-column:span 3}
+.gk-bento-tile.span-l{grid-column:span 6}
+@media(max-width:1100px){.gk-bento-tile.span-s,.gk-bento-tile.span-m,.gk-bento-tile.span-l{grid-column:span 3}}
+@media(max-width:740px){.gk-bento-tile.span-s,.gk-bento-tile.span-m,.gk-bento-tile.span-l{grid-column:span 1}}
+.gk-size-pill{padding:2px 6px;border-radius:5px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.04);color:#94a3b8;font-family:inherit;font-size:8px;font-weight:700;cursor:pointer;text-transform:uppercase}
+.gk-size-pill:hover{border-color:#32f3e9;color:#32f3e9}
+.gk-passport{border:1px solid rgba(50,243,233,0.42);border-left:4px solid #32f3e9;border-radius:14px;background:linear-gradient(180deg,rgba(14,22,36,0.96),rgba(9,14,24,0.98));padding:14px 16px;margin:12px 0;box-shadow:0 20px 50px rgba(0,0,0,0.55)}
+.gk-trace-waterfall{border:1px solid rgba(255,255,255,0.1);border-radius:14px;background:#080c13;padding:12px 14px;margin-top:10px}
+.gk-trace-row{display:grid;grid-template-columns:34px minmax(150px,220px) minmax(180px,1fr) 92px;gap:10px;align-items:center;padding:6px 8px;border-radius:8px;border-bottom:1px solid rgba(255,255,255,0.04);cursor:pointer;font-size:10px;transition:background 0.12s}
+.gk-trace-row:hover,.gk-trace-row.active{background:rgba(50,243,233,0.08)}
+.gk-trace-bar-track{position:relative;height:18px;border-radius:6px;background:rgba(255,255,255,0.04);overflow:hidden;display:flex;align-items:center;padding:0 6px}
+.gk-trace-bar-fill{position:absolute;top:2px;bottom:2px;border-radius:4px;opacity:0.32}
+.gk-tooldock{display:inline-flex;align-items:center;gap:4px;padding:5px 7px;border-radius:12px;background:rgba(12,17,27,0.94);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.14);box-shadow:0 18px 44px rgba(0,0,0,0.62);z-index:45}
+.gk-tooldock.dock-bottom{margin:10px auto 2px;display:flex;width:fit-content}
+.gk-tooldock.dock-top{margin:0 auto 10px;display:flex;width:fit-content}
+.gk-tooldock.dock-left{float:left;flex-direction:column;margin:0 12px 10px 0}
+.gk-tooldock.dock-right{float:right;flex-direction:column;margin:0 0 10px 12px}
+.gk-tool-item{padding:5px 9px;border-radius:8px;border:1px solid transparent;background:transparent;color:#cbd5e1;font-family:inherit;font-size:9.5px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
+.gk-tool-item:hover{background:rgba(255,255,255,0.07);color:#fff}
+.gk-tool-item.active{background:rgba(50,243,233,0.16);border-color:rgba(50,243,233,0.5);color:#32f3e9}
+.gk-kbd{font-size:8px;padding:1px 4px;border-radius:4px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.14);color:#94a3b8}
+.gk-pin-marker{position:absolute;transform:translate(-50%,-100%);width:24px;height:24px;border-radius:999px 999px 999px 3px;display: inline-flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;color:#061018;box-shadow:0 6px 18px rgba(0,0,0,0.55);border:2px solid #fff;cursor:pointer;z-index:38;user-select:none}
+.gk-pin-popover{position:absolute;z-index:60;width:270px;border-radius:12px;background:#0e1420;border:1px solid rgba(50,243,233,0.45);box-shadow:0 22px 54px rgba(0,0,0,0.72);padding:10px;color:#f4f7fb;font-size:10px}
+.gk-collab-bar{display:inline-flex;align-items:center;gap:6px;padding:3px 8px;border-radius:999px;background:rgba(13,19,30,0.9);border:1px solid rgba(255,255,255,0.12);font-size:9.5px;color:#cbd5e1}
+.gk-avatar-dot{width:20px;height:20px;border-radius:999px;display:inline-flex;align-items:center;justify-content:center;font-size:8.5px;font-weight:800;color:#051016;border:1.5px solid rgba(255,255,255,0.85);position:relative;cursor:pointer}
+.gk-peer-cursor{position:absolute;pointer-events:none;z-index:55;transition:left 0.09s linear,top 0.09s linear}
+.gk-peer-label{display:inline-block;margin-left:10px;margin-top:-2px;padding:2px 6px;border-radius:6px;font-size:8.5px;font-weight:800;color:#041016;white-space:nowrap;box-shadow:0 4px 12px rgba(0,0,0,0.45)}
 @media(max-width:980px){
 .gk-topbar-group{width:100%;order:3;flex:1 1 100%}
 .gk-target-select{max-width:none;flex:1 1 100%}
@@ -12951,6 +13006,50 @@ function App(){
     },[]);
     var _gkDepFilter=useState('all'),gkDepFilter=_gkDepFilter[0],setGkDepFilter=_gkDepFilter[1];
     var _gkDepSearch=useState(''),gkDepSearch=_gkDepSearch[0],setGkDepSearch=_gkDepSearch[1];
+    var _gkCapregMapKey=useState('contextDataflow'),gkCapregMapKey=_gkCapregMapKey[0],setGkCapregMapKey=_gkCapregMapKey[1];
+    var _gkStageLayoutMode=useState('stage'),gkStageLayoutMode=_gkStageLayoutMode[0],setGkStageLayoutMode=_gkStageLayoutMode[1];
+    var _gkGuidedViewIdx=useState(-1),gkGuidedViewIdx=_gkGuidedViewIdx[0],setGkGuidedViewIdx=_gkGuidedViewIdx[1];
+    var _gkStageFilter=useState('all'),gkStageFilter=_gkStageFilter[0],setGkStageFilter=_gkStageFilter[1];
+    var _gkTagFilter=useState('all'),gkTagFilter=_gkTagFilter[0],setGkTagFilter=_gkTagFilter[1];
+    var _gkNodeSearch=useState(''),gkNodeSearch=_gkNodeSearch[0],setGkNodeSearch=_gkNodeSearch[1];
+    var _gkTileSpans=useState(function(){return Object.create(null);}),gkTileSpans=_gkTileSpans[0],setGkTileSpans=_gkTileSpans[1];
+    var _gkToolMode=useState('select'),gkToolMode=_gkToolMode[0],setGkToolMode=_gkToolMode[1];
+    var _gkToolDockEdge=useState('bottom'),gkToolDockEdge=_gkToolDockEdge[0],setGkToolDockEdge=_gkToolDockEdge[1];
+    var _gkRouteStart=useState(null),gkRouteStart=_gkRouteStart[0],setGkRouteStart=_gkRouteStart[1];
+    var _gkRouteEnd=useState(null),gkRouteEnd=_gkRouteEnd[0],setGkRouteEnd=_gkRouteEnd[1];
+    var _gkTraceStepIdx=useState(0),gkTraceStepIdx=_gkTraceStepIdx[0],setGkTraceStepIdx=_gkTraceStepIdx[1];
+    var _gkTracePlaying=useState(true),gkTracePlaying=_gkTracePlaying[0],setGkTracePlaying=_gkTracePlaying[1];
+    var _gkMe=useState(null),gkMe=_gkMe[0],setGkMe=_gkMe[1];
+    var _gkRoomState=useState({room:'gk-system',peers:[],pins:[],leaderId:null}),gkRoomState=_gkRoomState[0],setGkRoomState=_gkRoomState[1];
+    var _gkFollowPeers=useState(false),gkFollowPeers=_gkFollowPeers[0],setGkFollowPeers=_gkFollowPeers[1];
+    var _gkActivePinId=useState(null),gkActivePinId=_gkActivePinId[0],setGkActivePinId=_gkActivePinId[1];
+    var _gkPinDraft=useState(''),gkPinDraft=_gkPinDraft[0],setGkPinDraft=_gkPinDraft[1];
+    var gkLastCursorSentRef=useRef(0);
+    var gkFollowPeersRef=useRef(false);
+    gkFollowPeersRef.current=gkFollowPeers;
+    var gkMeRef=useRef(null);
+    gkMeRef.current=gkMe;
+    function gkPostRoomAction(payload){
+        var body=Object.assign({room:gkTarget||'gk-system'},payload||{});
+        return fetch('/__codeflow/room',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)})
+            .then(function(r){return r.ok?r.json():null;})
+            .then(function(snap){if(snap&&snap.ok)setGkRoomState(snap);return snap;})
+            .catch(function(){return null;});
+    }
+    useEffect(function(){
+        function onToolKey(e){
+            if(!e||e.metaKey||e.ctrlKey||e.altKey)return;
+            var tag=e.target&&e.target.tagName?String(e.target.tagName).toLowerCase():'';
+            if(tag==='input'||tag==='textarea'||tag==='select'||(e.target&&e.target.isContentEditable))return;
+            var k=String(e.key||'').toLowerCase();
+            if(k==='v')setGkToolMode('select');
+            else if(k==='h')setGkToolMode('pan');
+            else if(k==='r')setGkToolMode('route');
+            else if(k==='c')setGkToolMode('comment');
+        }
+        document.addEventListener('keydown',onToolKey);
+        return function(){document.removeEventListener('keydown',onToolKey);};
+    },[]);
     var isMobile=viewportWidth<=980;
     var svgRef=useRef(null);
     var graph3dRef=useRef(null);
@@ -13631,6 +13730,15 @@ function App(){
                 else if(!wantedTarget&&!wantedFile&&!sp.get('repo')){setGraphConfig(function(prev){return Object.assign({},prev,{vizType:'gk-map'});});}
             }
         }).catch(function(){});
+        fetch('/__codeflow/me').then(function(r){return r.ok?r.json():null;}).then(function(meRes){
+            if(meRes&&meRes.ok&&meRes.me){
+                setGkMe(meRes.me);
+                gkPostRoomAction({action:'presence',viz:wantedViz||'gk-map',mapTab:gkMapTab||'event-arch',target:wantedTarget||'gk-system'});
+            }
+        }).catch(function(){});
+        fetch('/__codeflow/room?room='+encodeURIComponent(wantedTarget||'gk-system')).then(function(r){return r.ok?r.json():null;}).then(function(roomSnap){
+            if(roomSnap&&roomSnap.ok)setGkRoomState(roomSnap);
+        }).catch(function(){});
         var wantedRepo=sp.get('repo');
         var wantedAutoRun=sp.get('run')==='1'&&wantedRepo&&wantedRepo.length<200&&!wantedRepo.includes('{')&&/^[a-zA-Z0-9_.\/-]+$/.test(wantedRepo);
         fetch('/__codeflow/status').then(function(res){return res.ok?res.json():null;}).then(function(status){
@@ -13655,7 +13763,18 @@ function App(){
                 src.onmessage=function(ev){
                     try{
                         var payload=JSON.parse(ev.data||'{}');
-                        if(payload.path&&enqueueCliWatchDiffRef.current)enqueueCliWatchDiffRef.current(payload.path,payload.rev);
+                        if(payload.type==='room'&&payload.ok){
+                            setGkRoomState(payload);
+                            if(gkFollowPeersRef.current&&payload.leaderId&&(!gkMeRef.current||payload.leaderId!==gkMeRef.current.id)){
+                                var leader=(payload.peers||[]).find(function(p){return p.id===payload.leaderId;});
+                                if(leader){
+                                    if(leader.mapTab)setGkMapTab(leader.mapTab);
+                                    if(leader.capregMapKey)setGkCapregMapKey(leader.capregMapKey);
+                                }
+                            }
+                        }else if(payload.path&&enqueueCliWatchDiffRef.current){
+                            enqueueCliWatchDiffRef.current(payload.path,payload.rev);
+                        }
                     }catch(e){}
                 };
             }
@@ -18497,20 +18616,47 @@ function App(){
         );
     }
 
-    function gkRenderMapDetail(){
-        var detail=gkMapDetail;
-        if(!detail)return null;
-        return React.createElement('div',{className:'gk-lane',style:{borderLeftColor:'var(--purple)'}},
-            React.createElement('div',{className:'gk-lane-head'},
-                React.createElement('span',{style:{color:'var(--purple)',display:'inline-flex',flexShrink:0}},React.createElement(Icon,{name:'box',size:'m'})),
-                React.createElement('div',{style:{flex:'1 1 240px',minWidth:0}},
-                    React.createElement('div',{className:'gk-lane-title'},detail.title||detail.id),
-                    React.createElement('div',{className:'gk-lane-sub'},detail.subtitle||'')
-                ),
-                detail.metrics&&React.createElement('span',{className:'badge badge-default'},String(detail.metrics)),
-                React.createElement('button',{type:'button',className:'gk-btn',onClick:function(){setGkMapDetail(null);}},'Clear')
-            )
-        );
+    function gkSemanticColor(tagOrType){
+        var s=String(tagOrType||'').toUpperCase();
+        if(s.indexOf('IMPLEMENTED')>=0||s==='SUCCESS'||s==='PASS'||s==='EMERALD')return '#22ff73';
+        if(s.indexOf('PARTIAL')>=0||s==='WARNING'||s==='DECISION'||s==='AMBER'||s==='OPERATOR')return '#fbbf24';
+        if(s.indexOf('HOLE')>=0||s==='FAILURE'||s==='ERROR'||s==='LOOP'||s==='ROSE')return '#fb7185';
+        if(s.indexOf('BLUEPRINT')>=0||s==='DASHED'||s==='CYAN'||s==='START')return '#32f3e9';
+        if(s.indexOf('SECURITY')>=0||s==='PURPLE')return '#a78bfa';
+        if(s.indexOf('DATABASE')>=0||s.indexOf('STORAGE')>=0||s==='SKY')return '#38bdf8';
+        return '#32f3e9';
+    }
+
+    function gkSemanticIcon(typeOrKind){
+        var s=String(typeOrKind||'').toLowerCase();
+        if(s.indexOf('database')>=0||s.indexOf('storage')>=0)return 'archive';
+        if(s.indexOf('security')>=0||s.indexOf('gate')>=0||s.indexOf('guard')>=0)return 'shield';
+        if(s.indexOf('cloud')>=0||s.indexOf('external')>=0||s.indexOf('edge')>=0)return 'globe';
+        if(s.indexOf('backend')>=0||s.indexOf('model')>=0||s.indexOf('engine')>=0)return 'cpu';
+        if(s.indexOf('message')>=0||s.indexOf('stream')>=0||s.indexOf('flow')>=0)return 'activity';
+        if(s.indexOf('frontend')>=0||s.indexOf('ui')>=0||s.indexOf('view')>=0)return 'layout';
+        if(s.indexOf('decision')>=0||s.indexOf('route')>=0||s.indexOf('branch')>=0)return 'git-merge';
+        if(s.indexOf('failure')>=0||s.indexOf('hole')>=0||s.indexOf('abort')>=0)return 'ban';
+        if(s.indexOf('success')>=0||s.indexOf('pass')>=0||s.indexOf('implemented')>=0)return 'check-circle';
+        return 'layers';
+    }
+
+    function gkResolveIrNodeTarget(nodeId,mapKey){
+        var id=String(nodeId||'').toLowerCase();
+        if(id.indexOf('caprow')>=0||id.indexOf('matrix')>=0||id.indexOf('capreg')>=0||id.indexOf('proof')>=0){
+            return {targetId:'gk-capreg',codePath:'system/capability-registry/map/map-sync.ts'};
+        }
+        if(id.indexOf('ci')>=0||id.indexOf('livefire')>=0||id.indexOf('job')>=0){
+            return {targetId:'gk-ci',codePath:'system/compute/omp-ci/gk-jobs.ts'};
+        }
+        if(id.indexOf('gate')>=0||id.indexOf('edge')>=0||id.indexOf('caddy')>=0){
+            return {targetId:'gk-network',codePath:'system/network/edge/edge.ts'};
+        }
+        if(id.indexOf('composer')>=0||id.indexOf('rules')>=0||id.indexOf('ttsr')>=0||id.indexOf('journal')>=0||id.indexOf('ctx')>=0||id.indexOf('watch')>=0||id.indexOf('inject')>=0){
+            return {targetId:'gk-omp',codePath:'system/omp/services-omp/shared/AGENTS.md'};
+        }
+        if(mapKey==='verificationWorkflow')return {targetId:'gk-ci',codePath:'system/compute/omp-ci/gk-jobs.ts'};
+        return {targetId:'gk-capreg',codePath:'system/capability-registry/map/map-sync.ts'};
     }
 
     function gkMapNodeList(map){
@@ -18532,23 +18678,326 @@ function App(){
         return [];
     }
 
-    function gkRenderCapregNodeCards(map,keyPrefix){
+    function gkComputeShortestRoute(map,startId,endId){
+        if(!map||!startId||!endId)return {nodes:new Set(),edges:new Set()};
+        if(startId===endId)return {nodes:new Set([startId]),edges:new Set()};
+        var edges=gkMapEdgeList(map);
+        var adj=Object.create(null);
+        edges.forEach(function(e,idx){
+            var u=e.from||e.source;
+            var v=e.to||e.target;
+            if(!u||!v)return;
+            if(!adj[u])adj[u]=[];
+            if(!adj[v])adj[v]=[];
+            adj[u].push({to:v,idx:idx});
+            adj[v].push({to:u,idx:idx});
+        });
+        var queue=[startId];
+        var visited=Object.create(null);
+        visited[startId]=true;
+        var parent=Object.create(null);
+        var found=false;
+        while(queue.length>0){
+            var curr=queue.shift();
+            if(curr===endId){found=true;break;}
+            var nexts=adj[curr]||[];
+            for(var i=0;i<nexts.length;i++){
+                var nb=nexts[i];
+                if(!visited[nb.to]){
+                    visited[nb.to]=true;
+                    parent[nb.to]={prev:curr,edgeIdx:nb.idx};
+                    queue.push(nb.to);
+                }
+            }
+        }
+        var nodeSet=new Set([startId]);
+        var edgeSet=new Set();
+        if(found){
+            var step=endId;
+            while(step&&step!==startId){
+                nodeSet.add(step);
+                var p=parent[step];
+                if(!p)break;
+                edgeSet.add(p.edgeIdx);
+                step=p.prev;
+            }
+        }
+        return {nodes:nodeSet,edges:edgeSet};
+    }
+
+    function gkRenderCollabBar(){
+        var me=gkMe||{id:'local',name:'Tailnet Operator',role:'tailnet-device',color:'#32f3e9',verified:true};
+        var peers=Array.isArray(gkRoomState&&gkRoomState.peers)?gkRoomState.peers:[];
+        var pins=Array.isArray(gkRoomState&&gkRoomState.pins)?gkRoomState.pins:[];
+        var openPins=pins.filter(function(p){return !p.resolved;}).length;
+        var isLeader=gkRoomState&&gkRoomState.leaderId===me.id;
+        return React.createElement('div',{className:'gk-collab-bar','aria-label':'Gate-verified multiplayer presence'},
+            React.createElement('span',{
+                className:'gk-avatar-dot',
+                style:{background:me.color||'#32f3e9'},
+                title:'Verified via Gate: '+(me.name||'Operator')+' ('+(me.role||'tailnet')+')'
+            },String(me.name||'OP').slice(0,2).toUpperCase()),
+            React.createElement('span',{style:{fontWeight:700,color:'#f4f7fb'}},me.name||'Tailnet Operator'),
+            React.createElement('span',{style:{color:'#22ff73',fontSize:8.5,fontWeight:700}},'● Gate Verified'),
+            peers.filter(function(p){return p.id!==me.id;}).slice(0,5).map(function(p){
+                return React.createElement('span',{
+                    key:'peer-av-'+p.id,
+                    className:'gk-avatar-dot',
+                    style:{background:p.color||'#a78bfa'},
+                    title:p.name+' · active on '+(p.mapTab||p.viz||'gk-map')
+                },String(p.name||'P').slice(0,2).toUpperCase());
+            }),
+            React.createElement('button',{
+                type:'button',
+                className:'gk-size-pill',
+                style:isLeader?{borderColor:'#22ff73',color:'#22ff73'}:(gkFollowPeers?{borderColor:'#32f3e9',color:'#32f3e9'}:null),
+                onClick:function(){
+                    if(isLeader){
+                        gkPostRoomAction({action:'lead',active:false});
+                    }else if(!gkFollowPeers){
+                        setGkFollowPeers(true);
+                        gkPostRoomAction({action:'lead',active:true,mapTab:gkMapTab,capregMapKey:gkCapregMapKey});
+                    }else{
+                        setGkFollowPeers(false);
+                    }
+                },
+                title:'Broadcast or follow live diagram navigation across tailnet peers'
+            },isLeader?'📡 Leading Room':(gkFollowPeers?'👁 Following':'📡 Lead / Follow')),
+            React.createElement('button',{
+                type:'button',
+                className:'gk-size-pill',
+                style:gkToolMode==='comment'?{borderColor:'#fbbf24',color:'#fbbf24'}:null,
+                onClick:function(){setGkToolMode(gkToolMode==='comment'?'select':'comment');},
+                title:'Press C or click any stage coordinate to drop a Review Pin'
+            },'📌 '+openPins+' Pins')
+        );
+    }
+
+    function gkRenderToolDock(){
+        var tools=[
+            {id:'select',label:'Select',kbd:'V',icon:'search'},
+            {id:'pan',label:'Pan Stage',kbd:'H',icon:'move'},
+            {id:'route',label:'Route Probe',kbd:'R',icon:'route'},
+            {id:'comment',label:'Review Pin',kbd:'C',icon:'code'}
+        ];
+        var edges=['bottom','top','left','right'];
+        return React.createElement('div',{className:'gk-tooldock dock-'+gkToolDockEdge,role:'toolbar','aria-label':'Canvas Tool Dock'},
+            tools.map(function(t){
+                var active=gkToolMode===t.id;
+                return React.createElement('button',{
+                    key:'gk-tool-'+t.id,
+                    type:'button',
+                    className:'gk-tool-item'+(active?' active':''),
+                    onClick:function(){
+                        setGkToolMode(t.id);
+                        if(t.id!=='route'){setGkRouteStart(null);setGkRouteEnd(null);}
+                    },
+                    title:t.label+' ('+t.kbd+')'
+                },
+                    React.createElement(Icon,{name:gkIconName(t.icon),size:'s'}),
+                    t.label,
+                    React.createElement('span',{className:'gk-kbd'},t.kbd)
+                );
+            }),
+            React.createElement('button',{
+                type:'button',
+                className:'gk-tool-item'+(gkTracePlaying?' active':''),
+                onClick:function(){setGkTracePlaying(!gkTracePlaying);},
+                title:'Toggle AnimatedBeams live pulse'
+            },gkTracePlaying?'⚡ Beams Live':'⏸ Beams Paused'),
+            React.createElement('button',{
+                type:'button',
+                className:'gk-tool-item',
+                onClick:function(){
+                    var next=edges[(edges.indexOf(gkToolDockEdge)+1)%edges.length];
+                    setGkToolDockEdge(next);
+                },
+                title:'Throw Tool Dock to another canvas edge (Bottom / Top / Left / Right)'
+            },'◫ Dock: '+gkToolDockEdge.toUpperCase())
+        );
+    }
+
+    function gkRenderMapDetail(activeMap,mapKey){
+        var detail=gkMapDetail;
+        if(!detail)return null;
+        var rawNode=detail.content||{};
+        var map=activeMap||((gkManifest&&gkManifest.capregMaps)&&gkManifest.capregMaps[gkCapregMapKey])||null;
+        var edges=gkMapEdgeList(map);
+        var nodes=gkMapNodeList(map);
+        function labelOf(id){
+            for(var i=0;i<nodes.length;i++){if(nodes[i].id===id)return nodes[i].label||nodes[i].title||nodes[i].name||id;}
+            return id;
+        }
+        var upstream=[],downstream=[];
+        edges.forEach(function(e){
+            var u=e.from||e.source;
+            var v=e.to||e.target;
+            if(v===detail.id&&u)upstream.push({id:u,label:labelOf(u),edgeLabel:e.label||e.variant||''});
+            if(u===detail.id&&v)downstream.push({id:v,label:labelOf(v),edgeLabel:e.label||e.variant||''});
+        });
+        var resolved=gkResolveIrNodeTarget(detail.id,mapKey||gkCapregMapKey);
+        var tagColor=gkSemanticColor(detail.metrics||rawNode.tag||rawNode.type);
+        var gitSha=(gkManifest&&gkManifest.git&&gkManifest.git.sha)||'main';
+        var ghUrl='https://github.com/lincicomb/gk/blob/'+gitSha+'/'+resolved.codePath;
+        return React.createElement('div',{className:'gk-passport',style:{borderLeftColor:tagColor}},
+            React.createElement('div',{style:{display:'flex',alignItems:'flex-start',justifyContent:'space-between',gap:12,flexWrap:'wrap'}},
+                React.createElement('div',{style:{display:'flex',alignItems:'center',gap:9,minWidth:0}},
+                    React.createElement('span',{style:{color:tagColor,display:'inline-flex'}},React.createElement(Icon,{name:gkSemanticIcon(rawNode.type||rawNode.kind||detail.metrics),size:'m'})),
+                    React.createElement('div',null,
+                        React.createElement('div',{style:{display:'flex',alignItems:'center',gap:8,flexWrap:'wrap'}},
+                            React.createElement('span',{style:{fontSize:13,fontWeight:800,color:'#f4f7fb'}},'Semantic Passport · '+(detail.title||detail.id)),
+                            detail.metrics&&React.createElement('span',{className:'gk-pill',style:{borderColor:tagColor,color:tagColor}},String(detail.metrics)),
+                            rawNode.step&&React.createElement('span',{className:'gk-pill'},'Step '+rawNode.step)
+                        ),
+                        React.createElement('div',{style:{fontSize:10.5,color:'#94a3b8',marginTop:3}},
+                            (detail.subtitle||'')+(rawNode.detail?' — '+rawNode.detail:'')
+                        ),
+                        React.createElement('div',{style:{fontSize:9.5,color:'#32f3e9',marginTop:4,fontFamily:'var(--font-mono)'}},
+                            'id: '+detail.id+' · path: '+resolved.codePath
+                        )
+                    )
+                ),
+                React.createElement('div',{style:{display:'flex',alignItems:'center',gap:6,flexWrap:'wrap'}},
+                    React.createElement('button',{
+                        type:'button',
+                        className:'gk-btn primary',
+                        onClick:function(){loadGkTargetBundle(resolved.targetId,resolved.codePath,'code');}
+                    },'Walk in CodeFlow →'),
+                    React.createElement('button',{
+                        type:'button',
+                        className:'gk-btn',
+                        onClick:function(){loadGkTargetBundle(resolved.targetId,resolved.codePath,'graph');}
+                    },'Graph Blast Radius'),
+                    React.createElement('button',{
+                        type:'button',
+                        className:'gk-btn',
+                        style:gkRouteStart===detail.id?{borderColor:'#22ff73',color:'#22ff73'}:null,
+                        onClick:function(){
+                            if(!gkRouteStart||gkRouteStart===detail.id){
+                                setGkRouteStart(detail.id);
+                                setGkRouteEnd(null);
+                                setGkToolMode('route');
+                            }else{
+                                setGkRouteEnd(detail.id);
+                                setGkToolMode('route');
+                            }
+                        }
+                    },gkRouteStart===detail.id?'🎯 Route Origin Set (Click Target)':'🧭 Trace Route From/To Here'),
+                    React.createElement('a',{className:'gk-btn',href:ghUrl,target:'_blank',rel:'noopener noreferrer'},'GitHub @ SHA ↗'),
+                    React.createElement('button',{type:'button',className:'gk-btn',onClick:function(){setGkMapDetail(null);}},'✕ Close')
+                )
+            ),
+            (upstream.length>0||downstream.length>0)&&React.createElement('div',{style:{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(240px,1fr))',gap:10,marginTop:10,paddingTop:10,borderTop:'1px solid rgba(255,255,255,0.08)'}},
+                React.createElement('div',null,
+                    React.createElement('div',{style:{fontSize:9,fontWeight:700,textTransform:'uppercase',color:'#94a3b8',marginBottom:5}},'← Upstream Callers / Inputs ('+upstream.length+')'),
+                    upstream.length===0?React.createElement('span',{style:{fontSize:9.5,color:'#64748b'}},'Entry node (0 upstream)'):
+                    React.createElement('div',{style:{display:'flex',flexWrap:'wrap',gap:5}},
+                        upstream.map(function(u,ui){
+                            return React.createElement('button',{
+                                key:'up-'+ui,
+                                type:'button',
+                                className:'gk-chip',
+                                onClick:function(){
+                                    var found=nodes.find(function(n){return n.id===u.id;});
+                                    if(found)setGkMapDetail({id:found.id,title:found.label||found.title||found.id,subtitle:found.sublabel||found.note||'',metrics:found.tag||found.type||'',content:found});
+                                }
+                            },'← '+u.label+(u.edgeLabel?' ('+u.edgeLabel+')':''));
+                        })
+                    )
+                ),
+                React.createElement('div',null,
+                    React.createElement('div',{style:{fontSize:9,fontWeight:700,textTransform:'uppercase',color:'#94a3b8',marginBottom:5}},'→ Downstream Consumers / Outputs ('+downstream.length+')'),
+                    downstream.length===0?React.createElement('span',{style:{fontSize:9.5,color:'#64748b'}},'Terminal sink (0 downstream)'):
+                    React.createElement('div',{style:{display:'flex',flexWrap:'wrap',gap:5}},
+                        downstream.map(function(d,di){
+                            return React.createElement('button',{
+                                key:'down-'+di,
+                                type:'button',
+                                className:'gk-chip',
+                                onClick:function(){
+                                    var found=nodes.find(function(n){return n.id===d.id;});
+                                    if(found)setGkMapDetail({id:found.id,title:found.label||found.title||found.id,subtitle:found.sublabel||found.note||'',metrics:found.tag||found.type||'',content:found});
+                                }
+                            },'→ '+d.label+(d.edgeLabel?' ('+d.edgeLabel+')':''));
+                        })
+                    )
+                )
+            )
+        );
+    }
+
+    function gkFilterNodeMatches(n,stageFilter,tagFilter,searchText){
+        if(stageFilter&&stageFilter!=='all'){
+            var st=String(n.stage!==undefined?n.stage:(n.lane!==undefined?n.lane:(n.layer!==undefined?n.layer:'')));
+            if(st!==String(stageFilter))return false;
+        }
+        if(tagFilter&&tagFilter!=='all'){
+            var tg=String(n.tag||n.type||n.kind||'').toUpperCase();
+            if(tg.indexOf(String(tagFilter).toUpperCase())<0)return false;
+        }
+        if(searchText){
+            var q=String(searchText).toLowerCase();
+            var hay=((n.id||'')+' '+(n.label||'')+' '+(n.title||'')+' '+(n.sublabel||'')+' '+(n.note||'')+' '+(n.detail||'')+' '+(n.tag||'')).toLowerCase();
+            if(hay.indexOf(q)<0)return false;
+        }
+        return true;
+    }
+
+    function gkRenderCapregNodeCards(map,keyPrefix,mapKey){
         var raw=gkMapNodeList(map);
         if(!raw.length)return null;
-        return React.createElement('div',{className:'gk-node-grid flush'},
-            raw.map(function(n,ni){
+        var edges=gkMapEdgeList(map);
+        var filtered=raw.filter(function(n){return gkFilterNodeMatches(n,gkStageFilter,gkTagFilter,gkNodeSearch);});
+        var sizes=['s','m','l'];
+        return React.createElement('div',{className:'gk-bento-grid','aria-label':'KokonutUI 6-column Bento WidgetGrid'},
+            filtered.map(function(n,ni){
+                var idKey=(keyPrefix||'gk')+'-'+(n.id||ni);
+                var span=gkTileSpans[idKey]||(ni===0?'m':'s');
                 var label=n.label||n.title||n.name||n.id||('node '+ni);
-                var sub=n.sublabel||n.subtitle||n.note||n.kind||n.type||'';
-                var tag=n.tag||n.badge||n.variant||'';
+                var sub=n.sublabel||n.subtitle||n.note||n.detail||n.kind||n.type||'';
+                var tag=n.tag||n.badge||n.variant||n.type||'';
+                var color=gkSemanticColor(tag);
+                var iconName=gkSemanticIcon(n.type||n.kind||tag);
                 var active=gkMapDetail&&gkMapDetail.id===n.id;
-                return React.createElement('div',{key:keyPrefix+'-node-'+ni,className:'gk-node',style:{borderTopColor:active?'var(--acc)':'var(--purple)',cursor:'pointer'},onClick:function(){setGkMapDetail({id:n.id,title:label,subtitle:String(sub||''),metrics:tag,content:n});}},
+                var degIn=0,degOut=0;
+                edges.forEach(function(e){
+                    if((e.to||e.target)===n.id)degIn++;
+                    if((e.from||e.source)===n.id)degOut++;
+                });
+                var resolved=gkResolveIrNodeTarget(n.id,mapKey);
+                return React.createElement('div',{
+                    key:idKey,
+                    className:'gk-bento-tile span-'+span,
+                    style:{borderTopColor:active?'#32f3e9':color,cursor:'pointer',boxShadow:active?'0 0 0 1px #32f3e9, 0 16px 36px rgba(0,0,0,0.5)':undefined},
+                    onClick:function(){setGkMapDetail({id:n.id,title:label,subtitle:String(sub||''),metrics:tag,content:n});}
+                },
                     React.createElement('div',{className:'gk-node-top'},
-                        React.createElement('span',{style:{color:'var(--purple)',display:'inline-flex',flexShrink:0}},React.createElement(Icon,{name:'box',size:'m'})),
+                        React.createElement('span',{style:{color:color,display:'inline-flex',flexShrink:0}},React.createElement(Icon,{name:iconName,size:'m'})),
                         React.createElement('div',{className:'gk-node-title'},label),
-                        tag&&React.createElement('span',{className:'badge badge-default'},String(tag))
+                        tag&&React.createElement('span',{className:'gk-pill',style:{borderColor:color,color:color,padding:'2px 6px',fontSize:8}},String(tag)),
+                        React.createElement('button',{
+                            type:'button',
+                            className:'gk-size-pill',
+                            title:'Cycle Bento Tile Span (S = 2 cols, M = 3 cols, L = 6 cols)',
+                            onClick:function(ev){
+                                ev.stopPropagation();
+                                var next=sizes[(sizes.indexOf(span)+1)%sizes.length];
+                                setGkTileSpans(function(prev){var copy=Object.assign(Object.create(null),prev);copy[idKey]=next;return copy;});
+                            }
+                        },span.toUpperCase())
                     ),
                     sub&&React.createElement('div',{className:'gk-node-sub'},String(sub)),
-                    n.id&&React.createElement('div',{className:'gk-code-path'},String(n.id))
+                    React.createElement('div',{style:{display:'flex',alignItems:'center',justifyContent:'space-between',gap:6,marginTop:'auto',paddingTop:6,borderTop:'1px solid rgba(255,255,255,0.06)'}},
+                        React.createElement('span',{className:'gk-code-path'},String(n.id||'node')+' · '+degIn+' in / '+degOut+' out'),
+                        React.createElement('div',{style:{display:'flex',gap:4}},
+                            React.createElement('button',{
+                                type:'button',
+                                className:'gk-btn primary',
+                                style:{padding:'3px 7px',fontSize:8.5},
+                                onClick:function(ev){ev.stopPropagation();loadGkTargetBundle(resolved.targetId,resolved.codePath,'code');}
+                            },'Walk Code →')
+                        )
+                    )
                 );
             })
         );
@@ -18562,43 +19011,615 @@ function App(){
             for(var i=0;i<pool.length;i++){if(pool[i].id===id)return pool[i].label||pool[i].title||id;}
             return id;
         }
-        return React.createElement('div',{className:'gk-edge-list',style:{marginTop:10}},
-            React.createElement('div',{className:'gk-lane-head'},React.createElement('div',{className:'gk-lane-title'},'Wiring ('+raw.length+')')),
+        return React.createElement('div',{className:'gk-edge-list',style:{marginTop:12}},
+            React.createElement('div',{className:'gk-lane-head'},React.createElement('div',{className:'gk-lane-title'},'Directed Flows & Transitions ('+raw.length+')')),
             raw.map(function(e,ei){
-                return React.createElement('div',{key:keyPrefix+'-edge-'+ei,className:'gk-edge'},
-                    React.createElement('div',null,labelOf(e.from||e.source||'')),
-                    React.createElement('span',{style:{color:'var(--purple)',textAlign:'center'}},'→'),
-                    React.createElement('div',null,labelOf(e.to||e.target||'')),
-                    React.createElement('span',{className:'gk-edge-label'},e.label||e.variant||e.route||'')
+                var u=e.from||e.source||'';
+                var v=e.to||e.target||'';
+                var vColor=gkSemanticColor(e.variant||e.classification||e.route||'');
+                return React.createElement('div',{
+                    key:keyPrefix+'-edge-'+ei,
+                    className:'gk-edge',
+                    onClick:function(){
+                        var found=pool.find(function(n){return n.id===u;});
+                        if(found)setGkMapDetail({id:found.id,title:found.label||found.title||found.id,subtitle:found.sublabel||found.note||'',metrics:found.tag||found.type||'',content:found});
+                    }
+                },
+                    React.createElement('div',{style:{display:'flex',alignItems:'center',gap:6}},
+                        React.createElement('span',{style:{width:7,height:7,borderRadius:'50%',background:vColor,display:'inline-block'}}),
+                        labelOf(u)
+                    ),
+                    React.createElement('span',{style:{color:vColor,textAlign:'center',fontWeight:700}},'→'),
+                    React.createElement('div',null,labelOf(v)),
+                    React.createElement('span',{className:'gk-edge-label'},(e.label||'')+(e.variant?' ['+e.variant+']':''))
                 );
             })
         );
     }
 
-    function gkRenderMapSection(map,title,subtitle,fileLabel,keyPrefix){
+    function gkRenderSequenceWaterfall(map,mapKey){
+        var participants=Array.isArray(map.participants)?map.participants:[];
+        var messages=Array.isArray(map.messages)?map.messages:[];
+        var segments=Array.isArray(map.segments)?map.segments:[];
+        var pMap=Object.create(null);
+        participants.forEach(function(p,idx){pMap[p.id]={p:p,idx:idx};});
+        var totalCols=Math.max(participants.length,2);
+        var activeIdx=Math.min(gkTraceStepIdx,Math.max(messages.length-1,0));
+        var activeMsg=messages[activeIdx]||null;
+        return React.createElement('div',{className:'gk-trace-waterfall','aria-label':'KokonutUI Pro RunTrace Sequence Waterfall'},
+            React.createElement('div',{style:{display:'flex',alignItems:'center',justifyContent:'space-between',gap:10,flexWrap:'wrap',marginBottom:10,paddingBottom:8,borderBottom:'1px solid rgba(255,255,255,0.08)'}},
+                React.createElement('div',{style:{display:'flex',alignItems:'center',gap:8,flexWrap:'wrap'}},
+                    React.createElement('span',{style:{fontSize:11.5,fontWeight:800,color:'#32f3e9'}},'⚡ RunTrace Sequence Waterfall'),
+                    React.createElement('span',{className:'gk-pill'},participants.length+' Participants'),
+                    React.createElement('span',{className:'gk-pill'},messages.length+' Spans'),
+                    segments.map(function(seg,si){
+                        var isBp=String(seg.variant||'').indexOf('blueprint')>=0;
+                        return React.createElement('span',{
+                            key:'seg-'+si,
+                            className:'gk-pill',
+                            style:{borderColor:isBp?'#32f3e9':'#22ff73',color:isBp?'#32f3e9':'#22ff73'}
+                        },seg.label);
+                    })
+                ),
+                React.createElement('div',{style:{display:'flex',alignItems:'center',gap:6}},
+                    React.createElement('button',{
+                        type:'button',
+                        className:'gk-btn',
+                        onClick:function(){setGkTraceStepIdx(function(i){return i>0?i-1:Math.max(messages.length-1,0);});}
+                    },'◀ Prev Span'),
+                    React.createElement('span',{className:'gk-pill',style:{borderColor:'#32f3e9',color:'#32f3e9'}},'Span '+(activeIdx+1)+' / '+messages.length),
+                    React.createElement('button',{
+                        type:'button',
+                        className:'gk-btn',
+                        onClick:function(){setGkTraceStepIdx(function(i){return (i+1)%Math.max(messages.length,1);});}
+                    },'Next Span ▶')
+                )
+            ),
+            React.createElement('div',{style:{display:'grid',gridTemplateColumns:'repeat('+participants.length+',minmax(95px,1fr))',gap:6,marginBottom:10}},
+                participants.map(function(p){
+                    var c=gkSemanticColor(p.type);
+                    return React.createElement('div',{
+                        key:'part-'+p.id,
+                        style:{padding:'6px 8px',borderRadius:8,border:'1px solid rgba(255,255,255,0.1)',borderTop:'2px solid '+c,background:'rgba(15,22,34,0.9)',cursor:'pointer'},
+                        onClick:function(){setGkMapDetail({id:p.id,title:p.label,subtitle:p.sublabel||'',metrics:p.type||'participant',content:p});}
+                    },
+                        React.createElement('div',{style:{fontSize:10,fontWeight:800,color:'#f4f7fb'}},p.label),
+                        React.createElement('div',{style:{fontSize:8.5,color:'#94a3b8',marginTop:2}},p.sublabel||p.id)
+                    );
+                })
+            ),
+            messages.map(function(m,mi){
+                var fromInfo=pMap[m.from]||{idx:0,p:{label:m.from}};
+                var toInfo=pMap[m.to]||{idx:totalCols-1,p:{label:m.to}};
+                var leftPct=(Math.min(fromInfo.idx,toInfo.idx)/(totalCols-1))*82;
+                var widthPct=Math.max((Math.abs(toInfo.idx-fromInfo.idx)/(totalCols-1))*82,12);
+                var isDashed=m.variant==='dashed';
+                var isEmph=m.variant==='emphasis';
+                var barColor=isDashed?'#32f3e9':(isEmph?'#22ff73':'#a78bfa');
+                var isSel=mi===activeIdx;
+                return React.createElement('div',{
+                    key:'msg-row-'+m.id+'-'+mi,
+                    className:'gk-trace-row'+(isSel?' active':''),
+                    onClick:function(){
+                        setGkTraceStepIdx(mi);
+                        setGkMapDetail({id:m.from,title:m.label,subtitle:fromInfo.p.label+' → '+toInfo.p.label,metrics:m.variant||'live',content:m});
+                    }
+                },
+                    React.createElement('span',{style:{color:'#64748b',fontFamily:'var(--font-mono)',fontSize:9}},String(mi+1).padStart(2,'0')),
+                    React.createElement('div',{style:{display:'flex',alignItems:'center',gap:5,minWidth:0}},
+                        React.createElement('span',{style:{color:'#f4f7fb',fontWeight:700,overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}},fromInfo.p.label),
+                        React.createElement('span',{style:{color:barColor}},'→'),
+                        React.createElement('span',{style:{color:'#cbd5e1',overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}},toInfo.p.label)
+                    ),
+                    React.createElement('div',{className:'gk-trace-bar-track'},
+                        React.createElement('div',{
+                            className:'gk-trace-bar-fill',
+                            style:{left:leftPct+'%',width:widthPct+'%',background:barColor,border:isDashed?'1px dashed '+barColor:'1px solid '+barColor}
+                        }),
+                        React.createElement('span',{style:{position:'relative',zIndex:2,color:'#f4f7fb',fontSize:9.5,fontWeight:600,overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}},m.label)
+                    ),
+                    React.createElement('span',{
+                        className:'gk-pill',
+                        style:{justifySelf:'end',borderColor:barColor,color:barColor,fontSize:8,padding:'2px 6px'}
+                    },isDashed?'BLUEPRINT':(isEmph?'EMPHASIS':'LIVE'))
+                );
+            }),
+            activeMsg&&React.createElement('div',{style:{marginTop:10,padding:'8px 12px',borderRadius:9,background:'rgba(50,243,233,0.07)',border:'1px solid rgba(50,243,233,0.28)',display:'flex',alignItems:'center',justifyContent:'space-between',gap:10,flexWrap:'wrap'}},
+                React.createElement('div',{style:{fontSize:10,color:'#f4f7fb'}},
+                    React.createElement('strong',{style:{color:'#32f3e9'}},'Active Span #'+(activeIdx+1)+': '),
+                    activeMsg.label,' (',activeMsg.from,' → ',activeMsg.to,')'
+                ),
+                React.createElement('button',{
+                    type:'button',
+                    className:'gk-btn primary',
+                    onClick:function(){
+                        var res=gkResolveIrNodeTarget(activeMsg.from,mapKey);
+                        loadGkTargetBundle(res.targetId,res.codePath,'code');
+                    }
+                },'Walk Participant Code in CodeFlow →')
+            )
+        );
+    }
+
+    function gkBuildIr2DLayout(map){
+        var nodes=gkMapNodeList(map);
+        var edges=gkMapEdgeList(map);
+        var stages=Array.isArray(map.stages)?map.stages:[];
+        var lanes=Array.isArray(map.lanes)?map.lanes:[];
+        var byId=Object.create(null);
+        var headers=[];
+        var swimlanes=[];
+        var width=1240,height=520;
+        if(map.diagram_type==='architecture'&&Array.isArray(map.components)){
+            width=(map.viewBox&&map.viewBox.w)||1180;
+            height=(map.viewBox&&map.viewBox.h)||560;
+            (map.boundaries||[]).forEach(function(b){
+                var p=b.pos||[20,20],s=b.size||[300,140];
+                swimlanes.push({id:b.id,label:b.label,x:p[0],y:p[1],w:s[0],h:s[1],kind:b.kind});
+            });
+            map.components.forEach(function(c){
+                var p=c.pos||[60,60],s=c.size||[175,68];
+                byId[c.id]={x:p[0],y:p[1],w:s[0],h:s[1],node:c};
+            });
+            return {width:width,height:height,byId:byId,nodes:nodes,edges:edges,headers:headers,swimlanes:swimlanes};
+        }
+        if(stages.length>0){
+            var colW=222,gapX=32,padX=22,topY=48,rowH=72,gapY=14;
+            width=Math.max(padX*2+stages.length*colW+(stages.length-1)*gapX,980);
+            var byStage=stages.map(function(){return [];});
+            nodes.forEach(function(n,idx){
+                var st=typeof n.stage==='number'?Math.max(0,Math.min(stages.length-1,n.stage)):(idx%stages.length);
+                byStage[st].push(n);
+            });
+            var maxCount=1;
+            byStage.forEach(function(list){
+                list.sort(function(a,b){return (typeof a.row==='number'?a.row:0)-(typeof b.row==='number'?b.row:0);});
+                if(list.length>maxCount)maxCount=list.length;
+            });
+            height=Math.max(topY+maxCount*(rowH+gapY)+24,350);
+            byStage.forEach(function(list,st){
+                var colSpanH=list.length*rowH+Math.max(0,list.length-1)*gapY;
+                var availH=height-topY-24;
+                var startY=topY+Math.max(0,Math.floor((availH-colSpanH)/2));
+                list.forEach(function(n,ri){
+                    var x=padX+st*(colW+gapX);
+                    var y=startY+ri*(rowH+gapY);
+                    byId[n.id]={x:x,y:y,w:colW,h:rowH,node:n};
+                });
+            });
+            stages.forEach(function(s,si){
+                headers.push({id:'stage-'+si,label:s.label||('Stage '+(si+1)),x:padX+si*(colW+gapX),y:12,w:colW,h:height-20});
+            });
+            return {width:width,height:height,byId:byId,nodes:nodes,edges:edges,headers:headers,swimlanes:swimlanes};
+        }
+        if(lanes.length>0){
+            var laneMap=Object.create(null);
+            lanes.forEach(function(l,li){laneMap[l.id]=li;});
+            var maxCol=3;
+            nodes.forEach(function(n){if(typeof n.col==='number'&&n.col>maxCol)maxCol=n.col;});
+            var lPadX=185,cW=188,cGapX=34,lTop=24,nodeH=68,stackGap=14,lGapY=16;
+            width=Math.max(lPadX+(maxCol+1)*(cW+cGapX)+28,1040);
+            var cellGroups=Object.create(null);
+            var maxStackByLane=lanes.map(function(){return 1;});
+            nodes.forEach(function(n,idx){
+                var li=laneMap[n.lane]!==undefined?laneMap[n.lane]:(idx%lanes.length);
+                var col=typeof n.col==='number'?n.col:Math.floor(idx/lanes.length);
+                var key=li+':'+col;
+                if(!cellGroups[key])cellGroups[key]=[];
+                cellGroups[key].push({n:n,li:li,col:col});
+                if(cellGroups[key].length>maxStackByLane[li])maxStackByLane[li]=cellGroups[key].length;
+            });
+            var laneTops=[],curY=lTop;
+            lanes.forEach(function(l,li){
+                var stackCnt=maxStackByLane[li];
+                var laneH=Math.max(108,32+stackCnt*nodeH+Math.max(0,stackCnt-1)*stackGap+14);
+                laneTops.push({y:curY,h:laneH});
+                swimlanes.push({id:l.id,label:l.label||l.id,x:16,y:curY,w:width-32,h:laneH});
+                curY+=laneH+lGapY;
+            });
+            height=Math.max(curY+12,360);
+            Object.keys(cellGroups).forEach(function(key){
+                var list=cellGroups[key];
+                list.sort(function(a,b){return (typeof a.n.yOffset==='number'?a.n.yOffset:0)-(typeof b.n.yOffset==='number'?b.n.yOffset:0);});
+                var li=list[0].li,col=list[0].col;
+                var lt=laneTops[li];
+                var totalStackH=list.length*nodeH+Math.max(0,list.length-1)*stackGap;
+                var avail=lt.h-28;
+                var startY=lt.y+22+Math.max(0,Math.floor((avail-totalStackH)/2));
+                list.forEach(function(item,si){
+                    var x=lPadX+col*(cW+cGapX);
+                    var y=startY+si*(nodeH+stackGap);
+                    byId[item.n.id]={x:x,y:y,w:cW,h:nodeH,node:item.n};
+                });
+            });
+            return {width:width,height:height,byId:byId,nodes:nodes,edges:edges,headers:headers,swimlanes:swimlanes};
+        }
+        var cols=4,gW=220,gH=82,gX=32,gY=22;
+        nodes.forEach(function(n,idx){
+            var c=idx%cols,r=Math.floor(idx/cols);
+            byId[n.id]={x:24+c*(gW+gX),y:28+r*(gH+gY),w:gW,h:gH,node:n};
+        });
+        height=Math.max(60+Math.ceil(nodes.length/cols)*(gH+gY),320);
+        return {width:width,height:height,byId:byId,nodes:nodes,edges:edges,headers:headers,swimlanes:swimlanes};
+    }
+
+    function gkRenderInteractiveIrStage(map,mapKey){
+        if(!map)return null;
+        if(map.diagram_type==='sequence'){
+            return gkRenderSequenceWaterfall(map,mapKey);
+        }
+        var layout=gkBuildIr2DLayout(map);
+        var meta=map.meta||{};
+        var views=Array.isArray(meta.views)?meta.views:[];
+        var activeView=(gkGuidedViewIdx>=0&&gkGuidedViewIdx<views.length)?views[gkGuidedViewIdx]:null;
+        var focusSet=activeView&&Array.isArray(activeView.focus)?new Set(activeView.focus):null;
+        var routeInfo=(gkRouteStart&&gkRouteEnd)?gkComputeShortestRoute(map,gkRouteStart,gkRouteEnd):null;
+        var pins=(Array.isArray(gkRoomState&&gkRoomState.pins)?gkRoomState.pins:[]).filter(function(p){
+            return !p.resolved&&(p.mapKey===mapKey||!p.mapKey);
+        });
+        var peers=(Array.isArray(gkRoomState&&gkRoomState.peers)?gkRoomState.peers:[]).filter(function(p){
+            return !gkMe||p.id!==gkMe.id;
+        });
+        return React.createElement('div',{
+            className:'gk-stage-card',
+            style:{cursor:gkToolMode==='comment'?'crosshair':(gkToolMode==='pan'?'grab':'default')},
+            onPointerMove:function(ev){
+                var now=Date.now();
+                if(now-gkLastCursorSentRef.current<90)return;
+                gkLastCursorSentRef.current=now;
+                var rect=ev.currentTarget.getBoundingClientRect();
+                if(!rect.width||!rect.height)return;
+                var xPct=Math.round(((ev.clientX-rect.left)/rect.width)*1000)/10;
+                var yPct=Math.round(((ev.clientY-rect.top)/rect.height)*1000)/10;
+                gkPostRoomAction({action:'cursor',x:xPct,y:yPct,viz:graphConfig.vizType,mapTab:gkMapTab,capregMapKey:mapKey});
+            },
+            onClick:function(ev){
+                if(gkToolMode!=='comment')return;
+                if(ev.target&&ev.target.closest&&ev.target.closest('.gk-pin-popover,.gk-pin-marker,.gk-tooldock,button,input'))return;
+                var rect=ev.currentTarget.getBoundingClientRect();
+                var xPct=Math.round(((ev.clientX-rect.left)/rect.width)*1000)/10;
+                var yPct=Math.round(((ev.clientY-rect.top)/rect.height)*1000)/10;
+                var defaultNote='Review note on '+((gkMapDetail&&gkMapDetail.title)||mapKey)+' ('+xPct+'%, '+yPct+'%)';
+                gkPostRoomAction({action:'pin.add',x:xPct,y:yPct,mapKey:mapKey,nodeId:(gkMapDetail&&gkMapDetail.id)||'',text:defaultNote}).then(function(snap){
+                    if(snap&&Array.isArray(snap.pins)&&snap.pins.length){
+                        setGkActivePinId(snap.pins[snap.pins.length-1].id);
+                    }
+                });
+                setGkToolMode('select');
+            }
+        },
+            gkToolDockEdge==='top'&&gkRenderToolDock(),
+            gkToolDockEdge==='left'&&gkRenderToolDock(),
+            gkToolDockEdge==='right'&&gkRenderToolDock(),
+            React.createElement('div',{style:{overflowX:'auto'}},
+                React.createElement('svg',{
+                    className:'gk-flow-svg',
+                    viewBox:'0 0 '+layout.width+' '+layout.height,
+                    role:'img',
+                    'aria-label':(meta.title||mapKey)+' interactive 2D stage'
+                },
+                    React.createElement('defs',null,
+                        React.createElement('marker',{id:'gk-ir-arrow-cyan',viewBox:'0 0 10 10',refX:'9',refY:'5',markerWidth:'6',markerHeight:'6',orient:'auto-start-reverse'},
+                            React.createElement('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'#32f3e9'})
+                        ),
+                        React.createElement('marker',{id:'gk-ir-arrow-emerald',viewBox:'0 0 10 10',refX:'9',refY:'5',markerWidth:'6',markerHeight:'6',orient:'auto-start-reverse'},
+                            React.createElement('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'#22ff73'})
+                        ),
+                        React.createElement('marker',{id:'gk-ir-arrow-rose',viewBox:'0 0 10 10',refX:'9',refY:'5',markerWidth:'6',markerHeight:'6',orient:'auto-start-reverse'},
+                            React.createElement('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'#fb7185'})
+                        ),
+                        React.createElement('marker',{id:'gk-ir-arrow-muted',viewBox:'0 0 10 10',refX:'9',refY:'5',markerWidth:'6',markerHeight:'6',orient:'auto-start-reverse'},
+                            React.createElement('path',{d:'M 0 0 L 10 5 L 0 10 z',fill:'#64748b'})
+                        )
+                    ),
+                    layout.headers.map(function(h){
+                        return React.createElement('g',{key:h.id},
+                            React.createElement('rect',{x:h.x,y:h.y,width:h.w,height:h.h,rx:12,fill:'rgba(255,255,255,0.018)',stroke:'rgba(255,255,255,0.07)',strokeDasharray:'4 4'}),
+                            React.createElement('text',{x:h.x+12,y:h.y+22,style:{fill:'#32f3e9',fontSize:10,fontWeight:800,letterSpacing:'0.04em'}},String(h.label).toUpperCase())
+                        );
+                    }),
+                    layout.swimlanes.map(function(sl){
+                        return React.createElement('g',{key:'sl-'+sl.id},
+                            React.createElement('rect',{x:sl.x,y:sl.y,width:sl.w,height:sl.h,rx:12,fill:'rgba(255,255,255,0.02)',stroke:'rgba(167,139,250,0.22)',strokeDasharray:'5 4'}),
+                            React.createElement('text',{x:sl.x+12,y:sl.y+20,style:{fill:'#a78bfa',fontSize:10,fontWeight:800}},sl.label)
+                        );
+                    }),
+                    layout.edges.map(function(e,ei){
+                        var u=e.from||e.source;
+                        var v=e.to||e.target;
+                        var from=layout.byId[u],to=layout.byId[v];
+                        if(!from||!to)return null;
+                        var inRoute=routeInfo?routeInfo.edges.has(ei):false;
+                        var inFocus=focusSet?(focusSet.has(u)&&focusSet.has(v)):true;
+                        var isLoop=e.route==='outside-top'||e.route==='outside-bottom'||e.variant==='loop'||String(e.label||'').toLowerCase().indexOf('hole')>=0;
+                        var isDashed=e.variant==='dashed'||e.style==='dashed'||e.classification==='dashed';
+                        var isEmph=e.variant==='emphasis'||inRoute;
+                        var strokeColor=inRoute?'#22ff73':(isLoop?'#fb7185':(isDashed?'#32f3e9':(isEmph?'#32f3e9':'#64748b')));
+                        var markerId=inRoute?'gk-ir-arrow-emerald':(isLoop?'gk-ir-arrow-rose':((isDashed||isEmph)?'gk-ir-arrow-cyan':'gk-ir-arrow-muted'));
+                        var x1=from.x+from.w,y1=from.y+from.h/2;
+                        var x2=to.x,y2=to.y+to.h/2;
+                        if(from.x>to.x+40){x1=from.x;x2=to.x+to.w;}
+                        else if(Math.abs(from.x-to.x)<=40){x1=from.x+from.w/2;y1=from.y+from.h;x2=to.x+to.w/2;y2=to.y;}
+                        var d;
+                        if(isLoop&&from.x>=to.x){
+                            var arcY=Math.min(from.y,to.y)-34;
+                            d='M '+(from.x+from.w/2)+' '+from.y+' C '+(from.x+from.w/2)+' '+arcY+' '+(to.x+to.w/2)+' '+arcY+' '+(to.x+to.w/2)+' '+to.y;
+                        }else{
+                            var dx=Math.max(Math.abs(x2-x1)*0.45,32);
+                            d='M '+x1+' '+y1+' C '+(x1+(x2>=x1?dx:-dx))+' '+y1+' '+(x2-(x2>=x1?dx:-dx))+' '+y2+' '+x2+' '+y2;
+                        }
+                        var midX=(x1+x2)/2,midY=(y1+y2)/2-(isLoop?22:6);
+                        var edgeOpacity=routeInfo?(inRoute?1:0.15):(focusSet?(inFocus?0.95:0.16):0.85);
+                        return React.createElement('g',{key:'ir-edge-'+ei,style:{opacity:edgeOpacity}},
+                            React.createElement('path',{
+                                d:d,
+                                fill:'none',
+                                stroke:strokeColor,
+                                strokeWidth:inRoute?2.8:(isEmph?2.2:1.6),
+                                strokeDasharray:isDashed?'5 4':undefined,
+                                className:(gkTracePlaying&&(isEmph||inRoute||isLoop))?'gk-beam-live':undefined,
+                                'marker-end':'url(#'+markerId+')'
+                            }),
+                            e.label&&React.createElement('text',{
+                                x:midX,
+                                y:midY,
+                                textAnchor:'middle',
+                                style:{fill:isLoop?'#fb7185':(inRoute?'#22ff73':'#94a3b8'),fontSize:8.5,fontWeight:600,paintOrder:'stroke',stroke:'#090d14',strokeWidth:3}
+                            },gkTruncate(String(e.label).replace(/\n/g,' · '),32))
+                        );
+                    }),
+                    layout.nodes.map(function(n){
+                        var box=layout.byId[n.id];
+                        if(!box)return null;
+                        var matchesFilter=gkFilterNodeMatches(n,gkStageFilter,gkTagFilter,gkNodeSearch);
+                        var inFocus=focusSet?focusSet.has(n.id):true;
+                        var inRoute=routeInfo?routeInfo.nodes.has(n.id):false;
+                        var isSelected=gkMapDetail&&gkMapDetail.id===n.id;
+                        var isRouteAnchor=gkRouteStart===n.id||gkRouteEnd===n.id;
+                        var label=n.label||n.title||n.name||n.id;
+                        var sub=n.sublabel||n.subtitle||n.note||'';
+                        var tag=n.tag||n.badge||n.type||'';
+                        var color=inRoute?'#22ff73':gkSemanticColor(tag||n.type);
+                        var opacity=(!matchesFilter)?0.15:(routeInfo?(inRoute?1:0.22):(focusSet?(inFocus?1:0.22):1));
+                        return React.createElement('g',{
+                            key:'ir-node-'+n.id,
+                            className:'gk-stage-node',
+                            'data-node-id':n.id,
+                            style:{cursor:'pointer',opacity:opacity,transition:'opacity 0.18s'},
+                            onClick:function(ev){
+                                ev.stopPropagation();
+                                if(gkToolMode==='route'){
+                                    if(!gkRouteStart||gkRouteStart===n.id){setGkRouteStart(n.id);setGkRouteEnd(null);}
+                                    else{setGkRouteEnd(n.id);}
+                                }
+                                setGkMapDetail({id:n.id,title:label,subtitle:String(sub||''),metrics:tag,content:n});
+                            }
+                        },
+                            React.createElement('rect',{
+                                x:box.x,
+                                y:box.y,
+                                width:box.w,
+                                height:box.h,
+                                rx:10,
+                                fill:isSelected?'#152238':'#0f1623',
+                                stroke:(isSelected||isRouteAnchor||inRoute)?'#32f3e9':color,
+                                strokeWidth:(isSelected||isRouteAnchor||inRoute)?2.6:1.4
+                            }),
+                            React.createElement('line',{
+                                x1:box.x+8,y1:box.y+1,x2:box.x+box.w-8,y2:box.y+1,
+                                stroke:color,strokeWidth:2.5
+                            }),
+                            React.createElement('circle',{cx:box.x+14,cy:box.y+18,r:4,fill:color}),
+                            React.createElement('text',{
+                                x:box.x+24,y:box.y+21,
+                                style:{fill:'#f4f7fb',fontSize:10.5,fontWeight:800}
+                            },gkTruncate(label,23)),
+                            tag&&React.createElement('text',{
+                                x:box.x+box.w-8,y:box.y+19,
+                                textAnchor:'end',
+                                style:{fill:color,fontSize:7.8,fontWeight:800}
+                            },gkTruncate(String(tag),14)),
+                            sub&&React.createElement('text',{
+                                x:box.x+12,y:box.y+39,
+                                style:{fill:'#94a3b8',fontSize:8.8}
+                            },gkTruncate(String(sub).replace(/\n/g,' · '),30)),
+                            n.detail&&React.createElement('text',{
+                                x:box.x+12,y:box.y+55,
+                                style:{fill:'#64748b',fontSize:8,fontFamily:'var(--font-mono)'}
+                            },gkTruncate(String(n.detail).replace(/\n/g,' · '),32))
+                        );
+                    })
+                )
+            ),
+            pins.map(function(pin){
+                var isOpen=gkActivePinId===pin.id;
+                return React.createElement('div',{key:'pin-wrap-'+pin.id},
+                    React.createElement('div',{
+                        className:'gk-pin-marker',
+                        style:{left:pin.x+'%',top:pin.y+'%',background:pin.authorColor||'#fbbf24'},
+                        title:(pin.authorName||'Operator')+': '+pin.text,
+                        onClick:function(ev){ev.stopPropagation();setGkActivePinId(isOpen?null:pin.id);}
+                    },String(pin.authorName||'P').slice(0,2).toUpperCase()),
+                    isOpen&&React.createElement('div',{
+                        className:'gk-pin-popover',
+                        style:{left:Math.min(pin.x,75)+'%',top:Math.min(pin.y+2,80)+'%'},
+                        onClick:function(ev){ev.stopPropagation();}
+                    },
+                        React.createElement('div',{style:{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:6}},
+                            React.createElement('strong',{style:{color:pin.authorColor||'#32f3e9'}},pin.authorName||'Operator'),
+                            React.createElement('button',{type:'button',className:'gk-size-pill',onClick:function(){setGkActivePinId(null);}},'✕')
+                        ),
+                        React.createElement('div',{style:{color:'#e2e8f0',lineHeight:1.45,marginBottom:8}},pin.text),
+                        (pin.replies||[]).map(function(r){
+                            return React.createElement('div',{key:r.id,style:{padding:'4px 6px',borderTop:'1px solid rgba(255,255,255,0.08)',fontSize:9.5,color:'#cbd5e1'}},
+                                React.createElement('strong',{style:{color:r.authorColor||'#32f3e9'}},r.authorName+': '),r.text
+                            );
+                        }),
+                        React.createElement('div',{style:{display:'flex',gap:5,marginTop:6}},
+                            React.createElement('input',{
+                                className:'gk-search',
+                                style:{padding:'4px 7px',fontSize:9.5},
+                                placeholder:'Reply to pin...',
+                                value:gkPinDraft,
+                                onChange:function(ev){setGkPinDraft(ev.target.value);}
+                            }),
+                            React.createElement('button',{
+                                type:'button',
+                                className:'gk-btn primary',
+                                onClick:function(){
+                                    if(!gkPinDraft.trim())return;
+                                    gkPostRoomAction({action:'pin.reply',pinId:pin.id,text:gkPinDraft.trim()});
+                                    setGkPinDraft('');
+                                }
+                            },'Reply'),
+                            React.createElement('button',{
+                                type:'button',
+                                className:'gk-btn',
+                                onClick:function(){gkPostRoomAction({action:'pin.resolve',pinId:pin.id});setGkActivePinId(null);}
+                            },'Resolve')
+                        )
+                    )
+                );
+            }),
+            peers.map(function(peer){
+                if(typeof peer.x!=='number'||typeof peer.y!=='number')return null;
+                return React.createElement('div',{
+                    key:'peer-cur-'+peer.id,
+                    className:'gk-peer-cursor',
+                    style:{left:peer.x+'%',top:peer.y+'%'}
+                },
+                    React.createElement('svg',{width:14,height:14,viewBox:'0 0 16 16'},
+                        React.createElement('path',{d:'M1 1L6.5 14.5L9 9L14.5 6.5L1 1Z',fill:peer.color||'#32f3e9',stroke:'#041016',strokeWidth:'1.4'})
+                    ),
+                    React.createElement('span',{className:'gk-peer-label',style:{background:peer.color||'#32f3e9'}},peer.name||'Peer')
+                );
+            }),
+            gkToolDockEdge==='bottom'&&gkRenderToolDock()
+        );
+    }
+
+    function gkRenderMapSection(map,title,subtitle,fileLabel,keyPrefix,mapKey){
         if(!map)return null;
         var meta=map.meta||{};
         var stages=Array.isArray(map.stages)?map.stages:[];
         var lanes=Array.isArray(map.lanes)?map.lanes:[];
         var views=Array.isArray(meta.views)?meta.views:[];
+        var cards=Array.isArray(map.cards)?map.cards:[];
+        var activeView=(gkGuidedViewIdx>=0&&gkGuidedViewIdx<views.length)?views[gkGuidedViewIdx]:null;
+        var statusTags=['all','IMPLEMENTED','PARTIAL','BLUEPRINT','HOLE'];
         return React.createElement('div',{key:'gk-mapsec-'+keyPrefix,className:'gk-section'},
-            React.createElement('div',{className:'gk-section-title'},title),
-            React.createElement('div',{className:'gk-section-sub'},(meta.title?meta.title+' · ':'')+(subtitle||'')+(fileLabel?' · '+fileLabel:'')),
-            views.length>0&&React.createElement('div',{className:'gk-cards'},
+            React.createElement('div',{style:{display:'flex',alignItems:'center',justifyContent:'space-between',gap:10,flexWrap:'wrap',marginBottom:8}},
+                React.createElement('div',null,
+                    React.createElement('div',{className:'gk-section-title'},title+' · '+(meta.title||'')),
+                    React.createElement('div',{className:'gk-section-sub',style:{margin:0}},(meta.subtitle||subtitle||'')+(fileLabel?' · '+fileLabel:''))
+                ),
+                React.createElement('div',{className:'gk-view-toggle-group',role:'group','aria-label':'KokonutUI Pro ViewToggleToolbar'},
+                    React.createElement('button',{
+                        type:'button',
+                        className:'gk-view-toggle-btn'+(gkStageLayoutMode==='stage'?' active':''),
+                        onClick:function(){setGkStageLayoutMode('stage');}
+                    },'🎛 2D Interactive Stage'),
+                    React.createElement('button',{
+                        type:'button',
+                        className:'gk-view-toggle-btn'+(gkStageLayoutMode==='bento'?' active':''),
+                        onClick:function(){setGkStageLayoutMode('bento');}
+                    },'🍱 6-Col Bento Grid'),
+                    React.createElement('button',{
+                        type:'button',
+                        className:'gk-view-toggle-btn'+(gkStageLayoutMode==='both'?' active':''),
+                        onClick:function(){setGkStageLayoutMode('both');}
+                    },'⚡ Stage + Bento')
+                )
+            ),
+            views.length>0&&React.createElement('div',{className:'gk-guided-bar','aria-label':'Interactive Guided Views Story Bar'},
+                React.createElement('span',{style:{fontSize:9.5,fontWeight:800,color:'#a78bfa',textTransform:'uppercase',letterSpacing:'0.04em'}},'Guided Walkthrough:'),
+                React.createElement('button',{
+                    type:'button',
+                    className:'gk-guided-btn'+(gkGuidedViewIdx===-1?' active':''),
+                    onClick:function(){setGkGuidedViewIdx(-1);}
+                },'All Nodes'),
                 views.map(function(v,vi){
-                    return React.createElement('div',{key:'gk-mapsec-view-'+keyPrefix+'-'+vi,className:'gk-card'},
-                        React.createElement('div',{className:'gk-card-title'},v.label||v.id),
-                        React.createElement('div',{className:'gk-node-sub'},v.note||'')
+                    return React.createElement('button',{
+                        key:'gk-guided-'+keyPrefix+'-'+vi,
+                        type:'button',
+                        className:'gk-guided-btn'+(gkGuidedViewIdx===vi?' active':''),
+                        onClick:function(){
+                            setGkGuidedViewIdx(vi);
+                            if(Array.isArray(v.focus)&&v.focus.length){
+                                var pool=gkMapNodeList(map);
+                                var first=pool.find(function(n){return n.id===v.focus[0];});
+                                if(first)setGkMapDetail({id:first.id,title:first.label||first.title||first.id,subtitle:first.sublabel||first.note||'',metrics:first.tag||first.type||'',content:first});
+                            }
+                        }
+                    },String(vi+1).padStart(2,'0')+' · '+(v.label||v.id));
+                }),
+                activeView&&React.createElement('span',{style:{fontSize:10,color:'#32f3e9',marginLeft:6,fontWeight:600}},'↳ '+(activeView.note||''))
+            ),
+            React.createElement('div',{className:'gk-filter-bar','aria-label':'KokonutUI Pro Sentence FilterToolbar'},
+                React.createElement('span',{style:{fontSize:9,fontWeight:800,color:'#94a3b8',textTransform:'uppercase'}},'Filter:'),
+                stages.length>0&&stages.map(function(s,si){
+                    var active=String(gkStageFilter)===String(si);
+                    return React.createElement('button',{
+                        key:'st-filter-'+si,
+                        type:'button',
+                        className:'gk-sentence-chip',
+                        style:active?{background:'rgba(50,243,233,0.22)',borderColor:'#32f3e9'}:{background:'rgba(255,255,255,0.03)',borderColor:'rgba(255,255,255,0.12)',color:'#cbd5e1'},
+                        onClick:function(){setGkStageFilter(active?'all':String(si));}
+                    },React.createElement('span',{className:'gk-chip-op'},'Stage is'),s.label||('Stage '+(si+1)));
+                }),
+                lanes.length>0&&lanes.map(function(l,li){
+                    var active=String(gkStageFilter)===String(l.id);
+                    return React.createElement('button',{
+                        key:'ln-filter-'+li,
+                        type:'button',
+                        className:'gk-sentence-chip',
+                        style:active?{background:'rgba(167,139,250,0.22)',borderColor:'#a78bfa'}:{background:'rgba(255,255,255,0.03)',borderColor:'rgba(255,255,255,0.12)',color:'#cbd5e1'},
+                        onClick:function(){setGkStageFilter(active?'all':String(l.id));}
+                    },React.createElement('span',{className:'gk-chip-op'},'Lane is'),l.label||l.id);
+                }),
+                statusTags.map(function(tg){
+                    var active=gkTagFilter===tg;
+                    return React.createElement('button',{
+                        key:'tg-filter-'+tg,
+                        type:'button',
+                        className:'gk-size-pill',
+                        style:active?{borderColor:'#32f3e9',color:'#32f3e9',background:'rgba(50,243,233,0.12)'}:null,
+                        onClick:function(){setGkTagFilter(tg);}
+                    },tg==='all'?'All Tags':tg);
+                }),
+                (gkRouteStart||gkRouteEnd)&&React.createElement('button',{
+                    type:'button',
+                    className:'gk-sentence-chip',
+                    style:{borderColor:'#22ff73',color:'#22ff73'},
+                    onClick:function(){setGkRouteStart(null);setGkRouteEnd(null);}
+                },'🧭 Route: '+(gkRouteStart||'?')+' → '+(gkRouteEnd||'pick target')+' ✕'),
+                React.createElement('input',{
+                    className:'gk-search',
+                    style:{maxWidth:240,padding:'4px 9px',marginLeft:'auto'},
+                    placeholder:'Search nodes, theorems, files...',
+                    value:gkNodeSearch,
+                    onChange:function(ev){setGkNodeSearch(ev.target.value);}
+                })
+            ),
+            gkRenderMapDetail(map,mapKey||keyPrefix),
+            (gkStageLayoutMode==='stage'||gkStageLayoutMode==='both')&&gkRenderInteractiveIrStage(map,mapKey||keyPrefix),
+            (gkStageLayoutMode==='bento'||gkStageLayoutMode==='both')&&gkRenderCapregNodeCards(map,'gk-'+keyPrefix,mapKey||keyPrefix),
+            cards.length>0&&React.createElement('div',{className:'gk-cards',style:{marginTop:12}},
+                cards.map(function(c,ci){
+                    var dotColor=gkSemanticColor(c.dot);
+                    return React.createElement('div',{key:'ir-card-'+keyPrefix+'-'+ci,className:'gk-card',style:{borderTop:'2px solid '+dotColor}},
+                        React.createElement('div',{className:'gk-card-title',style:{display:'flex',alignItems:'center',gap:6}},
+                            React.createElement('span',{style:{width:8,height:8,borderRadius:'50%',background:dotColor,display:'inline-block'}}),
+                            c.title||('Card '+(ci+1))
+                        ),
+                        React.createElement('ul',{className:'gk-card-list'},
+                            (Array.isArray(c.items)?c.items:[]).map(function(it,ii){
+                                return React.createElement('li',{key:'ir-card-it-'+ii},String(it));
+                            })
+                        )
                     );
                 })
             ),
-            stages.length>0&&React.createElement('div',{className:'gk-chip-grid'},
-                stages.map(function(s,si){return React.createElement('span',{key:'gk-mapsec-stage-'+keyPrefix+'-'+si,className:'gk-chip'},s.label||('stage '+si));})
-            ),
-            lanes.length>0&&React.createElement('div',{className:'gk-chip-grid'},
-                lanes.map(function(l,li){return React.createElement('span',{key:'gk-mapsec-lane-'+keyPrefix+'-'+li,className:'gk-chip'},l.label||l.id||('lane '+li));})
-            ),
-            gkRenderCapregNodeCards(map,'gk-'+keyPrefix),
             gkRenderCapregEdges(map,'gk-'+keyPrefix)
         );
     }
@@ -18606,8 +19627,8 @@ function App(){
     function gkRenderEventArchView(arch){
         var planes=Array.isArray(arch.planes)?arch.planes:[];
         return React.createElement('div',null,
-            React.createElement('div',{className:'gk-flow-wrap'},
-                React.createElement('div',{className:'gk-section-sub',style:{margin:'0 0 8px'}},'Click any node in the flow board to select it. Each lane card below walks that code, its blast radius, its GitHub source at the exact commit, and its live surface.'),
+            React.createElement('div',{className:'gk-stage-card'},
+                React.createElement('div',{className:'gk-section-sub',style:{margin:'0 0 8px 0'}},'Click any node in the live event-architecture stage to inspect its Semantic Passport, walk its code in CodeFlow, or graph its blast radius.'),
                 gkRenderFlowSvg(arch)
             ),
             gkSelectedNode&&gkSelectedNode.plane&&gkRenderSelectedNodeStrip(gkSelectedNode),
@@ -18619,7 +19640,9 @@ function App(){
     function gkRenderMermaidView(arch){
         var source=arch.mermaidSource||'';
         return React.createElement('div',null,
-            React.createElement('div',{className:'gk-mermaid-host',ref:gkMermaidRef,'aria-label':'Live Mermaid flowchart'}),
+            React.createElement('div',{className:'gk-stage-card'},
+                React.createElement('div',{className:'gk-mermaid-host',ref:gkMermaidRef,'aria-label':'Live Mermaid flowchart'})
+            ),
             React.createElement('div',{className:'gk-section'},
                 React.createElement('div',{className:'gk-section-title'},'Color-coded Mermaid source'),
                 React.createElement('div',{className:'gk-section-sub'},'The live flowchart above renders this exact source, generated from the current commit.'),
@@ -18642,89 +19665,51 @@ function App(){
         var maps=(gkManifest&&gkManifest.capregMaps)||{};
         var map=maps.systemMap;
         if(!map)return React.createElement('div',{className:'gk-empty'},'The capability system map (system-map.architecture.json) is not available from the manifest.');
-        var meta=map.meta||{};
-        var views=Array.isArray(meta.views)?meta.views:[];
-        var cards=Array.isArray(map.cards)?map.cards:[];
-        var components=Array.isArray(map.components)?map.components:[];
-        var boundaries=Array.isArray(map.boundaries)?map.boundaries:[];
-        var connections=Array.isArray(map.connections)?map.connections:[];
-        var matrixNode=null;
-        for(var ci=0;ci<components.length;ci++){if(components[ci].id==='matrix'){matrixNode=components[ci];break;}}
-        return React.createElement('div',null,
-            React.createElement('div',{className:'gk-hero'},
-                React.createElement('div',{className:'gk-title'},meta.title||'Capability Matrix System Map'),
-                React.createElement('div',{className:'gk-sub'},meta.subtitle||''),
-                React.createElement('div',{className:'gk-pill-row'},
-                    React.createElement('span',{className:'gk-pill'},components.length+' components'),
-                    React.createElement('span',{className:'gk-pill'},boundaries.length+' layer boundaries'),
-                    React.createElement('span',{className:'gk-pill'},connections.length+' connections'),
-                    matrixNode&&matrixNode.sublabel&&React.createElement('span',{className:'gk-pill'},'⚖️ '+matrixNode.sublabel)
-                )
-            ),
-            views.length>0&&React.createElement('div',{className:'gk-cards'},
-                views.map(function(v,vi){
-                    var focus=Array.isArray(v.focus)?v.focus:[];
-                    return React.createElement('div',{key:'gk-sysview-'+vi,className:'gk-card'},
-                        React.createElement('div',{className:'gk-card-title'},v.label||v.id),
-                        React.createElement('div',{className:'gk-node-sub'},v.note||''),
-                        focus.length>0&&React.createElement('div',{className:'gk-chip-grid'},
-                            focus.map(function(fid,fi){
-                                var comp=null;
-                                for(var cj=0;cj<components.length;cj++){if(components[cj].id===fid){comp=components[cj];break;}}
-                                return React.createElement('button',{key:'gk-sysfocus-'+vi+'-'+fi,type:'button',className:'gk-chip',onClick:function(){setGkMapDetail({id:fid,title:comp?comp.label:fid,subtitle:comp?(comp.sublabel||''):'',metrics:comp?comp.tag:'',content:comp});}},comp?comp.label:fid);
-                            })
-                        )
-                    );
-                })
-            ),
-            boundaries.length>0&&React.createElement('div',{className:'gk-section'},
-                React.createElement('div',{className:'gk-section-title'},'Layer boundaries'),
-                React.createElement('div',{className:'gk-section-sub'},'External planes and layer regions declared in the compiled system map.'),
-                React.createElement('div',{className:'gk-rows'},
-                    boundaries.map(function(b,bi){
-                        var wraps=Array.isArray(b.wraps)?b.wraps:[];
-                        return React.createElement('div',{key:'gk-boundary-'+bi,className:'gk-row'},
-                            React.createElement('div',{className:'gk-row-main'},
-                                React.createElement('div',{className:'gk-row-name'},b.label||b.kind||('region '+bi)),
-                                React.createElement('div',{className:'gk-row-sub'},wraps.length+' wrapped nodes')
-                            ),
-                            React.createElement('div',{className:'gk-row-links'},
-                                wraps.map(function(w,wi){return React.createElement('span',{key:'gk-boundary-'+bi+'-'+wi,className:'gk-chip'},w);})
-                            ),
-                            React.createElement('span',{className:'badge badge-info'},String(b.kind||'region'))
-                        );
-                    })
-                )
-            ),
-            React.createElement('div',{className:'gk-section'},
-                React.createElement('div',{className:'gk-section-title'},'Components ('+components.length+')'),
-                React.createElement('div',{className:'gk-section-sub'},'Click a component to inspect it, then jump to the six static theorems and the row registry that gate it.'),
-                gkRenderCapregNodeCards(map,'gk-sys')
-            ),
-            gkRenderCapregEdges(map,'gk-sys'),
-            gkRenderMapDetail(),
-            cards.length>0&&React.createElement('div',{className:'gk-cards'},
-                cards.map(function(c,ci2){
-                    return React.createElement('div',{key:'gk-syscard-'+ci2,className:'gk-card'},
-                        React.createElement('div',{className:'gk-card-title'},c.title||('card '+ci2)),
-                        React.createElement('ul',{className:'gk-card-list'},
-                            (Array.isArray(c.items)?c.items:[]).map(function(item,ii){return React.createElement('li',{key:'gk-syscard-'+ci2+'-'+ii},String(item));})
-                        )
-                    );
-                })
-            )
-        );
+        return gkRenderMapSection(map,'1 · Code-Intelligence Whole-System Architecture','3 Governance Layers · 289 Capability Rows · 6 Static Theorems','system-map.architecture.json','sys','systemMap');
     }
 
     function gkRenderCapregFlowsView(){
         var maps=(gkManifest&&gkManifest.capregMaps)||{};
+        var catalog=[
+            {key:'contextDataflow',label:'4 · Context Dataflow (14 Nodes · 6 Stages)',short:'Context Dataflow',file:'context-dataflow.dataflow.json',sub:'Where context is assembled, measured, and spilled.'},
+            {key:'verificationWorkflow',label:'5 · Verification & Governance Gates (11 Nodes · 4 Lanes)',short:'Verification Gates',file:'verification-workflow.workflow.json',sub:'Owner lanes, repo checks, and the gates that block a merge.'},
+            {key:'inferenceSequence',label:'2a · Inference Request Waterfall (9 Participants · 12 Spans)',short:'Inference Waterfall',file:'inference-request.sequence.json',sub:'Live request path plus the blueprint overlay.'},
+            {key:'ingestSequence',label:'2b · Ingest & Index Waterfall (7 Participants · 13 Spans)',short:'Ingest Waterfall',file:'ingest-index.sequence.json',sub:'How sources become indexed, walkable cards.'},
+            {key:'stateMachines',label:'3a · TTSR & Capability Lifecycle τ(S,e) (11 States · 16 Transitions)',short:'Lifecycle State Machines',file:'state-machines.lifecycle.json',sub:'States and transitions for the long-running loops.'}
+        ];
+        var current=catalog.find(function(c){return c.key===gkCapregMapKey;})||catalog[0];
+        var activeMap=maps[current.key];
         return React.createElement('div',null,
-            gkRenderMapSection(maps.contextDataflow,'Context Dataflow','Where context is assembled, measured, and spilled.','context-dataflow.dataflow.json','dataflow'),
-            gkRenderMapSection(maps.verificationWorkflow,'Verification Workflow & Gates','Owner lanes, repo checks, and the gates that block a merge.','verification-workflow.workflow.json','verify'),
-            gkRenderMapSection(maps.inferenceSequence,'Inference Request Sequence','Live request path plus the blueprint overlay.','inference-request.sequence.json','inference'),
-            gkRenderMapSection(maps.ingestSequence,'Ingest & Index Sequence','How sources become indexed, walkable cards.','ingest-index.sequence.json','ingest'),
-            gkRenderMapSection(maps.stateMachines,'Lifecycle State Machines','States and transitions for the long-running loops.','state-machines.lifecycle.json','states'),
-            gkRenderMapDetail()
+            React.createElement('div',{className:'gk-tabstrip-row',role:'tablist','aria-label':'KokonutUI Pro TabStrip IR Switcher'},
+                React.createElement('div',{className:'gk-tabstrip-pills'},
+                    catalog.map(function(item){
+                        var m=maps[item.key];
+                        var nodeCount=gkMapNodeList(m).length;
+                        var edgeCount=gkMapEdgeList(m).length;
+                        var active=current.key===item.key;
+                        return React.createElement('button',{
+                            key:'ir-subtab-'+item.key,
+                            type:'button',
+                            role:'tab',
+                            'aria-selected':active,
+                            className:'gk-tabstrip-pill'+(active?' active':''),
+                            onClick:function(){
+                                setGkCapregMapKey(item.key);
+                                setGkGuidedViewIdx(-1);
+                                setGkStageFilter('all');
+                                setGkTagFilter('all');
+                                setGkRouteStart(null);
+                                setGkRouteEnd(null);
+                                gkPostRoomAction({action:'presence',viz:graphConfig.vizType,mapTab:gkMapTab,capregMapKey:item.key});
+                            }
+                        },
+                            item.short,
+                            React.createElement('span',{className:'gk-kbd'},nodeCount+'n · '+edgeCount+'e')
+                        );
+                    })
+                )
+            ),
+            gkRenderMapSection(activeMap,current.label,current.sub,current.file,current.key,current.key)
         );
     }
 
@@ -18738,11 +19723,14 @@ function App(){
         }
         var arch=gkManifest.eventArchitecture;
         var git=gkManifest.git||{};
+        var sysMap=(gkManifest.capregMaps&&gkManifest.capregMaps.systemMap)||null;
+        var rowMatch=String((sysMap&&sysMap.meta&&sysMap.meta.note)||'').match(/(\d+)\s+rows/i);
+        var rowCount=rowMatch?rowMatch[1]:'289';
         var tabs=[
             {id:'event-arch',label:'⚡ Event & System Architecture Map (#1 Enhanced)'},
-            {id:'mermaid',label:'🧬 Live Mermaid Flowchart'},
-            {id:'capreg-system',label:'🛡️ Capability Matrix (208 Rows · 6 Theorems)'},
-            {id:'capreg-flows',label:'🔄 Context Dataflow & Verification Gates'}
+            {id:'capreg-flows',label:'🔄 Context Dataflow, Waterfalls & Verification Gates (5 Live IRs)'},
+            {id:'capreg-system',label:'🛡️ Capability Matrix ('+rowCount+' Rows · 6 Theorems)'},
+            {id:'mermaid',label:'🧬 Live Mermaid Flowchart'}
         ];
         var body;
         if(gkMapTab==='mermaid')body=gkRenderMermaidView(arch);
@@ -18751,20 +19739,38 @@ function App(){
         else body=gkRenderEventArchView(arch);
         return React.createElement('div',{className:'gk-view',style:GK_VIEW_STYLE},
             React.createElement('div',{className:'gk-inner'},
-                React.createElement('div',{className:'gk-hero'},
-                    React.createElement('div',{className:'gk-title'},arch.title),
-                    React.createElement('div',{className:'gk-sub'},'Guaranteed up to date: every node, version pill, file path and commit below is compiled from this checkout when the page asks for it, so the map cannot drift from the repository.'),
-                    React.createElement('div',{className:'gk-pill-row'},
-                        React.createElement('a',{className:'gk-pill',style:{borderColor:'var(--acc)',color:'var(--acc)'},href:'https://github.com/lincicomb/gk/commit/'+git.sha,target:'_blank',rel:'noopener noreferrer'},'main @ '+(git.shortSha||'')+' ↗'),
-                        React.createElement('span',{className:'gk-pill'},'🕒 '+(arch.committedAt||git.committedAt||'')),
-                        React.createElement('span',{className:'gk-pill'},'🎯 '+((gkManifest.targets||[]).length)+' walkable targets'),
-                        React.createElement('span',{className:'gk-pill'},'🔒 Tailnet Private · 0 External Calls')
+                React.createElement('div',{className:'gk-hero',style:{padding:'11px 16px',marginBottom:8}},
+                    React.createElement('div',{style:{display:'flex',alignItems:'center',justifyContent:'space-between',gap:10,flexWrap:'wrap'}},
+                        React.createElement('div',{style:{display:'flex',alignItems:'baseline',gap:10,flexWrap:'wrap'}},
+                            React.createElement('div',{className:'gk-title',style:{fontSize:16}},arch.title),
+                            React.createElement('span',{className:'gk-sub',style:{margin:0,fontSize:10.5}},'Live 2D Archify Stage · AnimatedBeam · RunTrace Waterfall · Bento Grid')
+                        ),
+                        gkRenderCollabBar()
                     ),
-                    gkRenderQuickBar()
+                    React.createElement('div',{style:{display:'flex',alignItems:'center',justifyContent:'space-between',gap:8,flexWrap:'wrap',marginTop:7}},
+                        React.createElement('div',{className:'gk-pill-row',style:{marginTop:0}},
+                            React.createElement('a',{className:'gk-pill',style:{borderColor:'#32f3e9',color:'#32f3e9'},href:'https://github.com/lincicomb/gk/commit/'+git.sha,target:'_blank',rel:'noopener noreferrer'},'main @ '+(git.shortSha||'')+' ↗'),
+                            React.createElement('span',{className:'gk-pill'},'🎯 '+((gkManifest.targets||[]).length)+' walkable targets'),
+                            React.createElement('span',{className:'gk-pill'},'⚖️ '+rowCount+' rows · 6 theorems'),
+                            React.createElement('span',{className:'gk-pill',style:{borderColor:'#22ff73',color:'#22ff73'}},'🔒 Gate Verified · 0 External Calls')
+                        ),
+                        gkRenderQuickBar()
+                    )
                 ),
-                React.createElement('div',{className:'gk-tabs'},
+                React.createElement('div',{className:'gk-tabs',style:{marginBottom:8}},
                     tabs.map(function(t){
-                        return React.createElement('button',{key:'gk-tab-'+t.id,type:'button',className:'gk-tab'+(gkMapTab===t.id?' active':''),onClick:function(){setGkMapTab(t.id);}},t.label);
+                        return React.createElement('button',{
+                            key:'gk-tab-'+t.id,
+                            type:'button',
+                            className:'gk-tab'+(gkMapTab===t.id?' active':''),
+                            onClick:function(){
+                                setGkMapTab(t.id);
+                                setGkGuidedViewIdx(-1);
+                                setGkStageFilter('all');
+                                setGkTagFilter('all');
+                                gkPostRoomAction({action:'presence',viz:graphConfig.vizType,mapTab:t.id,capregMapKey:gkCapregMapKey});
+                            }
+                        },t.label);
                     })
                 ),
                 body

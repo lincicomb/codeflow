@@ -200,3 +200,53 @@ test('vendored highlight.min.js + byLine() and Tailnet GitHub API proxy work and
   const forbiddenPath = await fetch(base + '/__codeflow/github-api/user/emails');
   assert.equal(forbiddenPath.status, 403);
 });
+
+test('Gate-verified /__codeflow/me and /__codeflow/room multiplayer & review-pin hub work end-to-end', async (t) => {
+  const { base } = await startGkServer(t);
+  const meRes = await fetch(base + '/__codeflow/me');
+  assert.equal(meRes.status, 200);
+  const meBody = await meRes.json();
+  assert.equal(meBody.ok, true);
+  assert.ok(meBody.me.id && meBody.me.name && meBody.me.color);
+
+  const cursorRes = await fetch(base + '/__codeflow/room', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ room: 'gk-system', action: 'cursor', x: 42.5, y: 31.2, viz: 'gk-map', mapTab: 'capreg-flows', capregMapKey: 'contextDataflow' })
+  });
+  assert.equal(cursorRes.status, 200);
+  const snap1 = await cursorRes.json();
+  assert.equal(snap1.ok, true);
+  assert.equal(snap1.peers.length, 1);
+  assert.equal(snap1.peers[0].x, 42.5);
+  assert.equal(snap1.peers[0].capregMapKey, 'contextDataflow');
+
+  const pinAdd = await fetch(base + '/__codeflow/room', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ room: 'gk-system', action: 'pin.add', x: 55, y: 40, mapKey: 'contextDataflow', nodeId: 'ttsr', text: 'Verify Theorem 2 guard' })
+  });
+  assert.equal(pinAdd.status, 200);
+  const snap2 = await pinAdd.json();
+  const addedPin = snap2.pins.find((p) => p.text === 'Verify Theorem 2 guard');
+  assert.ok(addedPin, 'expected added pin in room snapshot');
+  const pinId = addedPin.id;
+
+  const pinReply = await fetch(base + '/__codeflow/room', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ room: 'gk-system', action: 'pin.reply', pinId, text: 'Checked in matrix-compiler.ts' })
+  });
+  const snap3 = await pinReply.json();
+  const repliedPin = snap3.pins.find((p) => p.id === pinId);
+  assert.equal(repliedPin.replies.length, 1);
+
+  const pinResolve = await fetch(base + '/__codeflow/room', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ room: 'gk-system', action: 'pin.resolve', pinId })
+  });
+  const snap4 = await pinResolve.json();
+  const resolvedPin = snap4.pins.find((p) => p.id === pinId);
+  assert.equal(resolvedPin.resolved, true);
+});
