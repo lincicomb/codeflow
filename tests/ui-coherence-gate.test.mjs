@@ -95,27 +95,25 @@ test('UI Coherence Gate 6 (Images #5, #11, #12, #13, #15, #19, #20): official ic
   );
 });
 
-test('UI Coherence Gate 7 (Image #1 & 1A/2A/3A/4A): full-bleed .gk-view stage, 2D Archify Stage + AnimatedBeams, RunTrace waterfall, 6-col Bento WidgetGrid, 4-edge ToolDock, ReviewPins, and Gate-verified CollabToolbar', async () => {
+test('UI Coherence Gate 7 (Unified CodeFlow Workspace, KokonutUI Repo Provenance Switcher, Deployment Card, Infinite Canvas Code Cards & Interactive Architecture Map): zero duplicate bolted-on screens', async () => {
   const html = await readFile(htmlPath, 'utf8');
-  assert.match(
+  assert.doesNotMatch(
     html,
-    /\.main:has\(\.gk-view\)\s*>\s*\.sidebar:not\(\.mobile-visible\),\s*\.main:has\(\.gk-view\)\s*>\s*\.right-panel:not\(\.mobile-visible\)\{display:none!important\}/,
-    'STOP: .main:has(.gk-view) must auto-collapse empty left/right sidebars on desktop so .gk-inner gets full-bleed width without right-edge clipping (Image #1).'
+    /function renderGkArchitectureMapView\(|function renderGkDependenciesView\(|var GK_QUICK_VIEWS=/,
+    'STOP: Never bolt on separate custom screens (gk-map / gk-deps / GK_QUICK_VIEWS) that duplicate CodeFlow views. Integrate GK targets and architecture directly into CodeFlow native views.'
   );
-  assert.match(html, /function gkRenderInteractiveIrStage\(map,mapKey\)/);
-  assert.match(html, /function gkRenderSequenceWaterfall\(map,mapKey\)/);
-  assert.match(html, /function gkRenderToolDock\(\)/);
-  assert.match(html, /function gkRenderCollabBar\(\)/);
-  assert.match(html, /className:'gk-bento-grid'/);
-  assert.match(html, /className:'gk-tabstrip-row'/);
-  assert.match(html, /className:'gk-guided-bar'/);
-  assert.match(html, /className:'gk-filter-bar'/);
+  assert.match(html, /function renderProvenanceDeploymentCard\(/, 'STOP: KokonutUI Provenance Deployment Card must render in Overview and Source Switcher.');
+  assert.match(html, /className:'koko-repo-row/, 'STOP: Source Switcher must render KokonutUI repository rows with provenance badge, repoSlug, checkoutPath, and branch@sha.');
+  assert.match(html, /className:'koko-deploy-card'/, 'STOP: KokonutUI deployment card must be present.');
+  assert.match(html, /className:'code-card-ext-pill'/, 'STOP: Code Cards must render KokonutUI header with file extension badge, folder path, line/fn count, and close button.');
+  assert.match(html, /className:'code-card-close-btn'/, 'STOP: Code Cards must provide a close button on the infinite canvas.');
+  assert.match(html, /function enhanceArchitectureSvg\(/, 'STOP: Native Architecture Map must enhance Mermaid SVG nodes with click-to-inspect handlers and GK Event Plane toggle.');
+  assert.match(html, /className:'arch-mode-bar'/, 'STOP: Native Architecture Map must provide the Codebase vs GK Event & Plane Map mode bar.');
 });
 
 test('UI Coherence Gate 8 (27-inch Camera Fit, Trackpad Pinch/Pan, Light/Dark Contrast, Backlit Buttons & File-Type Graph Key): zero regression across all views', async () => {
   const html = await readFile(htmlPath, 'utf8');
   assert.match(html, /--hud-bg:/, 'STOP: HUD CSS tokens (--hud-bg, --hud-border, --btn-backlit) must be defined for both Dark and Light themes.');
-  assert.match(html, /\.light\s+\.gk-view\{/, 'STOP: Light theme overrides for .gk-view must be present so Light mode is legible across all views.');
   assert.match(html, /function filterByFileType\(/, 'STOP: Interactive File Type graph key filtering (filterByFileType) must be present.');
   assert.match(html, /'Graph Key · File Types'/, 'STOP: Graph Key legend must include File Types with extension pills and counts.');
   assert.match(html, /className:'nc-ring'|\('class','nc-ring'\)/, 'STOP: Dependency graph nodes must render dual-ring visual encoding (.nc-ring + .nc + .node-ext-badge).');

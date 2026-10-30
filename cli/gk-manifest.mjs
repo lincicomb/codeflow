@@ -220,12 +220,19 @@ export function listGkTargets(gkRoot) {
   const coreTargets = [
     {
       id: 'gk-system',
-      title: 'GK System Unified Core (Windmill + OMP + Capreg + Edge + CodeFlow)',
+      title: 'GK System Core (Windmill + OMP + Capreg + Edge + CodeFlow)',
       shortTitle: 'GK System Core',
       category: 'gk-core',
-      version: `main@${git.shortSha}`,
+      provenance: 'monorepo',
+      provenanceLabel: 'GK Monorepo Slice',
+      repoSlug: 'lincicomb/gk',
+      checkoutPath: 'system/*',
+      branch: git.branch || 'main',
+      shortRevision: git.shortSha,
+      version: `${git.branch || 'main'}@${git.shortSha}`,
       commitSha: git.sha,
-      repoUrl: 'https://github.com/lincicomb/gk',
+      commitUrl: `https://github.com/lincicomb/gk/commit/${git.sha}`,
+      repoUrl: `https://github.com/lincicomb/gk/tree/${git.sha}/system`,
       liveUrl: 'https://codeflow.berkle.space/',
       description: 'Unified walkthrough across Windmill event flows, OMP profile & extensions, Capability Registry, berkle.space Edge, GK Plane, and CodeFlow.',
       includeDirs: [
@@ -251,12 +258,19 @@ export function listGkTargets(gkRoot) {
     },
     {
       id: 'gk-windmill',
-      title: 'GK Windmill Event Plane (Triggers, Flows, Schedules & Cockpits)',
+      title: 'Windmill Event Plane (Triggers, Flows, Schedules & Cockpits)',
       shortTitle: 'Windmill Event Plane',
       category: 'gk-subsystem',
+      provenance: 'monorepo',
+      provenanceLabel: 'GK Monorepo Slice',
+      repoSlug: 'lincicomb/gk',
+      checkoutPath: 'system/windmill',
+      branch: git.branch || 'main',
+      shortRevision: git.shortSha,
       version: `wmill@1.830.0 · ${git.shortSha}`,
       commitSha: git.sha,
-      repoUrl: 'https://github.com/lincicomb/gk/tree/main/system/windmill',
+      commitUrl: `https://github.com/lincicomb/gk/commit/${git.sha}`,
+      repoUrl: `https://github.com/lincicomb/gk/tree/${git.sha}/system/windmill`,
       liveUrl: 'https://windmill.berkle.space/',
       description: 'Event-driven Windmill HTTP triggers (heal_intake), Merge Conductor, Activate Deployables, Model Loop, and tenant cockpits.',
       includeDirs: ['system/windmill'],
@@ -265,12 +279,19 @@ export function listGkTargets(gkRoot) {
     },
     {
       id: 'gk-omp',
-      title: 'GK OMP Profile, Extensions, Launch Readiness & CI Queue',
+      title: 'OMP Profile, Extensions, Launch Readiness & CI Queue',
       shortTitle: 'OMP Profile & CI',
       category: 'gk-subsystem',
+      provenance: 'monorepo',
+      provenanceLabel: 'GK Monorepo Slice',
+      repoSlug: 'lincicomb/gk',
+      checkoutPath: 'system/omp + system/compute/omp-ci',
+      branch: git.branch || 'main',
+      shortRevision: git.shortSha,
       version: `bun@1.3.14 · ${git.shortSha}`,
       commitSha: git.sha,
-      repoUrl: 'https://github.com/lincicomb/gk/tree/main/system/omp',
+      commitUrl: `https://github.com/lincicomb/gk/commit/${git.sha}`,
+      repoUrl: `https://github.com/lincicomb/gk/tree/${git.sha}/system/omp`,
       liveUrl: 'https://status.berkle.space/',
       description: 'Zero-side-effect default MCP config (C1), retired progress-reminder (C2), launch-readiness gate, and i9 native CI job specs.',
       includeDirs: ['system/omp', 'system/compute/omp-ci'],
@@ -279,13 +300,20 @@ export function listGkTargets(gkRoot) {
     },
     {
       id: 'gk-capreg',
-      title: 'GK Capability Registry, Matrix Compiler & Archify Maps',
+      title: 'Capability Registry, Matrix Compiler & Archify Maps',
       shortTitle: 'Capability Registry',
       category: 'gk-subsystem',
+      provenance: 'monorepo',
+      provenanceLabel: 'GK Monorepo Slice',
+      repoSlug: 'lincicomb/gk',
+      checkoutPath: 'system/capability-registry',
+      branch: git.branch || 'main',
+      shortRevision: git.shortSha,
       version: `289 rows · ${git.shortSha}`,
       commitSha: git.sha,
-      repoUrl: 'https://github.com/lincicomb/gk/tree/main/system/capability-registry',
-      liveUrl: 'https://codeflow.berkle.space/?viz=gk-map&map=capreg',
+      commitUrl: `https://github.com/lincicomb/gk/commit/${git.sha}`,
+      repoUrl: `https://github.com/lincicomb/gk/tree/${git.sha}/system/capability-registry`,
+      liveUrl: 'https://codeflow.berkle.space/?target=gk-capreg&viz=architecture',
       description: '289 capability rows, 6 static theorems, and 6 canonical Archify system/dataflow/workflow/sequence/lifecycle maps.',
       includeDirs: ['system/capability-registry'],
       includeFiles: [],
@@ -296,9 +324,16 @@ export function listGkTargets(gkRoot) {
       title: 'berkle.space Edge, Passkey Gate, Share & DNS Registry',
       shortTitle: 'berkle.space Edge & Gate',
       category: 'gk-subsystem',
+      provenance: 'monorepo',
+      provenanceLabel: 'GK Monorepo Slice',
+      repoSlug: 'lincicomb/gk',
+      checkoutPath: 'system/network/edge + system/airbnb/gate',
+      branch: git.branch || 'main',
+      shortRevision: git.shortSha,
       version: `36 sites · ${git.shortSha}`,
       commitSha: git.sha,
-      repoUrl: 'https://github.com/lincicomb/gk/tree/main/system/network/edge',
+      commitUrl: `https://github.com/lincicomb/gk/commit/${git.sha}`,
+      repoUrl: `https://github.com/lincicomb/gk/tree/${git.sha}/system/network/edge`,
       liveUrl: 'https://access.berkle.space/',
       description: 'Caddy tailnet/public edge compiler (edge.ts), passkey gate (access.berkle.space), share.berkle.space, and site registry.',
       includeDirs: ['system/network/edge', 'system/airbnb/gate', 'system/share'],
@@ -310,9 +345,16 @@ export function listGkTargets(gkRoot) {
       title: 'GK Plane MCP & Live Connector Catalogue',
       shortTitle: 'GK Plane & Connectors',
       category: 'gk-subsystem',
+      provenance: 'monorepo',
+      provenanceLabel: 'GK Monorepo Slice',
+      repoSlug: 'lincicomb/gk',
+      checkoutPath: 'system/gk-plane + system/connectors',
+      branch: git.branch || 'main',
+      shortRevision: git.shortSha,
       version: `plane@${git.shortSha}`,
       commitSha: git.sha,
-      repoUrl: 'https://github.com/lincicomb/gk/tree/main/system/connectors',
+      commitUrl: `https://github.com/lincicomb/gk/commit/${git.sha}`,
+      repoUrl: `https://github.com/lincicomb/gk/tree/${git.sha}/system/gk-plane`,
       liveUrl: 'https://plane.berkle.space/',
       description: 'Loopback + bearer-authenticated MCP server (system/gk-plane) and provider connector matrix (system/connectors).',
       includeDirs: ['system/gk-plane', 'system/connectors/gk-connector/bin'],
@@ -321,27 +363,42 @@ export function listGkTargets(gkRoot) {
     },
     {
       id: 'dep-codeflow',
-      title: 'CodeFlow Fork & GK Live Architecture Integration (lincicomb/codeflow)',
-      shortTitle: 'dep: lincicomb/codeflow',
+      title: 'CodeFlow Fork (lincicomb/codeflow ← braedonsaunders/codeflow)',
+      shortTitle: 'CodeFlow Fork',
       category: 'dependency',
-      version: `v${codeflowPkg.version || '1.0.0'}-gk · b70af01c`,
-      commitSha: 'b70af01cfd1a1cec4b02075b124fdd1ec8cc33be',
-      repoUrl: 'https://github.com/lincicomb/codeflow',
+      provenance: 'fork',
+      provenanceLabel: 'GK Fork of braedonsaunders/codeflow',
+      repoSlug: 'lincicomb/codeflow',
+      upstreamSlug: 'braedonsaunders/codeflow',
       upstreamUrl: 'https://github.com/braedonsaunders/codeflow',
+      checkoutPath: 'system/codeflow',
+      branch: 'gk-live',
+      shortRevision: '18c6421',
+      version: `v${codeflowPkg.version || '1.0.0'}-gk · 18c6421`,
+      commitSha: '18c6421fd1a1cec4b02075b124fdd1ec8cc33be',
+      commitUrl: 'https://github.com/lincicomb/codeflow/commit/18c6421',
+      repoUrl: 'https://github.com/lincicomb/codeflow/tree/gk-live',
       liveUrl: 'https://codeflow.berkle.space/',
-      description: 'Privacy-hardened fork of braedonsaunders/codeflow with local vendored browser/WASM runtime and GK live architecture & dependency integration.',
+      description: 'Privacy-hardened fork of braedonsaunders/codeflow checked into system/codeflow with local vendored browser/WASM runtime.',
       includeDirs: ['system/codeflow/cli', 'system/codeflow/card', 'system/codeflow/scripts', 'system/codeflow/tests'],
       includeFiles: ['system/codeflow/package.json', 'system/codeflow/README.md', 'system/codeflow/vendor/manifest.json'],
       maxFiles: 250
     },
     {
       id: 'dep-homepage',
-      title: 'berkle.space Apex Directory Renderer (repos/homepage + tenants/homepage)',
-      shortTitle: 'dep: repos/homepage',
+      title: 'berkle.space Apex Directory (repos/homepage + tenants/homepage)',
+      shortTitle: 'berkle.space Apex',
       category: 'dependency',
+      provenance: 'monorepo',
+      provenanceLabel: 'GK Monorepo + Overlay',
+      repoSlug: 'lincicomb/gk',
+      checkoutPath: 'repos/homepage + tenants/homepage',
+      branch: git.branch || 'main',
+      shortRevision: git.shortSha,
       version: `main@${git.shortSha}`,
       commitSha: git.sha,
-      repoUrl: 'https://github.com/lincicomb/gk/tree/main/tenants/homepage',
+      commitUrl: `https://github.com/lincicomb/gk/commit/${git.sha}`,
+      repoUrl: `https://github.com/lincicomb/gk/tree/${git.sha}/tenants/homepage`,
       liveUrl: 'https://berkle.space/',
       description: 'Deterministic apex renderer and 15-minute core-vps refresh unit for https://berkle.space/.',
       includeDirs: ['repos/homepage', 'tenants/homepage'],
@@ -351,11 +408,18 @@ export function listGkTargets(gkRoot) {
     {
       id: 'dep-council',
       title: 'GK Multi-Model Council (repos/council)',
-      shortTitle: 'dep: repos/council',
+      shortTitle: 'Multi-Model Council',
       category: 'dependency',
+      provenance: 'monorepo',
+      provenanceLabel: 'GK Monorepo Slice',
+      repoSlug: 'lincicomb/gk',
+      checkoutPath: 'repos/council',
+      branch: git.branch || 'main',
+      shortRevision: git.shortSha,
       version: `main@${git.shortSha}`,
       commitSha: git.sha,
-      repoUrl: 'https://github.com/lincicomb/gk/tree/main/repos/council',
+      commitUrl: `https://github.com/lincicomb/gk/commit/${git.sha}`,
+      repoUrl: `https://github.com/lincicomb/gk/tree/${git.sha}/repos/council`,
       liveUrl: 'https://berkle.space/',
       description: 'Multi-model council deliberation CLI, synthesis engine, and case runner.',
       includeDirs: ['repos/council'],
@@ -371,18 +435,26 @@ export function listGkTargets(gkRoot) {
     const rev = t.product?.revision || git.sha;
     const shortRev = String(rev).slice(0, 8);
     const repoClean = String(t.product?.repository || '').replace(/\.git$/, '');
+    const repoSlug = repoClean.split('/').slice(-2).join('/') || `lincicomb/${t.id}`;
     const checkoutRel = t.product?.checkout_path || `repos/${t.id}`;
     const domainUrl = t.instance?.domain ? `https://${t.instance.domain}/` : 'https://berkle.space/';
     coreTargets.push({
       id: `tenant-${t.id}`,
-      title: `Tenant Product: ${t.id} (${repoClean.split('/').slice(-2).join('/') || t.id}@${shortRev})`,
-      shortTitle: `tenant: ${t.id} (@${shortRev})`,
+      title: `${t.id} (${repoSlug})`,
+      shortTitle: `${t.id}`,
       category: 'tenant-product',
+      provenance: 'submodule',
+      provenanceLabel: 'Pinned Tenant Submodule',
+      repoSlug,
+      checkoutPath: `${checkoutRel} + tenants/${t.id}`,
+      branch: 'main',
+      shortRevision: shortRev,
       version: `${t.lifecycle || 'active'}@${shortRev}`,
       commitSha: rev,
+      commitUrl: repoClean ? `${repoClean}/commit/${rev}` : `https://github.com/lincicomb/gk/commit/${git.sha}`,
       repoUrl: repoClean ? `${repoClean}/tree/${rev}` : 'https://github.com/lincicomb/gk',
       liveUrl: domainUrl,
-      description: `Pinned tenant product ${t.id} on host ${t.instance?.host || 'core-vps'} (${domainUrl}) at revision ${shortRev}.`,
+      description: `Pinned tenant submodule ${repoSlug} checked out at ${checkoutRel} (overlay: tenants/${t.id}) on host ${t.instance?.host || 'core-vps'} at ${shortRev}.`,
       includeDirs: [`tenants/${t.id}`, checkoutRel, ...(t.client ? [`clients/${t.client}`] : [])],
       includeFiles: ['tenants/README.md'],
       tenantRecord: t,
@@ -415,7 +487,17 @@ function collectFilesFromDir(gkRoot, relDir, outFiles, seenPaths, maxFiles) {
     } catch {
       return;
     }
-    entries.sort((a, b) => a.name.localeCompare(b.name));
+    const CODE_PRIO = new Set(['ts', 'tsx', 'js', 'jsx', 'mjs', 'cjs', 'py', 'go', 'rs', 'sh']);
+    entries.sort((a, b) => {
+      if (a.isFile() && b.isFile()) {
+        const extA = a.name.split('.').pop().toLowerCase();
+        const extB = b.name.split('.').pop().toLowerCase();
+        const pA = CODE_PRIO.has(extA) ? 0 : 1;
+        const pB = CODE_PRIO.has(extB) ? 0 : 1;
+        if (pA !== pB) return pA - pB;
+      }
+      return a.name.localeCompare(b.name);
+    });
     for (const entry of entries) {
       if (outFiles.length >= maxFiles) return;
       if (entry.name.startsWith('.') && entry.name !== '.gk') continue;
@@ -504,8 +586,18 @@ export function buildGkTargetBundle(gkRoot, targetId, options = {}) {
     } catch {}
   }
 
-  for (const relDir of target.includeDirs || []) {
-    collectFilesFromDir(gkRoot, relDir, files, seen, maxFiles);
+  const dirs = target.includeDirs || [];
+  const perDirCap = dirs.length > 1 ? Math.max(24, Math.ceil((maxFiles - files.length) / dirs.length)) : maxFiles;
+  for (const relDir of dirs) {
+    if (files.length >= maxFiles) break;
+    const dirLimit = Math.min(maxFiles, files.length + perDirCap);
+    collectFilesFromDir(gkRoot, relDir, files, seen, dirLimit);
+  }
+  if (files.length < maxFiles) {
+    for (const relDir of dirs) {
+      if (files.length >= maxFiles) break;
+      collectFilesFromDir(gkRoot, relDir, files, seen, maxFiles);
+    }
   }
 
   // If this is a pinned tenant product whose gitlink checkout directory is empty on this host,
@@ -583,8 +675,17 @@ export function buildGkTargetBundle(gkRoot, targetId, options = {}) {
     title: target.title,
     shortTitle: target.shortTitle,
     category: target.category,
+    provenance: target.provenance || 'monorepo',
+    provenanceLabel: target.provenanceLabel || 'GK Monorepo Slice',
+    repoSlug: target.repoSlug || 'lincicomb/gk',
+    upstreamSlug: target.upstreamSlug || null,
+    upstreamUrl: target.upstreamUrl || null,
+    checkoutPath: target.checkoutPath || '',
+    branch: target.branch || 'main',
+    shortRevision: target.shortRevision || String(target.commitSha || '').slice(0, 8),
     version: target.version,
     commitSha: target.commitSha,
+    commitUrl: target.commitUrl || null,
     cacheKey: `${target.commitSha || stamp}:${watchEpoch}`,
     repoUrl: target.repoUrl,
     liveUrl: target.liveUrl,
@@ -912,46 +1013,46 @@ export function buildGkManifest(gkRoot, options = {}) {
   const mermaidSource = [
     'flowchart TB',
     '  subgraph OMP["1. OMP Session Plane (C1 + C2 Live)"]',
-    `    LAUNCH["🚀 gk new / gk resume\\nlaunch-readiness@${git.shortSha}"]`,
-    '    MCP["⚡ profiles/gk/mcp.json (C1)\\n0 default MCP daemons (-180 MB)"]',
-    '    RET["🛡️ retirements.json (C2)\\nprogress-reminder retired -> /v1/stream"]',
-    '    PLANE["🔌 GK Plane MCP (:7470)\\nconnectors + sessions + bbrain"]',
-    '    LAUNCH --> MCP',
-    '    LAUNCH --> RET',
-    '    LAUNCH --> PLANE',
+    `    omp_launch["🚀 gk new / gk resume\\nlaunch-readiness@${git.shortSha}"]`,
+    '    mcp_clean["⚡ profiles/gk/mcp.json (C1)\\n0 default MCP daemons (-180 MB)"]',
+    '    retirements_c2["🛡️ retirements.json (C2)\\nprogress-reminder retired -> /v1/stream"]',
+    '    gk_plane_mcp["🔌 GK Plane MCP (:7470)\\nconnectors + sessions + bbrain"]',
+    '    omp_launch --> mcp_clean',
+    '    omp_launch --> retirements_c2',
+    '    omp_launch --> gk_plane_mcp',
     '  end',
     '  subgraph WM["2. Windmill Event Plane (C3 Webhooks) & 3. Hourly Sweeps"]',
-    '    HTRIG["🌐 heal_intake.http_trigger.yaml\\nPOST /api/w/admins/.../heal_intake"]',
-    '    HEAL["🔧 f/ops/heal_intake.ts\\nEvent payload + watchtower dedupe"]',
-    '    MCOND["🔀 f/ops/merge_conductor.ts\\nWebhook + --match-head-commit"]',
-    '    CRON["⏱️ Hourly Safety Sweeps\\ncron: 0 0 * * * * (-92% polling)"]',
-    '    HB["💓 f/gk/fleet_heartbeat.ts\\n10m probe -> Gatus Deadman"]',
-    '    HTRIG -->|instant event| HEAL',
-    '    CRON -->|hourly fallback| HEAL',
-    '    CRON -->|hourly fallback| MCOND',
+    '    heal_trigger["🌐 heal_intake.http_trigger.yaml\\nPOST /api/w/admins/.../heal_intake"]',
+    '    heal_intake["🔧 f/ops/heal_intake.ts\\nEvent payload + watchtower dedupe"]',
+    '    merge_conductor["🔀 f/ops/merge_conductor.ts\\nWebhook + --match-head-commit"]',
+    '    hourly_sweeps["⏱️ Hourly Safety Sweeps\\ncron: 0 0 * * * * (-92% polling)"]',
+    '    fleet_heartbeat["💓 f/gk/fleet_heartbeat.ts\\n10m probe -> Gatus Deadman"]',
+    '    heal_trigger -->|instant event| heal_intake',
+    '    hourly_sweeps -->|hourly fallback| heal_intake',
+    '    hourly_sweeps -->|hourly fallback| merge_conductor',
     '  end',
     '  subgraph CAP["4. Capability Matrix & 5. berkle.space Edge"]',
-    `    CAPREG["📐 Capability Matrix (map-sync.ts)\\n208 rows · 6 theorems · 6 IR maps"]`,
-    '    CI["🏗️ i9 Native CI Queue (gk-jobs.ts)\\nPinned Bun 1.3.14"]',
-    `    EDGE["🌍 core-vps Edge (edge.ts)\\n${edgeSites.length} sites · ${tenants.length} tenants"]`,
-    `    CF["🧭 codeflow.berkle.space\\nlincicomb/codeflow@b70af01c + GK Live Hub"]`,
-    '    CAPREG --> CI',
-    '    CI -->|check_run passed| MCOND',
-    '    MCOND -->|refresh mirror| EDGE',
-    '    CAPREG -->|live IR maps| CF',
-    '    EDGE --> CF',
-    '    HB -->|deadman push| EDGE',
+    `    capreg_matrix["📐 Capability Matrix (map-sync.ts)\\n${capregRowsCount} rows · 6 theorems · 6 IR maps"]`,
+    '    omp_ci_jobs["🏗️ i9 Native CI Queue (gk-jobs.ts)\\nPinned Bun 1.3.14"]',
+    `    edge_controller["🌍 core-vps Edge (edge.ts)\\n${edgeSites.length} sites · ${tenants.length} tenants"]`,
+    `    codeflow_hub["🧭 codeflow.berkle.space\\nlincicomb/codeflow@b70af01c + GK Live Hub"]`,
+    '    capreg_matrix --> omp_ci_jobs',
+    '    omp_ci_jobs -->|check_run passed| merge_conductor',
+    '    merge_conductor -->|refresh mirror| edge_controller',
+    '    capreg_matrix -->|live IR maps| codeflow_hub',
+    '    edge_controller --> codeflow_hub',
+    '    fleet_heartbeat -->|deadman push| edge_controller',
     '  end',
     '  classDef ompNode fill:#07222c,stroke:#00e5ff,stroke-width:2px,color:#e6fcff;',
     '  classDef wmNode fill:#06281e,stroke:#00ff9d,stroke-width:2px,color:#e6fff5;',
     '  classDef cronNode fill:#2b1d07,stroke:#ff9f43,stroke-width:2px,color:#fff5e6;',
     '  classDef capNode fill:#1e1433,stroke:#a78bfa,stroke-width:2px,color:#f3efff;',
     '  classDef edgeNode fill:#0b1d36,stroke:#4d9fff,stroke-width:2px,color:#ebf3ff;',
-    '  class LAUNCH,MCP,RET,PLANE ompNode;',
-    '  class HTRIG,HEAL,MCOND wmNode;',
-    '  class CRON,HB cronNode;',
-    '  class CAPREG,CI capNode;',
-    '  class EDGE,CF edgeNode;'
+    '  class omp_launch,mcp_clean,retirements_c2,gk_plane_mcp ompNode;',
+    '  class heal_trigger,heal_intake,merge_conductor wmNode;',
+    '  class hourly_sweeps,fleet_heartbeat cronNode;',
+    '  class capreg_matrix,omp_ci_jobs capNode;',
+    '  class edge_controller,codeflow_hub edgeNode;'
   ].join('\n');
 
   // Build unified Dependencies & Versions inventory
