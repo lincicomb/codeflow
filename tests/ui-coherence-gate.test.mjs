@@ -111,3 +111,14 @@ test('UI Coherence Gate 7 (Image #1 & 1A/2A/3A/4A): full-bleed .gk-view stage, 2
   assert.match(html, /className:'gk-guided-bar'/);
   assert.match(html, /className:'gk-filter-bar'/);
 });
+
+test('UI Coherence Gate 8 (27-inch Camera Fit, Trackpad Pinch/Pan, Light/Dark Contrast, Backlit Buttons & File-Type Graph Key): zero regression across all views', async () => {
+  const html = await readFile(htmlPath, 'utf8');
+  assert.match(html, /--hud-bg:/, 'STOP: HUD CSS tokens (--hud-bg, --hud-border, --btn-backlit) must be defined for both Dark and Light themes.');
+  assert.match(html, /\.light\s+\.gk-view\{/, 'STOP: Light theme overrides for .gk-view must be present so Light mode is legible across all views.');
+  assert.match(html, /function filterByFileType\(/, 'STOP: Interactive File Type graph key filtering (filterByFileType) must be present.');
+  assert.match(html, /'Graph Key · File Types'/, 'STOP: Graph Key legend must include File Types with extension pills and counts.');
+  assert.match(html, /className:'nc-ring'|\('class','nc-ring'\)/, 'STOP: Dependency graph nodes must render dual-ring visual encoding (.nc-ring + .nc + .node-ext-badge).');
+  assert.match(html, /addEventListener\('gesturechange',onGestureChange/, 'STOP: Safari/macOS trackpad pinch gesture support must be wired alongside ctrlKey/metaKey wheel zoom.');
+  assert.match(html, /var warmTicks=isLargeGraph\?24:48;/, 'STOP: Dependency graph must pre-warm simulation ticks and auto-fit camera into the safe viewport area.');
+});
